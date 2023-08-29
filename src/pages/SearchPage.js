@@ -22,14 +22,36 @@ export default class SearchPage extends Component {
           "닭가슴살 30g, 쇠고기 등심 30g, 간장 3g, 카레가루 2g, 땅콩버터 3g, 참기름 0.5g, 올리브오일 2g, 설탕 1.5g, 생강다진것 1g",
         HASH_TAG: "가슴살",
       },
-    ];
+    ]; // 임시로 만들어둔 음식 정보 배열입니다.
   }
 
   template() {
     return /*html*/ `
+    <style>
+      .SearchPage{
+        width:480px;
+        left:50%;
+      }
+      .orange {
+        color:orange;
+      }
+      .SearchPage_top{
+        display:flex;
+        justify-content:space-between;
+      }
+    </style>
+      <div class="SearchPage">
+      <section class="SearchPage_top">
       <div>
-        <h2>Counter Component</h2>
+      <span class="orange">${this.$state.length}</span>
+      개의
+      <span class="orange">국수</span> 
+      레시피가 있어요
+      </div>
+      <div>▼</div>
+      </section>
         <div id="resultItemContainer"></div>
+        <div>1 2 3 4 5</div>
       </div>
     `;
   }
@@ -38,8 +60,14 @@ export default class SearchPage extends Component {
     const resultItemContainer = this.$target.querySelector(
       "#resultItemContainer"
     );
+
     this.$state.forEach((obj) => {
-      new ResultItem(resultItemContainer, obj);
+      // ResultItem 컴포넌트 생성
+      const item = document.createElement("div");
+      const resultItem = new ResultItem(item, obj);
+
+      // ResultItem 컴포넌트의 내용을 #resultItemContainer에 추가
+      resultItemContainer.append(item);
     });
   }
 }
