@@ -18,6 +18,7 @@ export default class App extends Component {
     router.addRoute("#/", pages.landing);
     router.addRoute("#/category", pages.category);
     router.addRoute("#/search", pages.search);
+    router.addRoute("#/splash", pages.splash);
     id.forEach(item => router.addRoute(`#/detail/${item}`, pages.detail));
     router.start();
   }

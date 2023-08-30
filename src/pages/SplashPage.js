@@ -57,19 +57,19 @@ export default class SplashPage extends Component {
       </style>
       <div class="SplashScreenContainer">
         <div class="SplashScreenTitle">
-          <img src="../img/TitleLogo.png" alt="logo_image">
+          <img src="./img/TitleLogo.png" alt="logo_image">
         </div>
         <div class="SplashScreenSlide">
           <ul>
-              <li class="SplashScreenListItem"><img src="../img/bob.jpg"></li>
-              <li class="SplashScreenListItem"><img src="../img/bob.jpg"></li>
-              <li class="SplashScreenListItem"><img src="../img/bob.jpg"></li>
-              <li class="SplashScreenListItem"><img src="../img/bob.jpg"></li>
-              <li class="SplashScreenListItem"><img src="../img/bob.jpg"></li>
+              <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
+              <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
+              <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
+              <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
+              <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
           </ul>
         </div>
         <div class="SplashScreenBelow">
-          <img src="../img/TitleBelow.png" alt="below_image">
+          <img src="./img/TitleBelow.png" alt="below_image">
         </div>
       </div>
       `;
