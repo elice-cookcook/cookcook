@@ -1,7 +1,7 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
-import Filter from '../components/filter.js';
+import Filter from '../components/Filter.js';
 
 export default class CategoryPage extends Component {
   template() {

@@ -11,7 +11,7 @@ export default class Filter extends Component {
           padding: 5px;
         }
       </style> 
-      <img src = "../img/filter.png">
+      <img src = "./img/filter.png">
     `;
   }
 }
