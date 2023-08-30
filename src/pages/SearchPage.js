@@ -1,5 +1,7 @@
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
+import Component from '../core/Component.js';
+import Filter from '../components/Filter.js';
 
 export default class SearchPage extends Component {
   setup() {
@@ -77,6 +79,9 @@ export default class SearchPage extends Component {
         <div id="resultItemContainer"></div>
         <div>Pagination</div>
       </div>
+    return `
+      <h1>Search Page</h1>
+      <div id="filter"></div>      
     `;
   }
 
@@ -91,5 +96,9 @@ export default class SearchPage extends Component {
 
       resultItemContainer.append(item);
     });
+  }
+}
+    const $filter = this.$target.querySelector("#filter");
+    new Filter($filter);
   }
 }
