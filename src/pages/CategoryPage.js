@@ -39,39 +39,44 @@ export default class CategoryPage extends Component {
   template() {
     return `
       <style>
-        #recommendContainer {
-          text-align: center;
-        }
-        h1 {
-          color: orange;
-          font-weight: bold;
-        }
-        h2 {
-          color: orange;
-          font-weight: bold;
-        }
-        .slider {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100px;
-        }
+      .CategoryPage {
+        width: 480px;
+        left: 50%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #recommendContainer {
+        text-align: center;
+      }
+      h2 { 
+        color: orange;
+        font-weight: bold;
+      }
+      .slider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+      }
       </style>
-
-      <h1>Main Page</h1>
-      <div id="header"></div>
-      <div id="nav"></div>
-      <div id="recommendContainer">
+      <div class="CategoryPage">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="filter"></div> 
+        <div id="recommendContainer">
         <h2>오늘의 추천요리</h2>
         <div class="slider"></div>
-      </div>
+      </div>  
+      </div>   
     `;
   }
 
   mounted() {
     const $header = this.$target.querySelector("#header");
     const $nav = this.$target.querySelector("#nav");
-    new Header($header);
+    new Header($header, "category");
     new Navigator($nav);
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
