@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+import Component from '../core/Component.js';
+import Filter from '../components/filter.js';
+=======
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from '../components/Filter.js';
+>>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
 
 export default class SearchPage extends Component {
   setup() {
@@ -45,6 +50,12 @@ export default class SearchPage extends Component {
   }
 
   template() {
+<<<<<<< HEAD
+    return `
+        <h1>Search Page</h1>
+        <div id="filter"></div>
+    `;
+=======
     return /*html*/ `
     <style>
       .SearchPage{
@@ -92,6 +103,11 @@ export default class SearchPage extends Component {
 
       resultItemContainer.append(item);
     });
+    const $filter = this.$target.querySelector("#filter");
+    new Filter($filter);
+>>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
+  }
+  mounted() {
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
   }
