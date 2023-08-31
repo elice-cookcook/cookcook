@@ -5,7 +5,11 @@ import Filter from '../components/filter.js';
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from '../components/Filter.js';
+<<<<<<< HEAD
 >>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
+=======
+import Header from "../components/Header.js";
+>>>>>>> 5c92137efc37db4ff72ed0e1f0256034416144e3
 
 export default class SearchPage extends Component {
   setup() {
@@ -76,6 +80,7 @@ export default class SearchPage extends Component {
       }
     </style>
       <div class="SearchPage">
+      <div id="header"></div>
       <div>Navigator</div>
       <section class="SearchPage_top">
       <div>
@@ -93,6 +98,8 @@ export default class SearchPage extends Component {
   }
 
   mounted() {
+    const $header = this.$target.querySelector("#header");
+    new Header($header, "search");
     const resultItemContainer = this.$target.querySelector(
       "#resultItemContainer"
     );

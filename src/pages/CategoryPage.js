@@ -47,6 +47,7 @@ export default class CategoryPage extends Component {
         flex-direction: column;
         align-items: center;
       }
+<<<<<<< HEAD
       #recommendContainer {
         text-align: center;
       }
@@ -60,10 +61,13 @@ export default class CategoryPage extends Component {
         align-items: center;
         height: 100px;
       }
+=======
+>>>>>>> 5c92137efc37db4ff72ed0e1f0256034416144e3
       </style>
       <div class="CategoryPage">
         <div id="header"></div>
         <div id="nav"></div>
+<<<<<<< HEAD
         <<<<<<< HEAD
         <div id="filter"></div>
         <div id="recommendContainer">
@@ -73,6 +77,7 @@ export default class CategoryPage extends Component {
 =======
       <div id="filter"></div>
 >>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
+
 
     `;
   }
