@@ -1,6 +1,7 @@
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Component from '../core/Component.js';
+import Pagenation from "../components/Pagenation.js";
 import Filter from '../components/Filter.js';
 
 export default class SearchPage extends Component {
@@ -76,12 +77,9 @@ export default class SearchPage extends Component {
       </div>
       <div>Filter</div>
       </section>
-        <div id="resultItemContainer"></div>
-        <div>Pagination</div>
+      <div id="resultItemContainer"></div>
+      <div id="pagenationContainer"></div>
       </div>
-    return `
-      <h1>Search Page</h1>
-      <div id="filter"></div>      
     `;
   }
 
@@ -90,15 +88,14 @@ export default class SearchPage extends Component {
       "#resultItemContainer"
     );
 
+    const $pagenation = this.$target.querySelector("#pagenationContainer");
+    new Pagenation($pagenation)
+
     this.$state.forEach((obj) => {
       const item = document.createElement("div");
       const resultItem = new ResultItem(item, obj); // ResultItem 컴포넌트 생성
 
       resultItemContainer.append(item);
     });
-  }
-}
-    const $filter = this.$target.querySelector("#filter");
-    new Filter($filter);
   }
 }
