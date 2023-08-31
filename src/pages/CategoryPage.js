@@ -66,9 +66,14 @@ export default class CategoryPage extends Component {
         <div id="nav"></div>
         <<<<<<< HEAD
         <div id="filter"></div>
+        <div id="recommendContainer">
+        <h2>오늘의 추천요리</h2>
+        <div class="slider"></div>
+      </div>
 =======
-        <div id="filter"></div>      
+      <div id="filter"></div>
 >>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
+
     `;
   }
 
@@ -81,7 +86,7 @@ export default class CategoryPage extends Component {
 <<<<<<< HEAD
 =======
     const $filter = this.$target.querySelector("#filter");
->>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
+    >>>>>>> 96240bc8952ab074c474a99205d94f9e3fd22619
     new Filter($filter);
 
     const $sliderContainer = this.$target.querySelector(".slider");
