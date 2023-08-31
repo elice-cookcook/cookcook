@@ -1,6 +1,8 @@
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
+import Filter from "../components/Filter.js";
+import Header from "../components/Header.js";
 
 /* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
   {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
@@ -76,6 +78,9 @@ export default class SearchPage extends Component {
       <div class="SearchPage p-3">
       <div id="header">Header</div>
       <div id="navigator">Navigator</div>
+      <div class="SearchPage">
+      <div id="header"></div>
+      <div>Navigator</div>
       <section class="SearchPage_top">
       <div>
       <span class="orange">${this.$state.length}</span>
@@ -92,6 +97,8 @@ export default class SearchPage extends Component {
   }
 
   mounted() {
+    const $header = this.$target.querySelector("#header");
+    new Header($header, "search");
     const resultItemContainer = this.$target.querySelector(
       "#resultItemContainer"
     );
