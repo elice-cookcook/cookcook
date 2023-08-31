@@ -2,6 +2,7 @@ import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from '../components/Filter.js';
 import Header from "../components/Header.js";
+import Navigator from "../components/Navigator.js";
 
 export default class SearchPage extends Component {
   setup() {
@@ -67,7 +68,7 @@ export default class SearchPage extends Component {
     </style>
       <div class="SearchPage">
       <div id="header"></div>
-      <div>Navigator</div>
+      <div id="nav"></div>
       <section class="SearchPage_top">
       <div>
       <span class="orange">${this.$state.length}</span>
@@ -86,6 +87,9 @@ export default class SearchPage extends Component {
   mounted() {
     const $header = this.$target.querySelector("#header");
     new Header($header, "search");
+    const $nav = this.$target.querySelector("#nav");
+    new Navigator($nav);
+
     const resultItemContainer = this.$target.querySelector(
       "#resultItemContainer"
     );
