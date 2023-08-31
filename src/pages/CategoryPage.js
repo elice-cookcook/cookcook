@@ -48,8 +48,9 @@ export default class CategoryPage extends Component {
       }
       #recommendContainer {
         text-align: center;
+        width: 450px;
       }
-      h2 { 
+      h4 { 
         color: orange;
         font-weight: bold;
       }
@@ -57,14 +58,14 @@ export default class CategoryPage extends Component {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100px;
+        height: 110px;
       }
       </style>
       <div class="CategoryPage">
         <div id="header"></div>
         <div id="nav"></div>
         <div id="recommendContainer">
-        <h2>오늘의 추천요리</h2>
+        <h4>오늘의 추천요리</h4>
         <div class="slider"></div>
         </div>
       </div>

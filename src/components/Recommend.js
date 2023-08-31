@@ -13,8 +13,8 @@ export default class Recommend extends Component {
           align-items: center;
           margin: 0 5px;
           padding: 5px;
-          width: 90px;
-          height: 100px;
+          width: 110px;
+          height: 110px;
           position: relative;
         }
         .slide img {
