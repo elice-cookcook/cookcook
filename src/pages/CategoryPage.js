@@ -1,6 +1,7 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
+import Filter from '../components/Filter.js';
 import Recommend from '../components/Recommend.js';
 
 export default class CategoryPage extends Component {
@@ -72,6 +73,8 @@ export default class CategoryPage extends Component {
     const $nav = this.$target.querySelector("#nav");
     new Header($header);
     new Navigator($nav);
+    const $filter = this.$target.querySelector("#filter");
+    new Filter($filter);
 
     const $sliderContainer = this.$target.querySelector(".slider");
 
