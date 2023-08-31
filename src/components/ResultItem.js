@@ -11,21 +11,16 @@ export default class ResultItem extends Component {
     return /*html*/ `
     <style>
       .ResultItem{
-        width:95%;
         height:130px;
         display:flex;
         background-color:#ffebcb;
-        padding:10px;
-        margin:15px 0;
         border-radius:5px;
         align-items:center;
         text-align:center;
       }
-      .ResultItem_info{
-        margin: 0 10px;
-      }
       .ResultItem > img{
-        height:95%;
+        width:120px;
+        height:120px;
         object-fit:cover;
       }
       .ResultItem_info_top{
@@ -43,17 +38,17 @@ export default class ResultItem extends Component {
         text-align:center;
       }
     </style>
-        <div class="ResultItem">
+        <div class="ResultItem container mx-auto my-3 p-2 w-95">
         <img src="${imgUrl}" class="ResultItem_img"/>
-        <div class="ResultItem_info">
+        <div class="ResultItem_info my-1 mx-auto">
         <div class="ResultItem_info_top">
         <span class="ResultItem_name">${name}</span>
         <span class="ResultItem_calorie">${calorie}kcal</span>
         </div>
         <p class="ResultItem_ingredients">재료 : ${ingredients}</p>
-        <p class="ResultItem_hashtag orange">${
+        <span class="ResultItem_hashtag orange">${
           hash_tag.length > 0 ? "# " + hash_tag : ""
-        }<p>
+        }<span>
         </div>
         </div>
     `;
