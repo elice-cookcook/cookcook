@@ -1,10 +1,20 @@
 import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
-import Filter from '../components/Filter.js';
+import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
 
+/* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
+  {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
+  {method:"search",keyword:"검색단어"}
+
+  검색 단어 ex) 치킨, 국수, 샐러드 등 사용자 입력
+
+  method를 다르게 설정한 이유는 api에서 해당 데이터를 가져올 때 작성하는 쿼리와 함수가 다르기 때문
+*/
 export default class SearchPage extends Component {
   setup() {
+    this.$props = { method: "search", keyword: "치킨" }; //임시로 설정
+
     this.$state = [
       {
         RCP_NM: "크림소스치킨롤",
@@ -51,7 +61,6 @@ export default class SearchPage extends Component {
       .SearchPage{
         width:480px;
         left:50%;
-        padding:10px;
         display:flex;
         flex-direction:column;
         align-items:center;
@@ -65,27 +74,28 @@ export default class SearchPage extends Component {
         justify-content:space-between;
       }
     </style>
-      <div class="SearchPage">
-      <div id="header"></div>
-      <div>Navigator</div>
+      <div class="SearchPage p-3">
+      <div id="header">Header</div>
+      <div id="navigator">Navigator</div>
       <section class="SearchPage_top">
       <div>
       <span class="orange">${this.$state.length}</span>
       개의
-      <span class="orange">치킨</span> 
+      <span class="orange">${this.$props.keyword}</span> 
       레시피가 있어요
       </div>
       <div id="filter"></div>
       </section>
         <div id="resultItemContainer"></div>
-        <div>Pagination</div>
+        <div id="pagination">Pagination</div>
       </div>
-  `
+  `;
   }
 
   mounted() {
     const $header = this.$target.querySelector("#header");
     new Header($header, "search");
+
     const resultItemContainer = this.$target.querySelector(
       "#resultItemContainer"
     );
