@@ -2,6 +2,7 @@ import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
 import Recommend from '../components/Recommend.js';
+import RecentItem from '../components/RecentItem.js';
 
 export default class CategoryPage extends Component {
   setup() {
@@ -46,15 +47,16 @@ export default class CategoryPage extends Component {
         flex-direction: column;
         align-items: center;
       }
-      #recommendContainer {
+      #recommendContainer, #recentContainer {
         text-align: center;
         width: 450px;
+        margin: 10px 0;
       }
       h4 { 
         color: orange;
         font-weight: bold;
       }
-      .slider {
+      .slider, .slider-recent {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,6 +69,10 @@ export default class CategoryPage extends Component {
         <div id="recommendContainer">
         <h4>오늘의 추천요리</h4>
         <div class="slider"></div>
+        </div>
+        <div id="recentContainer">
+        <h4>최근 본 레시피</h4>
+        <div class="slider-recent"></div>
         </div>
       </div>
     `;
@@ -95,5 +101,12 @@ export default class CategoryPage extends Component {
     if (foodList.length > 0) {
       new Recommend($sliderContainer, { foodList });
     }
+
+    const $recentItemContainer = this.$target.querySelector(".slider-recent");
+    const recentlyList = this.$state.map(item => ({ // 임의로 받아온 배열입니다.
+      imgUrl: item.ATT_FILE_NO_MAIN,
+      name: item.RCP_NM
+    }));
+    new RecentItem($recentItemContainer, { recentlyList });
   }
 }
