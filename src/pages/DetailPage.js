@@ -112,8 +112,15 @@ export default class DetailPage extends Component {
         border-radius: 5px;
     }
 
+    .DetailPage_logo{
+        width:90px;
+    }
+    
+
     .DetailPage_shareElemSection{
         display:flex;
+        justify-content:center;
+        gap:5px;
     }
 
     .DetailPage_shareElem{
@@ -123,6 +130,10 @@ export default class DetailPage extends Component {
     
     .DetailPage_shareElem > img{
       width:50px;
+    }
+
+    .DetailPage_shareElem > span{
+      font-size:12px;
     }
 </style>
 <div class="DetailPage">
@@ -138,7 +149,7 @@ export default class DetailPage extends Component {
             <div class="titleText orange">저감조리법 Tip</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3">${this.$state.RCP_NA_TIP}</div>
+        <div class="content p-3 my-2">${this.$state.RCP_NA_TIP}</div>
     </div>
     <div>
         <div class="DeatailPage_ingredients title my-3">
@@ -146,27 +157,28 @@ export default class DetailPage extends Component {
             <div class="titleText orange">준비물</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3">${this.$state.RCP_PARTS_DTLS}</div>
+        <div class="content p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
     </div>
     <div>
-        <div class="DeatailPage_recepi title my-3">
+        <div class="DeatailPage_recepi title mt-4">
             <hr width="20%" />
             <div class="titleText orange">레시피</div>
             <hr width="20%" />
         </div>
         <div id="recipe" class="DeatailPage_recipe p-3"></div>
     </div>
-    <section>
-      <div>
-      <img src="./img/cookcooklogo.png"/>이 알려준 레시피가 마음에 들었다면?
-      </div>
-      <div class="DetailPage_shareElemSection">
-      <div class="DetailPage_shareElem"><img src="./img/copy.png"/><span>링크복사</span><div>
-      <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png"/><span>카카오톡</span><div>
-      <div class="DetailPage_shareElem"><img src="./img/instagram.png"/><span>인스타그램</span><div>
-      <div class="DetailPage_shareElem"><img src="./img/facebook.png"/><span>페이스북</span><div>
-    <div>
-      </section>
+        <hr width="90%"/>
+    <section class="DetailPage_bottom">
+        <div class="DetailPage_">
+            <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
+        </div>
+        <div class="DetailPage_shareElemSection my-2">
+            <div class="DetailPage_shareElem"><img src="./img/copy.png" /><span>링크복사</span></div>
+            <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
+            <div class="DetailPage_shareElem"><img src="./img/instagram.png" /><span>인스타그램</span></div>
+            <div class="DetailPage_shareElem"><img src="./img/facebook.png" /><span>페이스북</span></div>
+        </div>
+    </section>
 </div>
     `;
   }
