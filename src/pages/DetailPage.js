@@ -1,6 +1,7 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
+
 export default class DetailPage extends Component {
   template() {
     return `
@@ -26,4 +27,6 @@ export default class DetailPage extends Component {
     new Header($header, "detail");
     new Navigator($nav);
   }
+
 }
+
