@@ -2,6 +2,7 @@ import Component from "../core/Component.js";
 import Header from "../components/Header.js";
 import Navigator from "../components/Navigator.js";
 import RecipeItem from "../components/RecipeItem.js";
+
 export default class DetailPage extends Component {
   setup() {
     console.log("params:" + this.$params);
