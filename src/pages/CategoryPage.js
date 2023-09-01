@@ -22,6 +22,7 @@ export default class CategoryPage extends Component {
         <div id="nav"></div>
         <div id="filter"></div>   
         <div id="pagenationContainer"></div>   
+      </div>
     `;
   }
 
