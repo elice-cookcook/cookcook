@@ -101,15 +101,15 @@ export default class SearchPage extends Component {
       "#resultItemContainer"
     );
 
-    const $pagenation = this.$target.querySelector("#pagenationContainer");
-    new Pagenation($pagenation)
-
     this.$state.forEach((obj) => {
       const item = document.createElement("div");
       const resultItem = new ResultItem(item, obj); // ResultItem 컴포넌트 생성
 
       resultItemContainer.append(item);
     });
+
+    const $pagenation = this.$target.querySelector("#pagenationContainer");
+    new Pagenation($pagenation)
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
   }
