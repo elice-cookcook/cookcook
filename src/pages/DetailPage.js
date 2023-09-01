@@ -5,10 +5,18 @@ import RecipeItem from "../components/RecipeItem.js";
 
 export default class DetailPage extends Component {
   setup() {
-    console.log("params:" + this.$params);
+    const getCurrentIdFromHash = () => {
+      const hashDetail = window.location.hash.substring(1);
+      const match = hashDetail.match(/detail\/(\d+)/);
+      return match ? match[1] : null;
+    };
+
+    const currentId = getCurrentIdFromHash();
+    console.log(currentId); // 이 id값을 통해 data를 받아와야 한다.
+
     /*
     임의로 정해놓은 데이터
-    실제로는 params에 넘어온 id값(RCP_SEQ)에 따라 data를 받아와서 사용해야 함
+    실제로는 id값(RCP_SEQ)에 따라 data를 받아와서 사용해야 함
     */
     this.$state = {
       RCP_PARTS_DTLS:
