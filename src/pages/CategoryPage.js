@@ -1,12 +1,8 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
-<<<<<<< HEAD
-import Filter from '../components/Filter.js';
 import Pagenation from '../components/Pagenation.js';
-=======
 import Recommend from '../components/Recommend.js';
->>>>>>> develop
 
 export default class CategoryPage extends Component {
   setup() {
@@ -65,19 +61,20 @@ export default class CategoryPage extends Component {
         align-items: center;
         height: 110px;
       }
+      #pagenationContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       </style>
       <div class="CategoryPage">
         <div id="header"></div>
         <div id="nav"></div>
-<<<<<<< HEAD
-        <div id="filter"></div>   
-        <div id="pagenationContainer"></div>   
-=======
         <div id="recommendContainer">
         <h4>오늘의 추천요리</h4>
         <div class="slider"></div>
+        <div id="pagenationContainer"></div>   
         </div>
->>>>>>> develop
       </div>
     `;
   }
@@ -85,14 +82,8 @@ export default class CategoryPage extends Component {
   mounted() {
     const $header = this.$target.querySelector("#header");
     const $nav = this.$target.querySelector("#nav");
-<<<<<<< HEAD
     const $pagenation = this.$target.querySelector("#pagenationContainer");
-    new Header($header, "category");
-    new Navigator($nav);
     new Pagenation($pagenation)
-    const $filter = this.$target.querySelector("#filter");
-    new Filter($filter);
-=======
     new Header($header);
     new Navigator($nav);
 
@@ -113,6 +104,5 @@ export default class CategoryPage extends Component {
     if (foodList.length > 0) {
       new Recommend($sliderContainer, { foodList });
     }
->>>>>>> develop
   }
 }

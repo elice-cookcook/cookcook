@@ -2,11 +2,8 @@ import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
-<<<<<<< HEAD
 import Pagenation from "../components/Pagenation.js";
-=======
 import Navigator from "../components/Navigator.js";
->>>>>>> develop
 
 /* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
   {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
