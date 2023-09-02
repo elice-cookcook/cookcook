@@ -1,6 +1,6 @@
 import Component from '../core/Component.js';
 
-export default class Pagenation extends Component {
+export default class Pagination extends Component {
     template() {
       return `
       <style>

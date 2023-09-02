@@ -82,8 +82,8 @@ export default class CategoryPage extends Component {
   mounted() {
     const $header = this.$target.querySelector("#header");
     const $nav = this.$target.querySelector("#nav");
-    const $pagenation = this.$target.querySelector("#pagenationContainer");
-    new Pagenation($pagenation)
+    const $pagination = this.$target.querySelector("#paginationContainer");
+    new Pagination($pagination)
     new Header($header);
     new Navigator($nav);
 

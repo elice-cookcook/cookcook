@@ -2,7 +2,7 @@ import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
-import Pagenation from "../components/Pagenation.js";
+import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
 
 /* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
@@ -89,7 +89,7 @@ export default class SearchPage extends Component {
       <div id="filter"></div>
       </section>
       <div id="resultItemContainer"></div>
-      <div id="pagenationContainer"></div>
+      <div id="paginationContainer"></div>
       </div>
   `;
   }
@@ -111,8 +111,8 @@ export default class SearchPage extends Component {
       resultItemContainer.append(item);
     });
 
-    const $pagenation = this.$target.querySelector("#pagenationContainer");
-    new Pagenation($pagenation)
+    const $pagination = this.$target.querySelector("#paginationContainer");
+    new Pagination($pagination)
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
   }
