@@ -1,7 +1,7 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
-import Pagenation from '../components/Pagenation.js';
+import Pagination from '../components/Pagination.js';
 import Recommend from '../components/Recommend.js';
 import Footer from '../components/Footer.js';
 export default class CategoryPage extends Component {
@@ -61,7 +61,7 @@ export default class CategoryPage extends Component {
         align-items: center;
         height: 110px;
       }
-      #pagenationContainer{
+      #paginationContainer{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -73,7 +73,7 @@ export default class CategoryPage extends Component {
         <div id="recommendContainer">
         <h4>오늘의 추천요리</h4>
         <div class="slider"></div>
-        <div id="pagenationContainer"></div>   
+        <div id="paginationContainer"></div>   
         </div>
         <div id="footer"></div>
       </div>
