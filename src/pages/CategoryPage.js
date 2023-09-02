@@ -3,7 +3,7 @@ import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
 import Pagenation from '../components/Pagenation.js';
 import Recommend from '../components/Recommend.js';
-
+import Footer from '../components/Footer.js';
 export default class CategoryPage extends Component {
   setup() {
     this.$state = [
@@ -75,6 +75,7 @@ export default class CategoryPage extends Component {
         <div class="slider"></div>
         <div id="pagenationContainer"></div>   
         </div>
+        <div id="footer"></div>
       </div>
     `;
   }
@@ -104,5 +105,7 @@ export default class CategoryPage extends Component {
     if (foodList.length > 0) {
       new Recommend($sliderContainer, { foodList });
     }
+    const $footer = this.$target.querySelector("#footer");
+    new Footer($footer);
   }
 }
