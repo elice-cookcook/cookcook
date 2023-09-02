@@ -1,9 +1,9 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
-import Navigator from '../components/Navigator.js';
 import Recommend from '../components/Recommend.js';
 import RecentItem from '../components/RecentItem.js';
 import Footer from '../components/Footer.js';
+import CategoryItem from '../components/CategoryItem.js';
 
 export default class CategoryPage extends Component {
   setup() {
@@ -66,7 +66,8 @@ export default class CategoryPage extends Component {
       </style>
       <div class="CategoryPage">
         <div id="header"></div>
-        <div id="nav"></div>
+        <h4 class="my-3">카테고리</h4>
+        <div id="categoryItem"></div>
         <div id="recommendContainer">
         <h4>오늘의 추천요리</h4>
         <div class="slider"></div> 
@@ -82,10 +83,10 @@ export default class CategoryPage extends Component {
 
   mounted() {
     const $header = this.$target.querySelector("#header");
-    const $nav = this.$target.querySelector("#nav");
     new Header($header);
-    new Navigator($nav);
 
+    const $categoryItem = this.$target.querySelector("#categoryItem");
+    new CategoryItem($categoryItem);
     const $sliderContainer = this.$target.querySelector(".slider");
 
     let foodList = [];
