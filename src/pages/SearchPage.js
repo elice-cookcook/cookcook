@@ -2,6 +2,7 @@ import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
+import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
 import Footer from "../components/Footer.js";
 
@@ -88,9 +89,9 @@ export default class SearchPage extends Component {
       </div>
       <div id="filter"></div>
       </section>
-        <div id="resultItemContainer"></div>
-        <div id="pagination">Pagination</div>
-        <div id="footer"></footer>
+      <div id="resultItemContainer"></div>
+      <div id="paginationContainer"></div>
+      <div id="footer"></footer>
       </div>
   `;
   }
@@ -111,6 +112,9 @@ export default class SearchPage extends Component {
 
       resultItemContainer.append(item);
     });
+
+    const $pagination = this.$target.querySelector("#paginationContainer");
+    new Pagination($pagination)
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
     const $footer = this.$target.querySelector("#footer");
