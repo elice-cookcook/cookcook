@@ -1,7 +1,6 @@
 import Component from '../core/Component.js';
 import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
-import Pagination from '../components/Pagination.js';
 import Recommend from '../components/Recommend.js';
 import Footer from '../components/Footer.js';
 export default class CategoryPage extends Component {
@@ -72,8 +71,7 @@ export default class CategoryPage extends Component {
         <div id="nav"></div>
         <div id="recommendContainer">
         <h4>오늘의 추천요리</h4>
-        <div class="slider"></div>
-        <div id="paginationContainer"></div>   
+        <div class="slider"></div> 
         </div>
         <div id="footer"></div>
       </div>
@@ -83,8 +81,6 @@ export default class CategoryPage extends Component {
   mounted() {
     const $header = this.$target.querySelector("#header");
     const $nav = this.$target.querySelector("#nav");
-    const $pagination = this.$target.querySelector("#paginationContainer");
-    new Pagination($pagination)
     new Header($header);
     new Navigator($nav);
 
