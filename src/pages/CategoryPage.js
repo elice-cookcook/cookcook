@@ -60,11 +60,6 @@ export default class CategoryPage extends Component {
         align-items: center;
         height: 110px;
       }
-      #paginationContainer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
       </style>
       <div class="CategoryPage">
         <div id="header"></div>
