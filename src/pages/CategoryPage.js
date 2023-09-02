@@ -3,6 +3,7 @@ import Header from '../components/Header.js';
 import Navigator from '../components/Navigator.js';
 import Recommend from '../components/Recommend.js';
 import RecentItem from '../components/RecentItem.js';
+import Footer from '../components/Footer.js';
 
 export default class CategoryPage extends Component {
   setup() {
@@ -74,6 +75,7 @@ export default class CategoryPage extends Component {
         <h4>최근 본 레시피</h4>
         <div class="slider-recent"></div>
         </div>
+        <div id="footer"></div>
       </div>
     `;
   }
@@ -108,5 +110,8 @@ export default class CategoryPage extends Component {
       name: item.RCP_NM
     }));
     new RecentItem($recentItemContainer, { recentlyList });
+    
+    const $footer = this.$target.querySelector("#footer");
+    new Footer($footer);
   }
 }
