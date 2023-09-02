@@ -14,6 +14,9 @@ export default class RecipeItem extends Component {
       img{
         align-self:center;
       }
+      p{
+        text-align:center;
+      }
     </style>
 
     <div class="RecipeItem my-3">
