@@ -2,6 +2,7 @@ import Component from "../core/Component.js";
 import Header from "../components/Header.js";
 import Navigator from "../components/Navigator.js";
 import RecipeItem from "../components/RecipeItem.js";
+import Footer from "../components/Footer.js";
 
 export default class DetailPage extends Component {
   setup() {
@@ -86,7 +87,8 @@ export default class DetailPage extends Component {
     };
   }
   template() {
-    return /*html*/ `<style>
+    return /*html*/ `
+    <style>
     .DetailPage {
         width: 480px;
         left: 50%;
@@ -144,6 +146,7 @@ export default class DetailPage extends Component {
       font-size:12px;
     }
 </style>
+
 <div class="DetailPage">
     <div id="header"></div>
     <div id="nav"></div>
@@ -187,6 +190,7 @@ export default class DetailPage extends Component {
             <div class="DetailPage_shareElem"><img src="./img/facebook.png" /><span>페이스북</span></div>
         </div>
     </section>
+    <div id="footer"></div>
 </div>
     `;
   }
@@ -201,6 +205,7 @@ export default class DetailPage extends Component {
     const manualImgKeys = keys.filter(
       (key) => key.includes("MANUAL_IMG") && this.$state[key].length > 0
     );
+
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
       const props = {
@@ -210,5 +215,8 @@ export default class DetailPage extends Component {
       const recipeItem = new RecipeItem(item, props);
       recipeContainer.append(item);
     });
+
+    const $footer = this.$target.querySelector("#footer");
+    new Footer($footer);
   }
 }
