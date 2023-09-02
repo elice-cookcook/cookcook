@@ -4,6 +4,7 @@ import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
+import Footer from "../components/Footer.js";
 
 /* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
   {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
@@ -90,6 +91,7 @@ export default class SearchPage extends Component {
       </section>
       <div id="resultItemContainer"></div>
       <div id="paginationContainer"></div>
+      <div id="footer"></footer>
       </div>
   `;
   }
@@ -115,5 +117,7 @@ export default class SearchPage extends Component {
     new Pagination($pagination)
     const $filter = this.$target.querySelector("#filter");
     new Filter($filter);
+    const $footer = this.$target.querySelector("#footer");
+    new Footer($footer);
   }
 }
