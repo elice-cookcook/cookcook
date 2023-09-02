@@ -7,13 +7,18 @@ export default class RecipeItem extends Component {
 
     return /*html*/ `
     <style>
+      .RecipeItem{
+        display:flex;
+        flex-direction:column;
+      }
       img{
-        align-content:center;
+        align-self:center;
       }
     </style>
-    <div class="RecipeItem">
+
+    <div class="RecipeItem my-3">
     <p>${text}</p>
-    <img src="${imgUrl}"/>
+    <img src="${imgUrl}" class="w-50"/>
     </div>
     `;
   }
