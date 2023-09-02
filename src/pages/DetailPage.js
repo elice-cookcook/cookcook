@@ -143,7 +143,9 @@ export default class DetailPage extends Component {
     }
 
     .DetailPage_shareElem > span{
-      font-size:12px;
+      font-size:10px;
+      font-weight:bold;
+      text-align:center;
     }
 </style>
 
