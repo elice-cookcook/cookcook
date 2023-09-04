@@ -161,7 +161,7 @@ export default class DetailPage extends Component {
             <div class="titleText orange">저감조리법 Tip</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3 my-2">${this.$state.RCP_NA_TIP}</div>
+        <div class="content text-center p-3 my-2">${this.$state.RCP_NA_TIP}</div>
     </div>
     <div>
         <div class="DeatailPage_ingredients title my-3">
@@ -169,7 +169,7 @@ export default class DetailPage extends Component {
             <div class="titleText orange">준비물</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
+        <div class="content text-center p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
     </div>
     <div>
         <div class="DeatailPage_recepi title mt-4">
