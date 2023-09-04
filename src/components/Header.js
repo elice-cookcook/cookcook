@@ -5,17 +5,17 @@ export default class Header extends Component {
         <style>
         .container {
           background-color: #ff9c00;
-          width: 450px;
+          width: 480px;
           height: 45px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          gap: 30px;
         }
         .logo {
           width: 110px;
           height: 40px;
           float: left;
+          padding: 5px;
         }
         .input_container {
           display: flex;

@@ -11,6 +11,7 @@ export default class ResultItem extends Component {
     return /*html*/ `
     <style>
       .ResultItem{
+        width: 99%;
         height:130px;
         display:flex;
         background-color:#ffebcb;
@@ -33,6 +34,13 @@ export default class ResultItem extends Component {
       }
       .ResultItem_ingredients{
         font-size:small;
+        overflow: hidden;
+        white-space: normal;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        word-break: keep-all;
       }
       .ResultItem_hashtag{
         text-align:center;
