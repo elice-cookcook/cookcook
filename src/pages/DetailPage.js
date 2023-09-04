@@ -1,6 +1,5 @@
 import Component from "../core/Component.js";
 import Header from "../components/Header.js";
-import Navigator from "../components/Navigator.js";
 import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 
@@ -90,9 +89,10 @@ export default class DetailPage extends Component {
     return /*html*/ `
     <style>
     .DetailPage {
+        margin: 0 auto;
+        border: 1px solid #eaeaea;
         width: 480px;
         left: 50%;
-        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -149,10 +149,9 @@ export default class DetailPage extends Component {
     }
 </style>
 
-<div class="DetailPage">
+<div class="DetailPage px-3">
     <div id="header"></div>
-    <div id="nav"></div>
-    <h3>오늘은 내가 </h3>
+    <h3 class="mt-4">오늘은 내가 </h3>
     <h3><span class="orange">${this.$state.RCP_NM}</span> 요리사🍴</h3>
     <p class="orange">${this.$state.INFO_ENG}kcal</p>
     <img class="w-50" src="${this.$state.ATT_FILE_NO_MAIN}" />
@@ -162,7 +161,7 @@ export default class DetailPage extends Component {
             <div class="titleText orange">저감조리법 Tip</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3 my-2">${this.$state.RCP_NA_TIP}</div>
+        <div class="content text-center p-3 my-2">${this.$state.RCP_NA_TIP}</div>
     </div>
     <div>
         <div class="DeatailPage_ingredients title my-3">
@@ -170,7 +169,7 @@ export default class DetailPage extends Component {
             <div class="titleText orange">준비물</div>
             <hr width="20%" />
         </div>
-        <div class="content p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
+        <div class="content text-center p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
     </div>
     <div>
         <div class="DeatailPage_recepi title mt-4">
@@ -185,7 +184,7 @@ export default class DetailPage extends Component {
         <div class="DetailPage_">
             <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
         </div>
-        <div class="DetailPage_shareElemSection my-2">
+        <div class="DetailPage_shareElemSection mt-2 mb-4">
             <div class="DetailPage_shareElem"><img src="./img/copy.png" /><span>링크복사</span></div>
             <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
             <div class="DetailPage_shareElem"><img src="./img/instagram.png" /><span>인스타그램</span></div>
@@ -198,9 +197,7 @@ export default class DetailPage extends Component {
   }
   mounted() {
     const $header = this.$target.querySelector("#header");
-    const $nav = this.$target.querySelector("#nav");
     new Header($header, "detail");
-    new Navigator($nav);
 
     const recipeContainer = this.$target.querySelector("#recipe");
     const keys = Object.keys(this.$state);

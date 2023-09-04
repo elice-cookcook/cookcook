@@ -10,9 +10,10 @@ export default class LandingPage extends Component {
         }
         
         .SplashScreenContainer{
-            width: 400px;
-            height: 600px;
+            width: 480px;
+            height: 853px;
             margin: 0 auto;
+            border: 1px solid #eaeaea;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;

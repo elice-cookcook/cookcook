@@ -41,9 +41,10 @@ export default class CategoryPage extends Component {
     return `
       <style>
       .CategoryPage {
+        margin: 0 auto;
+        border: 1px solid #eaeaea;
         width: 480px;
         left: 50%;
-        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -51,7 +52,7 @@ export default class CategoryPage extends Component {
       #recommendContainer, #recentContainer {
         text-align: center;
         width: 450px;
-        margin: 10px 0;
+        margin: 11.5px 0;
       }
       h4 { 
         color: orange;
@@ -64,7 +65,7 @@ export default class CategoryPage extends Component {
         height: 110px;
       }
       </style>
-      <div class="CategoryPage">
+      <div class="CategoryPage px-3">
         <div id="header"></div>
         <h4 class="my-3">카테고리</h4>
         <div id="categoryItem"></div>

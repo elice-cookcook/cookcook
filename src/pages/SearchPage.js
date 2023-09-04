@@ -62,6 +62,8 @@ export default class SearchPage extends Component {
     return /*html*/ `
     <style>
       .SearchPage{
+        margin: 0 auto;
+        border: 1px solid #eaeaea;
         width:480px;
         left:50%;
         display:flex;
@@ -77,7 +79,7 @@ export default class SearchPage extends Component {
         justify-content:space-between;
       }
     </style>
-      <div class="SearchPage p-3">
+      <div class="SearchPage px-3">
       <div id="header"></div>
       <div id="nav"></div>
       <section class="SearchPage_top">

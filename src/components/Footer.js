@@ -5,7 +5,7 @@ export default class Navigator extends Component {
     return `
         <style>
           .footer_container {
-            width: 450px;
+            width: 480px;
             background-color: #e0e0e0;
             display: flex;
             flex-direction: column;
