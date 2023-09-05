@@ -1,16 +1,6 @@
-const keyID = "f7be7011ace14af396ee";
-// const request = async (url) => {
-//   try {
-//     let result = await fetch(url)
-//       .catch()
-//       .then((res) => res.json())
-//       .then((data) => data["COOKRCP01"]["row"]);
-//     return result;
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// };
+import config from "./config.js";
+const { API_KEY } = config;
+
 const request = async (url) => {
   try {
     const response = await fetch(url);
@@ -30,25 +20,25 @@ const api = {
   // 전체 데이터 받아옴
   fetchFoodAll: () => {
     return request(
-      `http://openapi.foodsafetykorea.go.kr/api/${keyID}/COOKRCP01/json/1/1001`
+      `http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001`
     );
   },
   // 해당 카테고리 데이터 받아옴
   fetchFoodByCategory: (caregory) => {
     return request(
-      `http://openapi.foodsafetykorea.go.kr/api/${keyID}/COOKRCP01/json/1/1001/RCP_PAT2=${caregory}`
+      `http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001/RCP_PAT2=${caregory}`
     );
   },
   // 이름에 헤당 키워드가 포함되는 데이터 받아옴
   fetchFoodByKeyword: (keyword) => {
     return request(
-      `http://openapi.foodsafetykorea.go.kr/api/${keyID}/COOKRCP01/json/1/1001/RCP_NM=${keyword}`
+      `http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001/RCP_NM=${keyword}`
     );
   },
   // 해당 카테고리이면서 이름에 해당 키워드가 포함되는 데이터 받아옴
   fetchFoodByCategoryAndKeyword: (category, keyword) => {
     return request(
-      `http://openapi.foodsafetykorea.go.kr/api/${keyID}/COOKRCP01/json/1/1001/RCP_PAT2=${category}&RCP_NM=${keyword}`
+      `http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001/RCP_PAT2=${category}&RCP_NM=${keyword}`
     );
   },
   // 해당 id를 RCP_SEQ로 갖는 데이터 받아옴
