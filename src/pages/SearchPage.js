@@ -1,4 +1,3 @@
-import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
@@ -42,6 +41,9 @@ export default class SearchPage extends Component {
         display:flex;
         justify-content:space-between;
       }
+      #paginationContainer{
+        margin:0 auto;
+      }
     </style>
       <div class="SearchPage px-3">
       <div id="header"></div>
@@ -50,7 +52,6 @@ export default class SearchPage extends Component {
       <div id="filter"></div>
       </section>
       <div class="spinner-border my-5" role="status"></div>
-      <div id="resultItemContainer"></div>
       <div id="paginationContainer"></div>
       <div id="footer"></footer>
       </div>
@@ -82,11 +83,6 @@ export default class SearchPage extends Component {
       } else {
         console.log("error");
       }
-      await this.$state.items.forEach((obj) => {
-        const item = document.createElement("div");
-        new ResultItem(item, obj);
-        resultItemContainer.append(item);
-      });
 
       const spinner = document.querySelector('.spinner-border');
       spinner.remove();
@@ -116,10 +112,6 @@ export default class SearchPage extends Component {
   new Header($header, {page: "search", category: history.state.category, keyword: history.state.keyword});
   const $nav = this.$target.querySelector("#nav");
   new Navigator($nav);
-
-  const resultItemContainer = this.$target.querySelector(
-    "#resultItemContainer"
-  );
 
   const $footer = this.$target.querySelector("#footer");
   new Footer($footer);
