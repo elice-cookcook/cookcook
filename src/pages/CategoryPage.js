@@ -84,7 +84,7 @@ export default class CategoryPage extends Component {
 
   mounted() {
     const $header = this.$target.querySelector("#header");
-    new Header($header);
+    new Header($header, {page: "category", category: "전체", keyword: ""});
 
     const $categoryItem = this.$target.querySelector("#categoryItem");
     new CategoryItem($categoryItem);

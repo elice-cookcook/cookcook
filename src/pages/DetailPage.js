@@ -197,7 +197,7 @@ export default class DetailPage extends Component {
   }
   mounted() {
     const $header = this.$target.querySelector("#header");
-    new Header($header, "detail");
+    new Header($header, {page: "detail", category: history.state.category, keyword: history.state.keyword});
 
     const recipeContainer = this.$target.querySelector("#recipe");
     const keys = Object.keys(this.$state);
