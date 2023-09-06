@@ -13,6 +13,7 @@ export default class Navigator extends Component {
             justify-content: space-between;
             align-items: center;
             flex-direction: column;
+            cursor:pointer;
           }
           .category_items {
             display: flex;
@@ -29,13 +30,15 @@ export default class Navigator extends Component {
           .category_img {
             width: 100px;
           }
+          span{
+            font-weight:bold;
+          }
           hr {
             border-top: 2px solid #5d5d5d;
             width: 410px;
             margin: 0 auto;
           }
         </style>
-        <div class="category_container">
           <div class="category_items px-4">
             ${this.$category
               .map(
@@ -44,13 +47,12 @@ export default class Navigator extends Component {
                     <div class="img_box">
                         <img class="category_img" src="./img/${item}.png">
                     </div>
-                    <div>${this.$categoryName[idx]}</div>
+                    <span class="category_item_text">${this.$categoryName[idx]}</span>
                 </div>
             `
               )
               .join("")}
           </div>
-        </div>
         <hr class="hr mt-2 mb-3" />
     `;
   }
