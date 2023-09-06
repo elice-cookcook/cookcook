@@ -5,6 +5,7 @@ import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
 import Footer from "../components/Footer.js";
+import api from "../api.js";
 
 /* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
   {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
@@ -16,46 +17,9 @@ import Footer from "../components/Footer.js";
 */
 export default class SearchPage extends Component {
   setup() {
-    this.$props = { method: "search", keyword: "치킨" }; //임시로 설정
-
-    this.$state = [
-      {
-        RCP_NM: "크림소스치킨롤",
-        INFO_ENG: "234.12",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-        RCP_PARTS_DTLS:
-          "닭고기(가슴살, 150g), 새우(대하, 3마리), 베이컨(20g),\n마늘(20g), 바질…새송이버섯(1개),\n치즈(1장), 버터(10g), 소금(0.2g), 후춧가루(0.01g)",
-        HASH_TAG: "닭가슴살",
-      },
-      {
-        RCP_NM: "치킨 쇠고기 땅콩소스 꼬치",
-        INFO_ENG: "148",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/20141117/20141117053805_1416213485286.jpg",
-        RCP_PARTS_DTLS:
-          "닭가슴살 30g, 쇠고기 등심 30g, 간장 3g, 카레가루 2g, 땅콩버터 3g, 참기름 0.5g, 올리브오일 2g, 설탕 1.5g, 생강다진것 1g",
-        HASH_TAG: "가슴살",
-      },
-      {
-        RCP_NM: "치킨완자스프",
-        INFO_ENG: "236.7",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00465_2.png",
-        RCP_PARTS_DTLS:
-          "버터(20g), 밀가루(20g), 육수(100g), 생크림(20g)\n브로컬리(30g), 우유(100g), 마늘(10g), 양파(20g)\n소금(0.3g), 후춧가루(0.05g), 참기름(5g)",
-        HASH_TAG: "",
-      },
-      {
-        RCP_NM: "크림소스치킨롤",
-        INFO_ENG: "234.12",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-        RCP_PARTS_DTLS:
-          "닭고기(가슴살, 150g), 새우(대하, 3마리), 베이컨(20g),\n마늘(20g), 바질…새송이버섯(1개),\n치즈(1장), 버터(10g), 소금(0.2g), 후춧가루(0.01g)",
-        HASH_TAG: "닭가슴살",
-      },
-    ]; // 임시로 만들어둔 음식 정보 배열입니다.
+    const category = history.state.category;
+    const keyword = history.state.keyword;
+    this.$state = {category: category, keyword: keyword, items: []};
   }
 
   template() {
@@ -83,14 +47,9 @@ export default class SearchPage extends Component {
       <div id="header"></div>
       <div id="nav"></div>
       <section class="SearchPage_top">
-      <div>
-      <span class="orange">${this.$state.length}</span>
-      개의
-      <span class="orange">${this.$props.keyword}</span> 
-      레시피가 있어요
-      </div>
       <div id="filter"></div>
       </section>
+      <div class="spinner-border my-5" role="status"></div>
       <div id="resultItemContainer"></div>
       <div id="paginationContainer"></div>
       <div id="footer"></footer>
@@ -99,27 +58,70 @@ export default class SearchPage extends Component {
   }
 
   mounted() {
-    const $header = this.$target.querySelector("#header");
-    new Header($header, "search");
-    const $nav = this.$target.querySelector("#nav");
-    new Navigator($nav);
+    const fetchFunc = async (type) => {
+      let result;
+      switch(type) {
+        case 'all' : {
+          result = await api.fetchFoodAll();
+          break;
+        }
+        case 'keyword' : {
+          result = await api.fetchFoodByKeyword(this.$state.keyword);
+          break;
+        }
+        case 'category' : {
+          result = await api.fetchFoodByCategory(this.$state.category);
+          break;
+        }
+        default : {
+          result = await api.fetchFoodByCategoryAndKeyword(this.$state.category, this.$state.keyword);
+        }
+      }
+      if (result) {
+        await result.forEach((item) => this.$state.items.push(item));
+      } else {
+        console.log("error");
+      }
+      await this.$state.items.forEach((obj) => {
+        const item = document.createElement("div");
+        new ResultItem(item, obj);
+        resultItemContainer.append(item);
+      });
 
-    const resultItemContainer = this.$target.querySelector(
-      "#resultItemContainer"
-    );
+      const spinner = document.querySelector('.spinner-border');
+      spinner.remove();
+      
+      const $searchPageTop = this.$target.querySelector(".SearchPage_top");
+      const $resultBlock = document.createElement("div");
+      $resultBlock.insertAdjacentHTML("beforeend", `
+        <span class="orange">${this.$state.items.length}</span>개의 <span class="orange">${this.$state.category} > ${this.$state.keyword}</span> 레시피가 있어요
+      `);
+      $searchPageTop.prepend($resultBlock);
 
-    this.$state.forEach((obj) => {
-      const item = document.createElement("div");
-      const resultItem = new ResultItem(item, obj); // ResultItem 컴포넌트 생성
+      const $pagination = this.$target.querySelector("#paginationContainer");
+      new Pagination($pagination)
+      const $filter = this.$target.querySelector("#filter");
+      new Filter($filter);
+    }
+  if(this.$state.category === '전체') {
+    if(this.$state.keyword ===  '') fetchFunc('all');
+    else fetchFunc('keyword')
+  }
+  else {
+    if(this.$state.keyword === '') fetchFunc('category')
+    else fetchFunc();
+  }
 
-      resultItemContainer.append(item);
-    });
+  const $header = this.$target.querySelector("#header");
+  new Header($header, {page: "search", category: history.state.category, keyword: history.state.keyword});
+  const $nav = this.$target.querySelector("#nav");
+  new Navigator($nav);
 
-    const $pagination = this.$target.querySelector("#paginationContainer");
-    new Pagination($pagination)
-    const $filter = this.$target.querySelector("#filter");
-    new Filter($filter);
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
+  const resultItemContainer = this.$target.querySelector(
+    "#resultItemContainer"
+  );
+
+  const $footer = this.$target.querySelector("#footer");
+  new Footer($footer);
   }
 }
