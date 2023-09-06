@@ -1,6 +1,10 @@
 import Component from '../core/Component.js';
 
 export default class Pagination extends Component {
+    setup(){
+      // [현재 페이지, 레시피객체 배열]
+      this.$state = [0, []];
+    }
     template() {
       return `
       <style>
@@ -24,23 +28,24 @@ export default class Pagination extends Component {
     mounted(){
       const buttonContainer = this.$target.querySelector("#buttonContainer");
 
-      const recipes = this.$props;
-      const numberOfRecipe = recipes.length;
+      this.$state[1] = this.$props;
+      this.$state[0] = 0;
+      const numberOfRecipe = this.$state[1].length;
       const recipesPerPage = 4;
       const buttonsPerPage = 5;
       const requiredPage = Math.ceil(numberOfRecipe/recipesPerPage)
-      const currentPage = 0;
 
-      const renderButtons = () => {
-        // 레시피 갯수에 맞는 페이지버튼 랜더링하는 함수
+      // 페이지를 매개변수로 받고 버튼리스트를 렌더링하는 함수. 페이지는 0부터
+      const renderButtons = (currentPage) => {
         // 클릭 막으려면 li에 .disabled 추가할것
+        const startPage = Math.floor(currentPage/5)*5;
         buttonContainer.innerHTML = "";
         buttonContainer.innerHTML += 
         `<li id="previousPage" class="page-item mx-2">
         <a class="page-link" href="#">
         <span aria-hidden="true"><</span>
         </a></li>`
-        for(let i=0; i<buttonsPerPage && i<requiredPage; i++){
+        for(let i=startPage; i<startPage+buttonsPerPage && i<requiredPage; i++){
           buttonContainer.innerHTML += 
           `<li id="page${i}" class="page-item mx-2"><a class="page-link" href="#">${i+1}</a></li>`
         }
@@ -50,10 +55,11 @@ export default class Pagination extends Component {
         <span aria-hidden="true">></span>
         </a></li>`
       }
-      renderButtons();
+
+      renderButtons(7);
 
       // 현재 페이지에 해당하는 버튼 활성화
-      this.$target.querySelector(`#page${currentPage}`).classList.add("active");
+      this.$target.querySelector(`#page${this.$state[0]}`).classList.add("active");
 
       const renderPage = (page) => {
 
