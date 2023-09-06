@@ -17,9 +17,10 @@ import api from "../api.js";
 */
 export default class SearchPage extends Component {
   setup() {
+    console.log("history", history);
     const category = history.state.category;
     const keyword = history.state.keyword;
-    this.$state = {category: category, keyword: keyword, items: []};
+    this.$state = { category: category, keyword: keyword, items: [] };
   }
 
   template() {
@@ -60,21 +61,24 @@ export default class SearchPage extends Component {
   mounted() {
     const fetchFunc = async (type) => {
       let result;
-      switch(type) {
-        case 'all' : {
+      switch (type) {
+        case "all": {
           result = await api.fetchFoodAll();
           break;
         }
-        case 'keyword' : {
+        case "keyword": {
           result = await api.fetchFoodByKeyword(this.$state.keyword);
           break;
         }
-        case 'category' : {
+        case "category": {
           result = await api.fetchFoodByCategory(this.$state.category);
           break;
         }
-        default : {
-          result = await api.fetchFoodByCategoryAndKeyword(this.$state.category, this.$state.keyword);
+        default: {
+          result = await api.fetchFoodByCategoryAndKeyword(
+            this.$state.category,
+            this.$state.keyword
+          );
         }
       }
       if (result) {
@@ -88,40 +92,46 @@ export default class SearchPage extends Component {
         resultItemContainer.append(item);
       });
 
-      const spinner = document.querySelector('.spinner-border');
+      const spinner = document.querySelector(".spinner-border");
       spinner.remove();
-      
+
       const $searchPageTop = this.$target.querySelector(".SearchPage_top");
       const $resultBlock = document.createElement("div");
-      $resultBlock.insertAdjacentHTML("beforeend", `
+      $resultBlock.insertAdjacentHTML(
+        "beforeend",
+        `
         <span class="orange">${this.$state.items.length}</span>개의 <span class="orange">${this.$state.category} > ${this.$state.keyword}</span> 레시피가 있어요
-      `);
+      `
+      );
       $searchPageTop.prepend($resultBlock);
 
       const $pagination = this.$target.querySelector("#paginationContainer");
-      new Pagination($pagination)
+      new Pagination($pagination);
       const $filter = this.$target.querySelector("#filter");
       new Filter($filter);
+    };
+    if (this.$state.category === "전체") {
+      if (this.$state.keyword === "") fetchFunc("all");
+      else fetchFunc("keyword");
+    } else {
+      if (this.$state.keyword === "") fetchFunc("category");
+      else fetchFunc();
     }
-  if(this.$state.category === '전체') {
-    if(this.$state.keyword ===  '') fetchFunc('all');
-    else fetchFunc('keyword')
-  }
-  else {
-    if(this.$state.keyword === '') fetchFunc('category')
-    else fetchFunc();
-  }
 
-  const $header = this.$target.querySelector("#header");
-  new Header($header, {page: "search", category: history.state.category, keyword: history.state.keyword});
-  const $nav = this.$target.querySelector("#nav");
-  new Navigator($nav);
+    const $header = this.$target.querySelector("#header");
+    new Header($header, {
+      page: "search",
+      category: history.state.category,
+      keyword: history.state.keyword,
+    });
+    const $nav = this.$target.querySelector("#nav");
+    new Navigator($nav);
 
-  const resultItemContainer = this.$target.querySelector(
-    "#resultItemContainer"
-  );
+    const resultItemContainer = this.$target.querySelector(
+      "#resultItemContainer"
+    );
 
-  const $footer = this.$target.querySelector("#footer");
-  new Footer($footer);
+    const $footer = this.$target.querySelector("#footer");
+    new Footer($footer);
   }
 }

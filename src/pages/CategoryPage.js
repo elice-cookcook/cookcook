@@ -1,9 +1,9 @@
-import Component from '../core/Component.js';
-import Header from '../components/Header.js';
-import Recommend from '../components/Recommend.js';
-import RecentItem from '../components/RecentItem.js';
-import Footer from '../components/Footer.js';
-import CategoryItem from '../components/CategoryItem.js';
+import Component from "../core/Component.js";
+import Header from "../components/Header.js";
+import Recommend from "../components/Recommend.js";
+import RecentItem from "../components/RecentItem.js";
+import Footer from "../components/Footer.js";
+import CategoryItem from "../components/CategoryItem.js";
 
 export default class CategoryPage extends Component {
   setup() {
@@ -38,7 +38,7 @@ export default class CategoryPage extends Component {
     ]; // 임시로 만들어둔 음식 정보 배열입니다.
   }
   template() {
-    return `
+    return /*html*/ `
       <style>
       .CategoryPage {
         margin: 0 auto;
@@ -84,7 +84,7 @@ export default class CategoryPage extends Component {
 
   mounted() {
     const $header = this.$target.querySelector("#header");
-    new Header($header, {page: "category", category: "전체", keyword: ""});
+    new Header($header, { page: "category", category: "전체", keyword: "" });
 
     const $categoryItem = this.$target.querySelector("#categoryItem");
     new CategoryItem($categoryItem);
@@ -98,7 +98,7 @@ export default class CategoryPage extends Component {
       } else {
         foodList.push({
           imgUrl: this.$state[i].ATT_FILE_NO_MAIN,
-          name: this.$state[i].RCP_NM
+          name: this.$state[i].RCP_NM,
         });
       }
     }
@@ -107,12 +107,13 @@ export default class CategoryPage extends Component {
     }
 
     const $recentItemContainer = this.$target.querySelector(".slider-recent");
-    const recentlyList = this.$state.map(item => ({ // 임의로 받아온 배열입니다.
+    const recentlyList = this.$state.map((item) => ({
+      // 임의로 받아온 배열입니다.
       imgUrl: item.ATT_FILE_NO_MAIN,
-      name: item.RCP_NM
+      name: item.RCP_NM,
     }));
     new RecentItem($recentItemContainer, { recentlyList });
-    
+
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
   }

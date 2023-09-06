@@ -1,11 +1,12 @@
-import Component from '../core/Component.js';
+import Component from "../core/Component.js";
 
 export default class Navigator extends Component {
+  setup() {
+    this.$category = ["soup", "rice", "onedish", "sidedish", "dessert", "etc"];
+    this.$categoryName = ["국/찌개", "밥", "일품", "반찬", "후식", "기타"];
+  }
   template() {
-    const category = ['soup', 'rice', 'onedish', 'sidedish', 'dessert', 'etc'];
-    const categoryName = ['국/찌개', '밥', '일품', '반찬', '후식', '기타'];
-
-    return `
+    return /*html*/ `
         <style>
           .category_container {
             display: flex;
@@ -36,17 +37,36 @@ export default class Navigator extends Component {
         </style>
         <div class="category_container">
           <div class="category_items px-4">
-            ${category.map((item, idx) => `
-                <div class="category_container mb-2">
+            ${this.$category
+              .map(
+                (item, idx) => `
+                <div class="category_container mb-2 category_item_${item}">
                     <div class="img_box">
                         <img class="category_img" src="./img/${item}.png">
                     </div>
-                    <div>${categoryName[idx]}</div>
+                    <div>${this.$categoryName[idx]}</div>
                 </div>
-            `).join('')}
+            `
+              )
+              .join("")}
           </div>
         </div>
         <hr class="hr mt-2 mb-3" />
     `;
+  }
+
+  mounted() {
+    this.$category.forEach((item, idx) => {
+      this.$target
+        .querySelector(`.category_item_${item}`)
+        .addEventListener("click", () => {
+          history.pushState(
+            { category: this.$categoryName[idx], keyword: "" },
+            null,
+            location.href.replace("/category", "/search")
+          );
+          history.go(0);
+        });
+    });
   }
 }
