@@ -93,9 +93,9 @@ export default class SearchPage extends Component {
       
       const $searchPageTop = this.$target.querySelector(".SearchPage_top");
       const $resultBlock = document.createElement("div");
-      
-      const $resultText = document.createTextNode(`${this.$state.items.length}개의 ${this.$state.category} > ${this.$state.keyword} 레시피가 있어요`);
-      $resultBlock.appendChild($resultText);
+      $resultBlock.insertAdjacentHTML("beforeend", `
+        <span class="orange">${this.$state.items.length}</span>개의 <span class="orange">${this.$state.category} > ${this.$state.keyword}</span> 레시피가 있어요
+      `);
       $searchPageTop.prepend($resultBlock);
 
       const $pagination = this.$target.querySelector("#paginationContainer");
