@@ -3,7 +3,7 @@ import Component from "../core/Component.js";
 export default class Navigator extends Component {
   setup() {
     this.$category = ["soup", "rice", "onedish", "sidedish", "dessert", "etc"];
-    this.$categoryName = ["국/찌개", "밥", "일품", "반찬", "후식", "기타"];
+    this.$categoryName = ["국", "밥", "일품", "반찬", "후식", "기타"];
   }
   template() {
     return /*html*/ `
