@@ -7,14 +7,6 @@ import Navigator from "../components/Navigator.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 
-/* 호출 시 아래와 같은 형식의 props를 넘겨주어야 합니다. 
-  {method:"category",keyword:"국/찌개||일품||반찬||후식||기타"} or 
-  {method:"search",keyword:"검색단어"}
-
-  검색 단어 ex) 치킨, 국수, 샐러드 등 사용자 입력
-
-  method를 다르게 설정한 이유는 api에서 해당 데이터를 가져올 때 작성하는 쿼리와 함수가 다르기 때문
-*/
 export default class SearchPage extends Component {
   setup() {
     console.log("history", history);
