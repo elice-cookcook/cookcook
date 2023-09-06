@@ -2,64 +2,72 @@ import Component from '../core/Component.js';
 import ResultItem from "./ResultItem.js";
 
 export default class Pagination extends Component {
-    setup(){
-      // [현재 페이지, 레시피객체 배열]
-      this.$state = [0, []];
-    }
-
     template() {
       return `
       <style>
-        #pagination .page-item a{
-          border: none;
-          border-radius: 4px;
-          background-color:#f4f4f4;
-          color:#000;
-        }
-        #pagination .active a{
-          background-color:#f39c12;
-          color:white;
-        }
+      .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom:16px;
+      }
+      .page-button {
+        border: none;
+        border-radius: 4px;
+        background-color: #f4f4f4;
+        color: #000;
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .page-button.active {
+        background-color: #f39c12;
+        color: white;
+      }
       </style>
       <div id="resultItemContainer"></div>
-      <div class="d-flex justify-content-center">
-      <nav id="pagination" class="justify-content-center">
-      <ul id="buttonContainer" class="pagination">
-      </ul>
-      </nav>
+      <div class="pagination-container">
+        <div class="buttonContainer">
+        </div>
       </div>
       `;
     }
 
     mounted(){
-      const buttonContainer = this.$target.querySelector("#buttonContainer");
       const resultItemContainer = this.$target.querySelector("#resultItemContainer");
+      const buttonContainer = this.$target.querySelector(".buttonContainer");
 
-      this.$state[1] = this.$props;
-      this.$state[0] = 0;
-      const numberOfRecipe = this.$state[1].length;
+      let recipes = this.$props;
+      let currentPage = 0;
+      const numberOfRecipe = recipes.length;
       const recipesPerPage = 4;
       const buttonsPerPage = 5;
       const requiredPage = Math.ceil(numberOfRecipe/recipesPerPage)
 
       // 페이지를 매개변수로 받고 버튼리스트를 렌더링하는 함수. 페이지는 0부터
-      const renderButtons = (currentPage) => {
-        const startPage = Math.floor(currentPage/5)*5;
+      const renderButtons = (page) => {
+        const startPage = Math.floor(page/5)*5;
         buttonContainer.innerHTML = "";
-        buttonContainer.innerHTML += 
-        `<li id="previousPage" class="page-item mx-2">
-        <a class="page-link" href="#">
-        <span aria-hidden="true"><</span>
-        </a></li>`
+
+        const previousPageBtn = document.createElement("button");
+        previousPageBtn.classList.add("page-button", "previousPage");
+        previousPageBtn.innerText = "<";
+        previousPageBtn.addEventListener('click', ()=>{handlePageBtnClick('prev')});
+        buttonContainer.append(previousPageBtn);
+
         for(let i=startPage; i<startPage+buttonsPerPage && i<requiredPage; i++){
-          buttonContainer.innerHTML += 
-          `<li id="page${i}" class="page-item mx-2"><a class="page-link" href="#">${i+1}</a></li>`
+          const pageBtn = document.createElement("button");
+          pageBtn.classList.add("page-button");
+          pageBtn.id = `page${i}`;
+          pageBtn.innerText = `${i+1}`;
+          pageBtn.addEventListener('click', ()=>{handlePageBtnClick(i)});
+          buttonContainer.append(pageBtn);
         }
-        buttonContainer.innerHTML += 
-        `<li id="nextPage" class="page-item mx-2">
-        <a class="page-link" href="#">
-        <span aria-hidden="true">></span>
-        </a></li>`
+
+        const nextPageBtn = document.createElement("button");
+        nextPageBtn.classList.add("page-button", "nextPage");
+        nextPageBtn.innerText = ">";
+        nextPageBtn.addEventListener('click', ()=>{handlePageBtnClick('next')});
+        buttonContainer.append(nextPageBtn);
       }
 
       // 페이지를 매개변수로 받고 레시피목록을 렌더링하는 함수. 페이지는 0부터
@@ -68,14 +76,34 @@ export default class Pagination extends Component {
         const startRecipeNumber = page*recipesPerPage
         for(let i = startRecipeNumber; i<startRecipeNumber+recipesPerPage && i<numberOfRecipe; i++){
           const rcp = document.createElement("div");
-          new ResultItem(rcp, this.$state[1][i]);
+          new ResultItem(rcp, recipes[i]);
           resultItemContainer.append(rcp);
         }
       }
 
-      renderButtons(0);
-      renderPage(0);
+      const handlePageBtnClick = (page) => {
+        if(page === 'prev' && currentPage > 0){
+          currentPage -= 1;
+          renderButtons(currentPage);
+          renderPage(currentPage);
+        }
+        else if(page === 'next' && currentPage < requiredPage){
+          currentPage += 1
+          renderButtons(currentPage);
+          renderPage(currentPage);
+        }
+        else if(Number.isInteger(page)){
+          currentPage = page;
+          renderButtons(currentPage);
+          renderPage(currentPage);
+        }
+        this.$target.querySelector(`#page${currentPage}`).classList.add("active");
+      }
+
+      renderButtons(currentPage);
+      renderPage(currentPage);
       // 현재 페이지에 해당하는 버튼 활성화
-      this.$target.querySelector(`#page${this.$state[0]}`).classList.add("active");
+      this.$target.querySelector(`#page${currentPage}`).classList.add("active");
     }
+
   }
