@@ -99,7 +99,7 @@ export default class SearchPage extends Component {
       $searchPageTop.prepend($resultBlock);
 
       const $pagination = this.$target.querySelector("#paginationContainer");
-      new Pagination($pagination)
+      new Pagination($pagination, this.$state.items);
       const $filter = this.$target.querySelector("#filter");
       new Filter($filter);
     }
