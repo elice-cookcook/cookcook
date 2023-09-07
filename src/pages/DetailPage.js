@@ -29,6 +29,10 @@ export default class DetailPage extends Component {
         color: #ff9c00;
     }
 
+    h3{
+      text-align:center;
+    }
+
     hr {
         border: 1px thin black;
         margin: 15px;
