@@ -19,6 +19,7 @@ export default class DetailPage extends Component {
         display: flex;
         flex-direction: column;
         align-items: center;
+        word-break : keep-all;
     }
 
     .orange {
@@ -49,7 +50,6 @@ export default class DetailPage extends Component {
         width:90px;
     }
     
-
     .DetailPage_shareElemSection{
         display:flex;
         justify-content:center;
