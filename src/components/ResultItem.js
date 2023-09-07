@@ -17,6 +17,7 @@ export default class ResultItem extends Component {
         border-radius: 5px;
         align-items: center;
         text-align: center;
+        cursor:pointer;
     }
 
     .ResultItem_imgSection{
