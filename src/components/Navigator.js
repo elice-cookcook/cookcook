@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from "../core/Component.js";
 
 export default class Navigator extends Component {
   template() {
@@ -21,8 +21,8 @@ export default class Navigator extends Component {
         </style>
         <div class="nav_container mt-2 px-3">
           <div class="nav_selected">전체</div>
-          <div>국/찌개</div>
           <div>밥</div>
+          <div>국</div>
           <div>반찬</div>
           <div>일품</div>
           <div>후식</div>
