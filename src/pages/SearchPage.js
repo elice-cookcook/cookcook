@@ -34,9 +34,6 @@ export default class SearchPage extends Component {
         display:flex;
         justify-content:space-between;
       }
-      #paginationContainer{
-        margin:0 auto;
-      }
     </style>
       <div class="SearchPage px-3">
       <div id="header"></div>
