@@ -149,7 +149,7 @@ export default class DetailPage extends Component {
     new Header($header, {
       page: "detail",
       category: "",
-      keyword: "",
+      keyword: history.state ? history.state.keyword : "",
     });
 
     const recipeContainer = this.$target.querySelector("#recipe");
