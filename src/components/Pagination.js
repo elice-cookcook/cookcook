@@ -36,16 +36,6 @@ export default class Pagination extends Component {
       const resultItemContainer = this.$target.querySelector("#resultItemContainer");
       const buttonContainer = this.$target.querySelector(".buttonContainer");
 
-      const previousPageBtn = document.createElement("button");
-      previousPageBtn.classList.add("page-button", "previousPage");
-      previousPageBtn.innerText = "<";
-      previousPageBtn.addEventListener('click', ()=>{handlePageBtnClick('prev')});
-
-      const nextPageBtn = document.createElement("button");
-      nextPageBtn.classList.add("page-button", "nextPage");
-      nextPageBtn.innerText = ">";
-      nextPageBtn.addEventListener('click', ()=>{handlePageBtnClick('next')});
-
       let recipes = this.$props;
       let currentPage = 0;
       const numberOfRecipe = recipes.length;
@@ -54,6 +44,20 @@ export default class Pagination extends Component {
       const requiredPage = Math.ceil(numberOfRecipe/recipesPerPage)
 
       // 페이지 버튼객체 만드는 함수
+      const makePrevButton = () => {
+        const previousPageBtn = document.createElement("button");
+        previousPageBtn.classList.add("page-button", "previousPage");
+        previousPageBtn.innerText = "<";
+        return previousPageBtn;
+      }
+
+      const makeNextButton = () => {
+        const nextPageBtn = document.createElement("button");
+        nextPageBtn.classList.add("page-button", "nextPage");
+        nextPageBtn.innerText = ">";
+        return nextPageBtn;
+      }
+
       const makePageButton = (page) => {
         const btn = document.createElement("button");
         btn.classList.add("page-button");
@@ -68,13 +72,16 @@ export default class Pagination extends Component {
         const startPage = Math.floor(page/5)*5;
         buttonContainer.innerHTML = "";
 
+        const previousPageBtn = makePrevButton();
+        previousPageBtn.addEventListener('click', handlePrevButtonClick);
         buttonContainer.append(previousPageBtn);
 
         for(let i=startPage; i<startPage+buttonsPerPage && i<requiredPage; i++){
-          const pageBtn = makePageButton(i)
+          const pageBtn = makePageButton(i);
           buttonContainer.append(pageBtn);
         }
-
+        const nextPageBtn = makeNextButton();
+        nextPageBtn.addEventListener('click', handleNextButtonClick);
         buttonContainer.append(nextPageBtn);
       }
 
@@ -90,18 +97,23 @@ export default class Pagination extends Component {
       }
 
       // 버튼 클릭시 현재 페이지 변경 + 다시 렌더링
-      const handlePageBtnClick = (page) => {
-        if(page === 'prev' && currentPage > 0){
+      const handlePrevButtonClick = () => {
+        if(currentPage > 0){
           currentPage -= 1;
+          renderAll();
         }
-        else if(page === 'next' && currentPage < requiredPage-1){
-          currentPage += 1
+      }
+      const handleNextButtonClick = () => {
+        if(currentPage < requiredPage-1){
+          currentPage += 1;
+          renderAll();
         }
-        else if(Number.isInteger(page)){
+      }
+      const handlePageBtnClick = (page) => {
+        if(page>=0){
           currentPage = page;
+          renderAll();
         }
-
-        renderAll();
       }
 
       // 화면 갱신해주는 함수
