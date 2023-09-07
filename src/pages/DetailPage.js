@@ -5,18 +5,21 @@ import Footer from "../components/Footer.js";
 import api from "../api.js";
 
 export default class DetailPage extends Component {
-  async setup() {
-    this.$state = history.state.data;
-  }
   template() {
     return /*html*/ `
     <style>
+      .spinner-border{
+        position:absolute;
+        top:50%;
+        left:50%;
+      }
+
     .DetailPage {
+        display: none;
         margin: 0 auto;
         border: 1px solid #eaeaea;
         width: 480px;
         left: 50%;
-        display: flex;
         flex-direction: column;
         align-items: center;
         word-break : keep-all;
@@ -72,30 +75,32 @@ export default class DetailPage extends Component {
     }
 </style>
 
-<div class="DetailPage px-3">
+<div>
+    <div class="spinner-border my-5" role="status"></div>
+    <div class="DetailPage px-3">
     <div id="header"></div>
     <h3 class="mt-4">오늘은 내가 </h3>
-    <h3><span class="orange">${this.$state.RCP_NM}</span> 요리사🍴</h3>
-    <p class="orange">${this.$state.INFO_ENG}kcal</p>
-    <img class="w-50" src="${this.$state.ATT_FILE_NO_MAIN}" />
+    <h3><span class="DetailPage_RCP_NM orange"></span> 요리사🍴</h3>
+    <p class="DetailPage_INFO_ENG orange"></p>
+    <img class="DetailPage_img w-50" src="https://placehold.co/240x240?text=image" />
     <div>
-        <div class="DeatailPage_tip title my-3">
+        <div class="DetailPage_tip title my-3">
             <hr width="20%" />
             <div class="titleText orange">저감조리법 Tip</div>
             <hr width="20%" />
         </div>
-        <div class="content text-center p-3 my-2">${this.$state.RCP_NA_TIP}</div>
+        <div class="DetailPage_RCP_NA_TIP content text-center p-3 my-2"></div>
     </div>
     <div>
-        <div class="DeatailPage_ingredients title my-3">
+        <div class="DetailPage_ingredients title my-3">
             <hr width="20%" />
             <div class="titleText orange">준비물</div>
             <hr width="20%" />
         </div>
-        <div class="content text-center p-3 my-2">${this.$state.RCP_PARTS_DTLS}</div>
+        <div class="DetailPage_RCP_PARTS_DTLS content text-center p-3 my-2"></div>
     </div>
     <div>
-        <div class="DeatailPage_recepi title mt-4">
+        <div class="DetailPage_recepi title mt-4">
             <hr width="20%" />
             <div class="titleText orange">레시피</div>
             <hr width="20%" />
@@ -115,15 +120,32 @@ export default class DetailPage extends Component {
         </div>
     </section>
     <div id="footer"></div>
-</div>
+</div></div>
     `;
   }
-  mounted() {
+  async mounted() {
+    if (history.state && history.state.data) this.$state = history.state.data;
+    else {
+      const getCurrentIdFromHash = () => {
+        const hashDetail = window.location.hash.substring(1);
+        const match = hashDetail.match(/detail\/(\d+)/);
+        return match ? match[1] : null;
+      };
+
+      const currentId = getCurrentIdFromHash();
+      this.$state = await api.fetchFoodById(currentId);
+    }
+    const spinner = document.querySelector(".spinner-border");
+    spinner.remove();
+
+    const DetailPage = document.querySelector(".DetailPage");
+    DetailPage.style.display = "flex";
+
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "detail",
-      category: history.state.category,
-      keyword: history.state.keyword,
+      category: "",
+      keyword: "",
     });
 
     const recipeContainer = this.$target.querySelector("#recipe");
@@ -132,13 +154,24 @@ export default class DetailPage extends Component {
       (key) => key.includes("MANUAL_IMG") && this.$state[key].length > 0
     );
 
+    this.$target.querySelector(".DetailPage_RCP_NM").innerHTML =
+      this.$state.RCP_NM;
+    this.$target.querySelector(".DetailPage_INFO_ENG").innerHTML =
+      this.$state.INFO_ENG + " kcal";
+    this.$target.querySelector(".DetailPage_img").src =
+      this.$state.ATT_FILE_NO_MAIN;
+    this.$target.querySelector(".DetailPage_RCP_NA_TIP").innerHTML =
+      this.$state.RCP_NA_TIP;
+    this.$target.querySelector(".DetailPage_RCP_PARTS_DTLS").innerHTML =
+      this.$state.RCP_PARTS_DTLS;
+
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
       const props = {
         imgUrl: this.$state[manualImgKey],
         recipe: this.$state[i < 9 ? `MANUAL0${i + 1}` : `MANUAL${i + 1}`],
       };
-      const recipeItem = new RecipeItem(item, props);
+      new RecipeItem(item, props);
       recipeContainer.append(item);
     });
 
