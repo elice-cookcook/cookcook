@@ -45,7 +45,7 @@ export default class Navigator extends Component {
     const currentCategory = document.querySelector(
       `.nav_item_${this.$state.category}`
     );
-    currentCategory.classList.add("orange");
+    currentCategory.classList.add("nav_selected");
   }
   setEvent() {
     this.$category.forEach((item) => {
