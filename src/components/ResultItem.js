@@ -7,7 +7,6 @@ export default class ResultItem extends Component {
     let imgUrl = this.$props.ATT_FILE_NO_MAIN;
     let ingredients = this.$props.RCP_PARTS_DTLS;
     let hash_tag = this.$props.HASH_TAG;
-    let id = this.$props.RCP_SEQ;
 
     return /*html*/ `<style>
     .ResultItem {
@@ -76,5 +75,17 @@ export default class ResultItem extends Component {
     </div>
 </div>
     `;
+  }
+
+  mounted() {
+    let id = this.$props.RCP_SEQ;
+    this.$target.querySelector(`.ResultItem`).addEventListener("click", () => {
+      history.pushState(
+        { data: this.$props },
+        null,
+        location.href.replace("/search", `/detail/${id}`)
+      );
+      history.go(0);
+    });
   }
 }
