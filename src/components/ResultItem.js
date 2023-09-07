@@ -81,7 +81,7 @@ export default class ResultItem extends Component {
     let id = this.$props.RCP_SEQ;
     this.$target.querySelector(`.ResultItem`).addEventListener("click", () => {
       history.pushState(
-        { data: this.$props },
+        { data: this.$props, keyword: "" },
         null,
         location.href.replace("/search", `/detail/${id}`)
       );
