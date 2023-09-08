@@ -55,8 +55,6 @@ export default class SnsShare extends Component {
       });
     });
     this.$target.querySelector(".kakaoShare").addEventListener("click", () => {
-      console.log(window.location.toString());
-
       Kakao.Share.sendCustom({
         templateId: 98215,
         templateArgs: {
