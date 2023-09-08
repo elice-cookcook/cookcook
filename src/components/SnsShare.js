@@ -42,7 +42,7 @@ export default class SnsShare extends Component {
 <div class="SnsShare mt-2 mb-4">
     <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
     <div class="SnsShare_shareElem kakaoShare" href="javascript:shareMessage()"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
-    <div class="SnsShare_shareElem instagramShare"><img src="./img/instagram.png" /><span>인스타그램</span></div>
+    <div class="SnsShare_shareElem twitterShare"><img src="./img/twitter.png" /><span>트위터</span></div>
     <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
 </div>
 </body>`;
@@ -69,5 +69,15 @@ export default class SnsShare extends Component {
         },
       });
     });
+
+    this.$target
+      .querySelector(".twitterShare")
+      .addEventListener("click", () => {
+        const sendText = `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴\n아래 링크를 클릭하여 레시피를 확인해보세요!`;
+        const pageUrl = window.location;
+        window.open(
+          `https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`
+        );
+      });
   }
 }
