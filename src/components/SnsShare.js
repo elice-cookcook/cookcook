@@ -79,5 +79,12 @@ export default class SnsShare extends Component {
           `https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`
         );
       });
+
+    this.$target
+      .querySelector(".facebookShare")
+      .addEventListener("click", () => {
+        const pageUrl = window.location;
+        window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
+      });
   }
 }
