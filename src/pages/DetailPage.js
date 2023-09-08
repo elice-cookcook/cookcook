@@ -3,6 +3,7 @@ import Header from "../components/Header.js";
 import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
+import SnsShare from "../components/SnsShare.js";
 
 export default class DetailPage extends Component {
   template() {
@@ -117,10 +118,6 @@ export default class DetailPage extends Component {
             <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
         </div>
         <div class="DetailPage_shareElemSection mt-2 mb-4">
-            <div class="DetailPage_shareElem"><img src="./img/copy.png" /><span>링크복사</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/instagram.png" /><span>인스타그램</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/facebook.png" /><span>페이스북</span></div>
         </div>
     </section>
     <div id="footer"></div>
@@ -179,6 +176,7 @@ export default class DetailPage extends Component {
       recipeContainer.append(item);
     });
 
+    new SnsShare(this.$target.querySelector(".DetailPage_shareElemSection"));
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
   }
