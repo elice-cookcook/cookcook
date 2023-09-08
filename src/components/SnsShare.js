@@ -41,7 +41,7 @@ export default class SnsShare extends Component {
 <body>
 <div class="SnsShare mt-2 mb-4">
     <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
-    <div class="SnsShare_shareElem kakaoShare" href="javascript:shareMessage()"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
+    <div class="SnsShare_shareElem kakaoShare"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
     <div class="SnsShare_shareElem twitterShare"><img src="./img/twitter.png" /><span>트위터</span></div>
     <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
 </div>
