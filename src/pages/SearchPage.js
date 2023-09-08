@@ -1,4 +1,3 @@
-import ResultItem from "../components/ResultItem.js";
 import Component from "../core/Component.js";
 import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
@@ -80,11 +79,6 @@ export default class SearchPage extends Component {
       } else {
         console.log("error");
       }
-      await this.$state.items.forEach((obj) => {
-        const item = document.createElement("div");
-        new ResultItem(item, obj);
-        resultItemContainer.append(item);
-      });
 
       const spinner = document.querySelector(".spinner-border");
       spinner.remove();
@@ -105,7 +99,7 @@ export default class SearchPage extends Component {
       $searchPageTop.prepend($resultBlock);
 
       const $pagination = this.$target.querySelector("#paginationContainer");
-      new Pagination($pagination);
+      new Pagination($pagination, this.$state.items);
       const $filter = this.$target.querySelector("#filter");
       new Filter($filter);
     };
@@ -125,10 +119,6 @@ export default class SearchPage extends Component {
     });
     const $nav = this.$target.querySelector("#nav");
     new Navigator($nav);
-
-    const resultItemContainer = this.$target.querySelector(
-      "#resultItemContainer"
-    );
 
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
