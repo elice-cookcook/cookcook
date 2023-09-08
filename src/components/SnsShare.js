@@ -15,34 +15,41 @@ export default class SnsShare extends Component {
     </head>
 
     <style>
-    .DetailPage_shareElemSection {
+    .SnsShare {
         display: flex;
         justify-content: center;
         gap: 5px;
     }
 
-    .DetailPage_shareElem {
+    .SnsShare_shareElem {
         display: flex;
         flex-direction: column;
+        cursor:pointer;
     }
 
-    .DetailPage_shareElem>img {
+    .SnsShare_shareElem>img {
         width: 50px;
     }
 
-    .DetailPage_shareElem>span {
+    .SnsShare_shareElem>span {
         font-size: 10px;
         font-weight: bold;
         text-align: center;
     }
 </style>
-<div class="DetailPage_shareElemSection mt-2 mb-4">
-    <div class="DetailPage_shareElem"><img src="./img/copy.png" /><span>링크복사</span></div>
-    <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
-    <div class="DetailPage_shareElem"><img src="./img/instagram.png" /><span>인스타그램</span></div>
-    <div class="DetailPage_shareElem"><img src="./img/facebook.png" /><span>페이스북</span></div>
+<div class="SnsShare mt-2 mb-4">
+    <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
+    <div class="SnsShare_shareElem kakaoShare"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
+    <div class="SnsShare_shareElem instagramShare"><img src="./img/instagram.png" /><span>인스타그램</span></div>
+    <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
 </div>`;
   }
 
-  mounted() {}
+  mounted() {
+    this.$target.querySelector(".linkCopy").addEventListener("click", () => {
+      window.navigator.clipboard.writeText(window.location).then(() => {
+        alert("링크가 복사되었습니다.");
+      });
+    });
+  }
 }
