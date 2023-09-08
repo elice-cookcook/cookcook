@@ -12,7 +12,7 @@ export default class App extends Component {
   mounted() {
     const $main = this.$target.querySelector("main");
     const pages = createPages($main);
-    const id = [...Array(10).keys()].map((i) => i); // 추후 데이터 불러온 뒤 데이터 id 배열로 교체 필요(임시로 0~9까지 넣어 두었습니다.)
+    const id = [...Array(3367).keys()].map((i) => i); // 추후 데이터 불러온 뒤 데이터 id 배열로 교체 필요(임시로 0~9까지 넣어 두었습니다.)
 
     const router = new Router($main);
     router.addRoute("#/", pages.landing);

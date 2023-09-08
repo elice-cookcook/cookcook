@@ -8,7 +8,6 @@ import api from "../api.js";
 
 export default class SearchPage extends Component {
   setup() {
-    console.log("history", history);
     const category = history.state.category;
     const keyword = history.state.keyword;
     this.$state = { category: category, keyword: keyword, items: [] };
@@ -17,34 +16,38 @@ export default class SearchPage extends Component {
   template() {
     return /*html*/ `
     <style>
-      .SearchPage{
-        margin: 0 auto;
-        border: 1px solid #eaeaea;
-        width:480px;
-        left:50%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-      }
-      .orange {
-        color:orange;
-      }
-      .SearchPage_top{
-        width:100%;
-        display:flex;
-        justify-content:space-between;
-      }
+        .SearchPage {
+            margin: 0 auto;
+            border: 1px solid #eaeaea;
+            width: 480px;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .orange {
+            color: orange;
+        }
+
+        .SearchPage_top {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
-      <div class="SearchPage px-3">
-      <div id="header"></div>
-      <div id="nav"></div>
-      <section class="SearchPage_top">
-      <div id="filter"></div>
-      </section>
-      <div class="spinner-border my-5" role="status"></div>
-      <div id="paginationContainer"></div>
-      <div id="footer"></footer>
-      </div>
+    <div class="SearchPage px-3">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <section class="SearchPage_top">
+            <div id="filter"></div>
+        </section>
+        <div class="spinner-border my-5" role="status"></div>
+        <div id="resultItemContainer"></div>
+        <div id="paginationContainer"></div>
+        <div id="footer">
+            </footer>
+        </div>
   `;
   }
 
@@ -85,7 +88,12 @@ export default class SearchPage extends Component {
       $resultBlock.insertAdjacentHTML(
         "beforeend",
         `
-        <span class="orange">${this.$state.items.length}</span>개의 <span class="orange">${this.$state.category} > ${this.$state.keyword}</span> 레시피가 있어요
+        <span class="orange">${
+          this.$state.items.length
+        }</span>개의 <span class="orange">
+        ${this.$state.category} ${this.$state.keyword.length > 0 ? ">" : ""} ${
+          this.$state.keyword
+        }</span> 레시피가 있어요
       `
       );
       $searchPageTop.prepend($resultBlock);
