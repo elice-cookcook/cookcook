@@ -4,7 +4,6 @@ import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
 import Footer from "../components/Footer.js";
-import api from "../api.js";
 import SearchLogic from "../utils/SearchLogic.js";
 
 export default class SearchPage extends Component {
@@ -43,7 +42,6 @@ export default class SearchPage extends Component {
         <section class="SearchPage_top">
             <div id="filter"></div>
         </section>
-        <div class="spinner-border my-5" role="status"></div>
         <div id="resultItemContainer"></div>
         <div id="paginationContainer"></div>
         <div id="footer">
@@ -53,41 +51,26 @@ export default class SearchPage extends Component {
   }
 
   mounted() {
-    const dataLoad = async () => {
-      try {
-        if (!window.localStorage.getItem("recipes")) {
-          const result = await api.fetchFoodAll();
-          window.localStorage.setItem("recipes", JSON.stringify(result));
-        }
-        this.$state.items = SearchLogic();
-        
-        const spinner = document.querySelector(".spinner-border");
-        spinner.remove();
-
-        const $searchPageTop = this.$target.querySelector(".SearchPage_top");
-        const $resultBlock = document.createElement("div");
-        $resultBlock.insertAdjacentHTML(
-          "beforeend",
-          `
+    this.$state.items = SearchLogic();
+    const $searchPageTop = this.$target.querySelector(".SearchPage_top");
+    const $resultBlock = document.createElement("div");
+    $resultBlock.insertAdjacentHTML(
+      "beforeend",
+      `
           <span class="orange">${
             this.$state.items.length
           }</span>개의 <span class="orange">
           ${this.$state.category} ${
-            this.$state.keyword.length > 0 ? ">" : ""
-          } ${this.$state.keyword}</span> 레시피가 있어요
+        this.$state.keyword.length > 0 ? ">" : ""
+      } ${this.$state.keyword}</span> 레시피가 있어요
         `
-        );
-        $searchPageTop.prepend($resultBlock);
+    );
+    $searchPageTop.prepend($resultBlock);
 
-        const $pagination = this.$target.querySelector("#paginationContainer");
-        new Pagination($pagination, this.$state.items);
-        const $filter = this.$target.querySelector("#filter");
-        new Filter($filter);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    dataLoad();
+    const $pagination = this.$target.querySelector("#paginationContainer");
+    new Pagination($pagination, this.$state.items);
+    const $filter = this.$target.querySelector("#filter");
+    new Filter($filter);
 
     const $header = this.$target.querySelector("#header");
     new Header($header, {

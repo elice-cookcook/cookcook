@@ -1,5 +1,5 @@
-import Component from '../core/Component.js';
-
+import Component from "../core/Component.js";
+import api from "../api.js";
 export default class LandingPage extends Component {
   template() {
     return `
@@ -47,13 +47,17 @@ export default class LandingPage extends Component {
         }
         
         .SplashScreenListItem img{
-            width: 86px;
+            width: 100px;
         }
         
         .SplashScreenContainer .SplashScreenBelow{
             display: flex;
             justify-content: center;
             margin-top: 30px;
+        }
+        .spinner-border {
+          width: 40px;
+          height: 40px;
         }
       </style>
       <div class="SplashScreenContainer">
@@ -69,10 +73,24 @@ export default class LandingPage extends Component {
               <li class="SplashScreenListItem"><img src="./img/bob.jpg"></li>
           </ul>
         </div>
-        <div class="SplashScreenBelow">
-          <img src="./img/TitleBelow.png" alt="below_image">
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border text-warning my-5" role="status"></div>
         </div>
       </div>
       `;
+  }
+  mounted() {
+    const dataLoad = async () => {
+      try {
+        const result = await api.fetchFoodAll();
+        window.localStorage.setItem("recipes", JSON.stringify(result));
+        console.log(result);
+        history.pushState(null, null, location.href + "category");
+        history.go(0);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    dataLoad();
   }
 }
