@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import config from "../config.js";
 
 export default class SnsShare extends Component {
   setup() {
@@ -7,14 +8,14 @@ export default class SnsShare extends Component {
 
   template() {
     return /*html*/ `
-    <head>
-      	<meta property="og:type" content="website" />
-	      <meta property="og:title" content="오늘 뭐 먹지?" />
-	      <meta property="og:description" content=${this.$state.RCP_NM}의 레시피가 궁금하다면? />
-	      <meta property="og:url" content="" />
-    </head>
+  <head>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="오늘 뭐 먹지?" />
+    <meta property="og:description" content=${this.$state.RCP_NM}의 레시피가 궁금하다면? />
+    <meta property="og:url" content=${window.location} />
+</head>
 
-    <style>
+<style>
     .SnsShare {
         display: flex;
         justify-content: center;
@@ -24,7 +25,7 @@ export default class SnsShare extends Component {
     .SnsShare_shareElem {
         display: flex;
         flex-direction: column;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .SnsShare_shareElem>img {
@@ -37,18 +38,35 @@ export default class SnsShare extends Component {
         text-align: center;
     }
 </style>
+<body>
 <div class="SnsShare mt-2 mb-4">
     <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
-    <div class="SnsShare_shareElem kakaoShare"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
+    <div class="SnsShare_shareElem kakaoShare" href="javascript:shareMessage()"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
     <div class="SnsShare_shareElem instagramShare"><img src="./img/instagram.png" /><span>인스타그램</span></div>
     <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
-</div>`;
+</div>
+</body>`;
   }
 
   mounted() {
     this.$target.querySelector(".linkCopy").addEventListener("click", () => {
       window.navigator.clipboard.writeText(window.location).then(() => {
         alert("링크가 복사되었습니다.");
+      });
+    });
+    this.$target.querySelector(".kakaoShare").addEventListener("click", () => {
+      console.log(window.location.toString());
+
+      Kakao.Share.sendCustom({
+        templateId: 98215,
+        templateArgs: {
+          PATH: `src/#/detail/${this.$state.RCP_SEQ}`,
+          title: this.$state.RCP_NM.toString(),
+          description: `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴`,
+          img_1: this.$state.ATT_FILE_NO_MAIN,
+          img_2: this.$state.MANUAL_IMG01,
+          img_3: this.$state.MANUAL_IMG02,
+        },
       });
     });
   }
