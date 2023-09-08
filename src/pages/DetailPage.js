@@ -57,27 +57,7 @@ export default class DetailPage extends Component {
     .DetailPage_logo{
         width:90px;
     }
-    
-    .DetailPage_shareElemSection{
-        display:flex;
-        justify-content:center;
-        gap:5px;
-    }
 
-    .DetailPage_shareElem{
-      display:flex;
-      flex-direction:column;
-    }
-    
-    .DetailPage_shareElem > img{
-      width:50px;
-    }
-
-    .DetailPage_shareElem > span{
-      font-size:10px;
-      font-weight:bold;
-      text-align:center;
-    }
 </style>
 
 <div>
@@ -176,7 +156,10 @@ export default class DetailPage extends Component {
       recipeContainer.append(item);
     });
 
-    new SnsShare(this.$target.querySelector(".DetailPage_shareElemSection"));
+    new SnsShare(
+      this.$target.querySelector(".DetailPage_shareElemSection"),
+      this.$state
+    );
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
   }
