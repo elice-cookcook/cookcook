@@ -16,6 +16,7 @@ export default class RecipeItem extends Component {
       }
       p{
         text-align:center;
+        word-break : keep-all;
       }
     </style>
 
