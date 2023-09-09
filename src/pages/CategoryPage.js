@@ -4,39 +4,20 @@ import Recommend from "../components/Recommend.js";
 import RecentItem from "../components/RecentItem.js";
 import Footer from "../components/Footer.js";
 import CategoryItem from "../components/CategoryItem.js";
+import SearchLogic from "../utils/SearchLogic.js";
 
 export default class CategoryPage extends Component {
   setup() {
-    this.$state = [
-      {
-        RCP_NM: "크림소스치킨롤",
-        INFO_ENG: "234.12",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-        RCP_PARTS_DTLS:
-          "닭고기(가슴살, 150g), 새우(대하, 3마리), 베이컨(20g),\n마늘(20g), 바질…새송이버섯(1개),\n치즈(1장), 버터(10g), 소금(0.2g), 후춧가루(0.01g)",
-        HASH_TAG: "닭가슴살",
-      },
-      {
-        RCP_NM: "치킨 쇠고기 땅콩소스 꼬치",
-        INFO_ENG: "148",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/20141117/20141117053805_1416213485286.jpg",
-        RCP_PARTS_DTLS:
-          "닭가슴살 30g, 쇠고기 등심 30g, 간장 3g, 카레가루 2g, 땅콩버터 3g, 참기름 0.5g, 올리브오일 2g, 설탕 1.5g, 생강다진것 1g",
-        HASH_TAG: "가슴살",
-      },
-      {
-        RCP_NM: "치킨완자스프",
-        INFO_ENG: "236.7",
-        ATT_FILE_NO_MAIN:
-          "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00465_2.png",
-        RCP_PARTS_DTLS:
-          "버터(20g), 밀가루(20g), 육수(100g), 생크림(20g)\n브로컬리(30g), 우유(100g), 마늘(10g), 양파(20g)\n소금(0.3g), 후춧가루(0.05g), 참기름(5g)",
-        HASH_TAG: "",
-      },
-    ]; // 임시로 만들어둔 음식 정보 배열입니다.
+    const category = history.state.category;
+    const keyword = history.state.keyword;
+
+    this.$state = {
+      category: category,
+      keyword: keyword,
+      items: [],
+    };
   }
+
   template() {
     return /*html*/ `
       <style>
@@ -83,6 +64,7 @@ export default class CategoryPage extends Component {
   }
 
   mounted() {
+    this.$state.items = SearchLogic();
     const $header = this.$target.querySelector("#header");
     new Header($header, { page: "category", category: "전체", keyword: "" });
 
@@ -90,21 +72,36 @@ export default class CategoryPage extends Component {
     new CategoryItem($categoryItem);
     const $sliderContainer = this.$target.querySelector(".slider");
 
-    let foodList = [];
-    for (let i = 0; i < this.$state.length; i++) {
-      if (foodList.length === 3) {
-        new Recommend($sliderContainer, { foodList });
-        foodList = [];
-      } else {
-        foodList.push({
-          imgUrl: this.$state[i].ATT_FILE_NO_MAIN,
-          name: this.$state[i].RCP_NM,
-        });
+    // 중복되지 않는 무작위 숫자를 생성하는 메서드
+    function getRandomNumbers(min, max, count) {
+      const randomNumbers = new Set();
+
+      while (randomNumbers.size < count) {
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        randomNumbers.add(randomNumber);
       }
+
+      return Array.from(randomNumbers);
     }
-    if (foodList.length > 0) {
-      new Recommend($sliderContainer, { foodList });
+
+    const selectedNumbers = getRandomNumbers(1, 1001, 9);
+
+    const foodList = selectedNumbers.map((idx) => ({
+      imgUrl: this.$state.items[idx].ATT_FILE_NO_MAIN,
+      name: this.$state.items[idx].RCP_NM,
+    }));
+
+    const batchSize = 3;
+    const batchedFoodList = [];
+    for (let i = 0; i < foodList.length; i += batchSize) {
+      const batch = foodList.slice(i, i + batchSize);
+      batchedFoodList.push(batch);
     }
+
+    new Recommend($sliderContainer, {
+      batchedFoodList,
+      items: this.$state.items, //원본 데이터도 같이 넘겨줌
+    });
 
     const $recentItemContainer = this.$target.querySelector(".slider-recent");
     const recentlyList = this.$state.map((item) => ({
