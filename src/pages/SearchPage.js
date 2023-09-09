@@ -4,7 +4,7 @@ import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
 import Footer from "../components/Footer.js";
-import api from "../api.js";
+import SearchLogic from "../utils/SearchLogic.js";
 
 export default class SearchPage extends Component {
   setup() {
@@ -42,7 +42,6 @@ export default class SearchPage extends Component {
         <section class="SearchPage_top">
             <div id="filter"></div>
         </section>
-        <div class="spinner-border my-5" role="status"></div>
         <div id="resultItemContainer"></div>
         <div id="paginationContainer"></div>
         <div id="footer">
@@ -52,64 +51,26 @@ export default class SearchPage extends Component {
   }
 
   mounted() {
-    const fetchFunc = async (type) => {
-      let result;
-      switch (type) {
-        case "all": {
-          result = await api.fetchFoodAll();
-          break;
-        }
-        case "keyword": {
-          result = await api.fetchFoodByKeyword(this.$state.keyword);
-          break;
-        }
-        case "category": {
-          result = await api.fetchFoodByCategory(this.$state.category);
-          break;
-        }
-        default: {
-          result = await api.fetchFoodByCategoryAndKeyword(
-            this.$state.category,
-            this.$state.keyword
-          );
-        }
-      }
-      if (result) {
-        await result.forEach((item) => this.$state.items.push(item));
-      } else {
-        console.log("error");
-      }
-
-      const spinner = document.querySelector(".spinner-border");
-      spinner.remove();
-
-      const $searchPageTop = this.$target.querySelector(".SearchPage_top");
-      const $resultBlock = document.createElement("div");
-      $resultBlock.insertAdjacentHTML(
-        "beforeend",
-        `
-        <span class="orange">${
-          this.$state.items.length
-        }</span>개의 <span class="orange">
-        ${this.$state.category} ${this.$state.keyword.length > 0 ? ">" : ""} ${
-          this.$state.keyword
-        }</span> 레시피가 있어요
+    this.$state.items = SearchLogic();
+    const $searchPageTop = this.$target.querySelector(".SearchPage_top");
+    const $resultBlock = document.createElement("div");
+    $resultBlock.insertAdjacentHTML(
+      "beforeend",
       `
-      );
-      $searchPageTop.prepend($resultBlock);
+          <span class="orange">${
+            this.$state.items.length
+          }</span>개의 <span class="orange">
+          ${this.$state.category} ${
+        this.$state.keyword.length > 0 ? ">" : ""
+      } ${this.$state.keyword}</span> 레시피가 있어요
+        `
+    );
+    $searchPageTop.prepend($resultBlock);
 
-      const $pagination = this.$target.querySelector("#paginationContainer");
-      new Pagination($pagination, this.$state.items);
-      const $filter = this.$target.querySelector("#filter");
-      new Filter($filter);
-    };
-    if (this.$state.category === "전체") {
-      if (this.$state.keyword === "") fetchFunc("all");
-      else fetchFunc("keyword");
-    } else {
-      if (this.$state.keyword === "") fetchFunc("category");
-      else fetchFunc();
-    }
+    const $pagination = this.$target.querySelector("#paginationContainer");
+    new Pagination($pagination, this.$state.items);
+    const $filter = this.$target.querySelector("#filter");
+    new Filter($filter);
 
     const $header = this.$target.querySelector("#header");
     new Header($header, {
