@@ -8,6 +8,13 @@ import SnsShare from "../components/SnsShare.js";
 export default class DetailPage extends Component {
   template() {
     return /*html*/ `
+    <head>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="오늘 뭐 먹지?" />
+    <meta property="og:description" content=의 레시피가 궁금하다면? />
+    <meta property="og:url" content=${window.location} />
+    
+    </head>
     <style>
       .spinner-border{
         position:absolute;
@@ -118,7 +125,7 @@ export default class DetailPage extends Component {
     }
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
-
+    document.title = `${this.$state.RCP_NM} | 오늘 뭐 먹지?`;
     const DetailPage = document.querySelector(".DetailPage");
     DetailPage.style.display = "flex";
 
