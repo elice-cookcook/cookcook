@@ -141,6 +141,7 @@ export default class DetailPage extends Component {
     const manualImgKeys = keys.filter(
       (key) => key.includes("MANUAL_IMG") && this.$state[key].length > 0
     );
+    manualImgKeys.sort();
 
     this.$target.querySelector(".DetailPage_RCP_NM").innerHTML =
       this.$state.RCP_NM;
