@@ -8,14 +8,7 @@ export default class SnsShare extends Component {
 
   template() {
     return /*html*/ `
-  <head>
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="오늘 뭐 먹지?" />
-    <meta property="og:description" content=${this.$state.RCP_NM}의 레시피가 궁금하다면? />
-    <meta property="og:url" content=${window.location} />
-</head>
-
-<style>
+  <style>
     .SnsShare {
         display: flex;
         justify-content: center;
@@ -71,8 +64,9 @@ export default class SnsShare extends Component {
     this.$target
       .querySelector(".twitterShare")
       .addEventListener("click", () => {
-        const sendText = `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴\n아래 링크를 클릭하여 레시피를 확인해보세요!`;
-        const pageUrl = window.location;
+        const sendText = `오늘은 내가 ${this.$state.RCP_NM} 요리사🍽️ 아래 링크를 클릭하여 레시피를 확인해보세요!`;
+        const pageUrl =
+          "https://5242-218-51-9-60.ngrok-free.app/src/#/detail/28";
         window.open(
           `https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`
         );
