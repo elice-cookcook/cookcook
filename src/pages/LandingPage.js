@@ -66,6 +66,8 @@ export default class LandingPage extends Component {
             <img class="slideImg" src="./img/main_1.png">
             <img class="slideImg" src="./img/main_2.png">
             <img class="slideImg" src="./img/main_3.png">
+            <img class="slideImg" src="./img/main_4.png">
+            <img class="slideImg" src="./img/main_5.png">
             <img class="slideImg" src="./img/main_1.png">
             <img class="slideImg" src="./img/main_2.png">
             <img class="slideImg" src="./img/main_3.png">
@@ -103,8 +105,8 @@ export default class LandingPage extends Component {
     };
 
     const moveSlide = () => {
-      if(currentSlide === 4){
-        const prevImage = this.$target.querySelector(`#slideImages > :nth-child(5)`);
+      if(currentSlide === 6){
+        const prevImage = this.$target.querySelector(`#slideImages > :nth-child(${currentSlide+1})`);
 
         slide.style.transform = `translate(${currentTranslate}px)`
         prevImage.animate(slideImgShrink,slideImgFrameTiming);
