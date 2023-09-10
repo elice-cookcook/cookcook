@@ -54,24 +54,35 @@ export default class SearchPage extends Component {
     this.$state.items = SearchLogic();
     const $searchPageTop = this.$target.querySelector(".SearchPage_top");
     const $resultBlock = document.createElement("div");
-    $resultBlock.insertAdjacentHTML(
-      "beforeend",
-      `
-          <span class="orange">${
-            this.$state.items.length
-          }</span>개의 <span class="orange">
-          ${this.$state.category} ${
-        this.$state.keyword.length > 0 ? ">" : ""
-      } ${this.$state.keyword}</span> 레시피가 있어요
+    if (this.$state.items.length === 0) {
+      const $resultItemContainer = document.querySelector(
+        "#resultItemContainer"
+      );
+      const $emptyItem = document.createElement("div");
+      $emptyItem.insertAdjacentHTML(
+        "beforeend",
         `
-    );
-    $searchPageTop.prepend($resultBlock);
-
-    const $pagination = this.$target.querySelector("#paginationContainer");
-    new Pagination($pagination, this.$state.items);
-    const $filter = this.$target.querySelector("#filter");
-    new Filter($filter);
-
+        <div class="my-5">검색 결과가 없습니다.</div>
+      `
+      );
+      $resultItemContainer.prepend($emptyItem);
+    } else {
+      $resultBlock.insertAdjacentHTML(
+        "beforeend",
+        `<span class="orange">${
+          this.$state.items.length
+        }</span>개의 <span class="orange">
+        ${this.$state.category} ${
+          this.$state.keyword.length > 0 ? ">" : ""
+        } ${this.$state.keyword}</span> 레시피가 있어요
+        `
+      );
+      $searchPageTop.prepend($resultBlock);
+      const $pagination = this.$target.querySelector("#paginationContainer");
+      new Pagination($pagination, this.$state.items);
+      const $filter = this.$target.querySelector("#filter");
+      new Filter($filter);
+    }
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "search",
