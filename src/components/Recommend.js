@@ -28,6 +28,7 @@ export default class Recommend extends Component {
           width: 110px;
           height: 110px;
           position: relative;
+          cursor: pointer;
         }
         .slide img {
           width: 100%;
@@ -88,12 +89,12 @@ export default class Recommend extends Component {
       this.nextSlide.bind(this)();
     });
 
-    // img를 클릭하면 해당 detailpage로 이동
-    this.addEvent("click", "img", (e) => {
-      // 클릭된 이미지 요소 가져오기
-      const clickedImg = e.target;
-      // 클릭된 이미지의 alt 속성에서 food name 가져오기
-      const foodName = clickedImg.getAttribute("alt");
+    // .slide를 클릭하면 해당 detailpage로 이동
+    this.addEvent("click", ".slide", (e) => {
+      const clickedElem = e.currentTarget;
+
+      // 클릭된 음식의 alt 속성에서 food name 가져오기
+      const foodName = clickedElem.querySelector("img").getAttribute("alt");
 
       // 원본 items 배열에서 foodName과 일치하는 데이터 찾기
       const selectedItem = this.$props.items.find(
