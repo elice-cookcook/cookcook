@@ -51,6 +51,10 @@ export default class LandingPage extends Component {
         #slideImages > :nth-child(2){
           width:180px;
         }
+        .SplashScreenContainer p{
+          color: #32383e;
+          text-align:center;
+        }
 
         .spinner-border {
           width: 40px;
@@ -76,6 +80,7 @@ export default class LandingPage extends Component {
         <div class="d-flex justify-content-center">
           <div class="spinner-border text-warning my-5" role="status"></div>
         </div>
+        <p>레시피를 불러오는 중...</p>
       </div>
       `;
   }
