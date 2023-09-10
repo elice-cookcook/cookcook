@@ -91,7 +91,7 @@ export default class Recommend extends Component {
 
     // .slide를 클릭하면 해당 detailpage로 이동
     this.addEvent("click", ".slide", (e) => {
-      const clickedElem = e.currentTarget;
+      const clickedElem = e.target.closest(".slide");
 
       // 클릭된 음식의 alt 속성에서 food name 가져오기
       const foodName = clickedElem.querySelector("img").getAttribute("alt");
