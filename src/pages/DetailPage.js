@@ -3,10 +3,18 @@ import Header from "../components/Header.js";
 import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
+import SnsShare from "../components/SnsShare.js";
 
 export default class DetailPage extends Component {
   template() {
     return /*html*/ `
+    <head>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="오늘 뭐 먹지?" />
+    <meta property="og:description" content=의 레시피가 궁금하다면? />
+    <meta property="og:url" content=${window.location} />
+    
+    </head>
     <style>
       .spinner-border{
         position:absolute;
@@ -56,27 +64,7 @@ export default class DetailPage extends Component {
     .DetailPage_logo{
         width:90px;
     }
-    
-    .DetailPage_shareElemSection{
-        display:flex;
-        justify-content:center;
-        gap:5px;
-    }
 
-    .DetailPage_shareElem{
-      display:flex;
-      flex-direction:column;
-    }
-    
-    .DetailPage_shareElem > img{
-      width:50px;
-    }
-
-    .DetailPage_shareElem > span{
-      font-size:10px;
-      font-weight:bold;
-      text-align:center;
-    }
 </style>
 
 <div>
@@ -117,10 +105,6 @@ export default class DetailPage extends Component {
             <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
         </div>
         <div class="DetailPage_shareElemSection mt-2 mb-4">
-            <div class="DetailPage_shareElem"><img src="./img/copy.png" /><span>링크복사</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/instagram.png" /><span>인스타그램</span></div>
-            <div class="DetailPage_shareElem"><img src="./img/facebook.png" /><span>페이스북</span></div>
         </div>
     </section>
     <div id="footer"></div>
@@ -141,7 +125,7 @@ export default class DetailPage extends Component {
     }
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
-
+    document.title = `${this.$state.RCP_NM} | 오늘 뭐 먹지?`;
     const DetailPage = document.querySelector(".DetailPage");
     DetailPage.style.display = "flex";
 
@@ -157,6 +141,7 @@ export default class DetailPage extends Component {
     const manualImgKeys = keys.filter(
       (key) => key.includes("MANUAL_IMG") && this.$state[key].length > 0
     );
+    manualImgKeys.sort();
 
     this.$target.querySelector(".DetailPage_RCP_NM").innerHTML =
       this.$state.RCP_NM;
@@ -179,6 +164,10 @@ export default class DetailPage extends Component {
       recipeContainer.append(item);
     });
 
+    new SnsShare(
+      this.$target.querySelector(".DetailPage_shareElemSection"),
+      this.$state
+    );
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
   }
