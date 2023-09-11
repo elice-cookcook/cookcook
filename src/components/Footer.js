@@ -52,8 +52,8 @@ export default class Navigator extends Component {
         <span>elicecookcook@gmail.com</span>
         </div>
     </div>
-    <span class="text-black-50">본 저작물은 <span class="footer_link">식품의약품안전처 - 조리식품의 레시피 DB</span>를 사용했으며,</span>
-    <span class="text-black-50"><span class="footer_link">네이버에서 제공한 나눔글꼴</span>이 적용되어 있습니다.</span>
+    <span class="text-black-50">본 저작물은 <span class="footer_recipeDB footer_link">식품의약품안전처 - 조리식품의 레시피 DB</span>를 사용했으며,</span>
+    <span class="text-black-50"><span class="footer_font footer_link">네이버에서 제공한 나눔글꼴</span>이 적용되어 있습니다.</span>
 </div>
     `;
   }
@@ -73,6 +73,14 @@ export default class Navigator extends Component {
           alert(
             "이메일 클라이언트를 열 수 없습니다. 팝업 차단기 설정을 확인하세요."
           );
+      });
+
+    this.$target
+      .querySelector(".footer_recipeDB")
+      .addEventListener("click", () => {
+        window.open(
+          "http://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01"
+        );
       });
   }
 }
