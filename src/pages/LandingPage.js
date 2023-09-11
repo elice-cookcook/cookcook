@@ -84,7 +84,11 @@ export default class LandingPage extends Component {
       try {
         const result = await api.fetchFoodAll();
         window.localStorage.setItem("recipes", JSON.stringify(result));
-        history.pushState(null, null, location.href + "category");
+        history.pushState(
+          { category: "전체", keyword: "" },
+          null,
+          location.href + "category"
+        );
         history.go(0);
       } catch (error) {
         console.log(error);
