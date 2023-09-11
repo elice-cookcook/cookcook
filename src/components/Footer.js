@@ -63,5 +63,16 @@ export default class Navigator extends Component {
       .addEventListener("click", () => {
         window.open("https://github.com/elice-cookcook/cookcook");
       });
+
+    this.$target
+      .querySelector(".footer_email")
+      .addEventListener("click", () => {
+        const emailUrl = `mailto:${"elicecookcook@gmail.com"}?subject=${""}&body=${""}`;
+        const emailWindow = window.open(emailUrl, "_blank");
+        if (!emailWindow)
+          alert(
+            "이메일 클라이언트를 열 수 없습니다. 팝업 차단기 설정을 확인하세요."
+          );
+      });
   }
 }
