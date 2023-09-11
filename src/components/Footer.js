@@ -82,5 +82,9 @@ export default class Navigator extends Component {
           "http://www.foodsafetykorea.go.kr/api/openApiInfo.do?menu_grp=MENU_GRP31&menu_no=661&show_cnt=10&start_idx=1&svc_no=COOKRCP01"
         );
       });
+
+    this.$target.querySelector(".footer_font").addEventListener("click", () => {
+      window.open("https://noonnu.cc/font_page/1053");
+    });
   }
 }
