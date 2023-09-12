@@ -50,6 +50,7 @@ export default class LandingPage extends Component {
         }
         #slideImages > :nth-child(2){
           width:180px;
+          height:auto;
         }
         .SplashScreenContainer p{
           color: #32383e;
@@ -67,14 +68,14 @@ export default class LandingPage extends Component {
         </div>
         <div class="slideContainer">
           <div id="slideImages">
-            <img class="slideImg" src="./img/main_1.png">
-            <img class="slideImg" src="./img/main_2.png">
-            <img class="slideImg" src="./img/main_3.png">
-            <img class="slideImg" src="./img/main_4.png">
-            <img class="slideImg" src="./img/main_5.png">
-            <img class="slideImg" src="./img/main_1.png">
-            <img class="slideImg" src="./img/main_2.png">
-            <img class="slideImg" src="./img/main_3.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00215_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00328_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00301_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00263_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00388_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00215_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00328_2.png">
+            <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00301_2.png">
           </div>
         </div>
         <div class="d-flex justify-content-center">
