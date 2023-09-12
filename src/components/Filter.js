@@ -31,6 +31,11 @@ export default class Filter extends Component {
           border: 1px solid #ff9c00;
           box-shadow: 0px 0px 0px 1px #ff9c00;
           background-color: #eaeaea !important;
+          cursor: pointer;
+          border-radius: 2px;
+        }
+        li:hover {
+          color: #ff9c00;
         }
       </style> 
       <img src = "./img/filter.png">
