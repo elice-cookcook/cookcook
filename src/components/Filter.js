@@ -31,6 +31,11 @@ export default class Filter extends Component {
           border: 1px solid #ff9c00;
           box-shadow: 0px 0px 0px 1px #ff9c00;
           background-color: #eaeaea !important;
+          cursor: pointer;
+          border-radius: 2px;
+        }
+        li:hover {
+          color: #ff9c00;
         }
       </style> 
       <img src = "./img/filter.png">
@@ -40,8 +45,12 @@ export default class Filter extends Component {
         <ul>
           <li data-sort="nameAsc">👨‍🍳 이름 오름차순</li>
           <li data-sort="nameDesc">👩‍🍳 이름 내림차순</li>
-          <li data-sort="caloriesLow">👨‍🍳 열량 낮은순</li>
-          <li data-sort="caloriesHigh">👩‍🍳 열량 높은순</li>
+          <li data-sort="caloriesLow">🔻 열량 낮은순</li>
+          <li data-sort="caloriesHigh">🔺 열량 높은순</li>
+          <li data-sort="carLow">🍙 탄수화물 낮은순</li>
+          <li data-sort="proHigh">🍖 단백질 높은순</li>
+          <li data-sort="fatLow">🧀 지방 낮은순</li>
+          <li data-sort="naLow">🍕 나트륨 낮은순</li>
         </ul>
         `
           : ""
@@ -70,16 +79,20 @@ export default class Filter extends Component {
     // sortType에 따라 데이터 정렬
     if (sortType === "nameAsc") {
       sortedItems.sort((a, b) => a.RCP_NM.localeCompare(b.RCP_NM, "ko-KR"));
-      // console.log(sortedItems);
     } else if (sortType === "nameDesc") {
       sortedItems.sort((a, b) => b.RCP_NM.localeCompare(a.RCP_NM, "ko-KR"));
-      // console.log(sortedItems);
     } else if (sortType === "caloriesLow") {
       sortedItems.sort((a, b) => parseInt(a.INFO_ENG) - parseInt(b.INFO_ENG));
-      // console.log(sortedItems);
     } else if (sortType === "caloriesHigh") {
       sortedItems.sort((a, b) => parseInt(b.INFO_ENG) - parseInt(a.INFO_ENG));
-      // console.log(sortedItems);
+    } else if (sortType === "carLow") {
+      sortedItems.sort((a, b) => parseInt(a.INFO_CAR) - parseInt(b.INFO_CAR));
+    } else if (sortType === "proHigh") {
+      sortedItems.sort((a, b) => parseInt(b.INFO_PRO) - parseInt(a.INFO_PRO));
+    } else if (sortType === "fatLow") {
+      sortedItems.sort((a, b) => parseInt(a.INFO_FAT) - parseInt(b.INFO_FAT));
+    } else if (sortType === "naLow") {
+      sortedItems.sort((a, b) => parseInt(a.INFO_NA) - parseInt(b.INFO_NA));
     }
 
     // 필터링 및 정렬된 데이터를 로컬 스토리지에 저장
