@@ -64,7 +64,9 @@ export default class DetailPage extends Component {
     .DetailPage_logo{
         width:90px;
     }
-
+    .hidden{
+      display:none;
+    }
 </style>
 
 <div>
@@ -75,6 +77,11 @@ export default class DetailPage extends Component {
     <h3><span class="DetailPage_RCP_NM orange"></span> 요리사🍴</h3>
     <p class="DetailPage_INFO_ENG orange"></p>
     <img class="DetailPage_img w-50" src="https://placehold.co/240x240?text=image" />
+
+    <div class="DetailPage_menu">
+    <button id="test"></button>
+    </div>
+
     <div>
         <div class="DetailPage_tip title my-3">
             <hr width="20%" />
@@ -135,6 +142,12 @@ export default class DetailPage extends Component {
       category: "",
       keyword: history.state ? history.state.keyword : "",
     });
+
+    const testBtn = this.$target.querySelector("#test");
+    testBtn.addEventListener('click',()=>{
+      const images = this.$target.querySelectorAll(".RecipeItem img");
+      images.forEach(image=>image.classList.toggle("hidden"));
+    })
 
     const recipeContainer = this.$target.querySelector("#recipe");
     const keys = Object.keys(this.$state);
