@@ -7,7 +7,7 @@ export default function SearchLogic() {
 
   const allSearch = () => {
     data.forEach((item) => {
-        resultItems.push(item);
+      resultItems.push(item);
     });
   };
   const categorySearch = () => {
@@ -17,12 +17,25 @@ export default function SearchLogic() {
   };
   const keywordSearch = () => {
     data.forEach((item) => {
-      item.RCP_NM.includes(keyword) ? resultItems.push(item) : null;
+      let recipeName = item.RCP_NM;
+      let replaceRecipeName = item.RCP_NM.replace(/ /g, "");
+      recipeName.includes(keyword) ||
+      recipeName.includes(keyword.replace(/ /g, "")) ||
+      recipeName.includes(keyword) ||
+      replaceRecipeName.includes(keyword)
+        ? resultItems.push(item)
+        : null;
     });
   };
   const categoryAndKeywordSearch = () => {
+    let recipeName = item.RCP_NM;
+    let replaceRecipeName = item.RCP_NM.replace(/ /g, "");
     data.forEach((item) => {
-      item.RCP_PAT2.includes(category) && item.RCP_NM.includes(keyword)
+      item.RCP_PAT2.includes(category) &&
+      (recipeName.includes(keyword) ||
+        recipeName.includes(keyword.replace(/ /g, "")) ||
+        recipeName.includes(keyword) ||
+        replaceRecipeName.includes(keyword))
         ? resultItems.push(item)
         : null;
     });
