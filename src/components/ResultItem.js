@@ -63,6 +63,7 @@ export default class ResultItem extends Component {
         font-weight:bold;
     }
 
+
 </style>
 <div class="ResultItem container mx-auto my-3 p-2 w-95">
     <div class="ResultItem_imgSection">
@@ -80,11 +81,12 @@ export default class ResultItem extends Component {
 
   mounted() {
     let id = this.$props.RCP_SEQ;
+
     this.$target.querySelector(`.ResultItem`).addEventListener("click", () => {
       history.pushState(
         { data: this.$props, keyword: history.state.keyword },
         null,
-        location.href.replace("/search", `/detail/${id}`)
+        location.href.replace(`/search`, `/detail/${id}`)
       );
       history.go(0);
     });
