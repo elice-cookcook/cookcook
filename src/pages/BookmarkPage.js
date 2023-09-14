@@ -15,6 +15,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "닭가슴살",
           RCP_PAT2: "국",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "치킨 쇠고기 땅콩소스 꼬치",
@@ -23,6 +24,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "가슴살",
           RCP_PAT2: "반찬",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "치킨완자스프",
@@ -31,6 +33,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "",
           RCP_PAT2: "반찬",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "크림소스치킨롤",
@@ -39,6 +42,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "",
           RCP_PAT2: "반찬",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "크림소스치킨롤",
@@ -47,6 +51,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "",
           RCP_PAT2: "밥",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "크림소스치킨롤",
@@ -56,6 +61,7 @@ export default class BookmarkPage extends Component {
           HASH_TAG: "",
           RCP_PAT2: "반찬",
           HASH_TAG: "닭가슴살",
+          RCP_SEQ: 28,
         },
         {
           RCP_NM: "크림소스치킨롤",
@@ -64,6 +70,7 @@ export default class BookmarkPage extends Component {
           INFO_ENG: "234.12",
           HASH_TAG: "",
           RCP_PAT2: "반찬",
+          RCP_SEQ: 28,
           HASH_TAG: "닭가슴살",
         },
         {
@@ -72,6 +79,7 @@ export default class BookmarkPage extends Component {
             "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
           INFO_ENG: "234.12",
           HASH_TAG: "",
+          RCP_SEQ: 28,
           RCP_PAT2: "반찬",
         },
       ],
@@ -99,6 +107,10 @@ export default class BookmarkPage extends Component {
         justify-content:space-between;
     }
 
+    .BookmarkPage_checkedNum{
+      font-size:12px;
+    }
+
     .BookmarkPage_top > div >.btn {
       --bs-btn-padding-y: .25rem; 
       --bs-btn-padding-x: .5rem; 
@@ -119,6 +131,7 @@ export default class BookmarkPage extends Component {
     <div class="BookmarkPage_top mt-2">
         <span class="orange">찜 목록 > ${this.$state.data.length}개의 레시피가 있어요.</span>
         <div>
+        <span class="BookmarkPage_checkedNum orange mx-1">0개 선택</span>
         <span class="BookmarkPage_deleteBtn btn btn-outline-warning" data-bs-toggle="button">삭제</span>
         <span class="BookmarkPage_checkeBtn btn btn-outline-warning" data-bs-toggle="button">선택</span>
         </div>
@@ -130,7 +143,6 @@ export default class BookmarkPage extends Component {
     `;
   }
   async mounted() {
-    console.log(this.$state.toggleCheck);
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "bookmark",
@@ -138,17 +150,26 @@ export default class BookmarkPage extends Component {
       keyword: history.state ? history.state.keyword : "",
     });
 
+    const checkdNum = this.$target.querySelector(".BookmarkPage_checkedNum");
     const toggleBtn = this.$target.querySelector(".BookmarkPage_checkeBtn");
     const deleteBtn = this.$target.querySelector(".BookmarkPage_deleteBtn");
+
     if (this.$state.toggleCheck) {
       toggleBtn.classList.add("active");
       toggleBtn.innerHTML = "취소";
       deleteBtn.style.display = "";
+      checkdNum.style.display = "";
     } else {
       toggleBtn.classList.remove("active");
       toggleBtn.innerHTML = "선택";
       deleteBtn.style.display = "none";
+      checkdNum.style.display = "none";
     }
+
+    deleteBtn.addEventListener("click", () => {
+      alert(`0개의 레시피가 삭제됩니다.`);
+      this.setup();
+    });
 
     toggleBtn.addEventListener(
       "click",
