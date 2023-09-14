@@ -89,6 +89,10 @@ export default class DetailPage extends Component {
       #header{
         display:none;
       }
+      .content{
+        background-color: #fcc999 !important;
+        -webkit-print-color-adjust:exact;
+      }
       .DetailPage_bottom{
         display:none;
       }
