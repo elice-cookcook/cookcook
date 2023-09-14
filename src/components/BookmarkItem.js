@@ -1,11 +1,24 @@
 import Component from "../core/Component.js";
 
 export default class BookmarkItem extends Component {
+  constructor($target, $props, isSelected) {
+    super($target, $props); // Component의 생성자 호출
+    this.isSelected = isSelected;
+    this.setState({
+      isSelected: this.isSelected,
+    });
+  }
+
+  setup() {
+    this.setState({
+      isSelected: false,
+    });
+  }
+
   template() {
     let name = this.$props.RCP_NM;
     let imgUrl = this.$props.ATT_FILE_NO_MAIN;
     let hash_tag = this.$props.HASH_TAG;
-    let category = this.$props.RCP_PAT2;
     let calorie = this.$props.INFO_ENG;
 
     return /*html*/ `
@@ -21,9 +34,9 @@ export default class BookmarkItem extends Component {
     .BookmarkItem_delete{
       z-index:1;
       width:100%; 
-      height:10px;
-      color:gray;
-  text-align: right;
+      height:0;
+      text-align: right;
+      zoom:1.5;
     }
 
     .BookmarkItem_imgDiv {
@@ -61,7 +74,7 @@ export default class BookmarkItem extends Component {
 </style>
 
 <div class="BookmarkItem p-1">
-        <span class="BookmarkItem_delete">❌</span>
+        <span class="BookmarkItem_delete"><input type="checkbox"/></span>
     <div class="BookmarkItem_imgDiv">
       <img src="${imgUrl}" class="BookmarkItem_img" />  </div>
     <div class="BookmarkItem_nameDiv">
@@ -76,8 +89,12 @@ export default class BookmarkItem extends Component {
   }
 
   mounted() {
+    // console.log(this.$state);
     let id = this.$props.RCP_SEQ;
-
+    this.$target.querySelector(".BookmarkItem_delete").style.display = this
+      .$state.isSelected
+      ? ""
+      : "none";
     this.$target
       .querySelector(`.BookmarkItem`)
       .addEventListener("click", () => {
