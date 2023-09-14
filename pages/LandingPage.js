@@ -141,7 +141,7 @@ export default class LandingPage extends Component {
         history.pushState(
           { category: "전체", keyword: "" },
           null,
-          location.href + "category"
+          location.origin + '#category',
         );
         history.go(0);
       } catch (error) {

@@ -84,7 +84,7 @@ export default class ResultItem extends Component {
       history.pushState(
         { data: this.$props, keyword: history.state.keyword },
         null,
-        location.href.replace("/search", `/detail/${id}`)
+        location.href.replace("search", `detail/${id}`)
       );
       history.go(0);
     });

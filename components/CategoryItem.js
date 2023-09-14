@@ -65,7 +65,7 @@ export default class Navigator extends Component {
           history.pushState(
             { category: this.$categoryName[idx], keyword: "" },
             null,
-            location.href.replace("/category", "/search")
+            location.href.replace("category", "search")
           );
           history.go(0);
         });

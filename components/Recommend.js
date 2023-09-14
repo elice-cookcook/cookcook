@@ -106,7 +106,7 @@ export default class Recommend extends Component {
         history.pushState(
           { data: selectedItem, keyword: "" },
           null,
-          location.href.replace("/category", `/detail/${selectedItem.RCP_SEQ}`)
+          location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );
         history.go(0);
       }
