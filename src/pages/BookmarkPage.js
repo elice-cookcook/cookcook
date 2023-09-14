@@ -132,7 +132,7 @@ export default class BookmarkPage extends Component {
         <span class="orange">찜 목록 > ${this.$state.data.length}개의 레시피가 있어요.</span>
         <div>
         <span class="BookmarkPage_checkedNum orange mx-1">0개 선택</span>
-        <span class="BookmarkPage_deleteBtn btn btn-outline-warning" data-bs-toggle="button">삭제</span>
+        <span class="BookmarkPage_deleteBtn btn btn-outline-warning">삭제</span>
         <span class="BookmarkPage_checkeBtn btn btn-outline-warning" data-bs-toggle="button">선택</span>
         </div>
         </div>
@@ -167,8 +167,7 @@ export default class BookmarkPage extends Component {
     }
 
     deleteBtn.addEventListener("click", () => {
-      alert(`0개의 레시피가 삭제됩니다.`);
-      this.setup();
+      if (confirm(`0개의 레시피가 삭제됩니다.`)) this.setup();
     });
 
     toggleBtn.addEventListener(
