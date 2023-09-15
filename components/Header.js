@@ -1,4 +1,4 @@
-import Component from '../core/Component.js';
+import Component from "../core/Component.js";
 export default class Header extends Component {
   template() {
     return `
@@ -16,6 +16,7 @@ export default class Header extends Component {
           height: 40px;
           float: left;
           padding: 5px;
+          cursor: pointer;
         }
         .input_container {
           display: flex;
@@ -35,6 +36,9 @@ export default class Header extends Component {
           width: 32px;
           height: 30px;
         }
+        .bookmark_button, .arrow {
+          cursor: pointer;
+        }
         </style>
         <div class="container">
           <img class="logo" src="./img/cookcooklogo.png">
@@ -51,9 +55,10 @@ export default class Header extends Component {
             </svg>
           </div>
           </button>
-          <div class="home_button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
+          <div class="bookmark_button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+              <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+              <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
             </svg>
           </div>
         </div>
@@ -62,33 +67,64 @@ export default class Header extends Component {
   mounted() {
     const $logo = this.$target.querySelector(".logo");
     const $arrow = this.$target.querySelector(".arrow");
-    const $homeButton = this.$target.querySelector(".home_button");
-    if(this.$props.page === "detail") {
+    const $bookmarkButton = this.$target.querySelector(".bookmark_button");
+    if (this.$props.page === "detail") {
       $logo.style.display = "none";
-      $homeButton.style.color = "white";
-    }
-    else {
+      $bookmarkButton.style.color = "white";
+    } else {
       $arrow.style.display = "none";
     }
-    if(this.$props.page !== "category") {
-      $homeButton.style.display = "block";
+    if (this.$props.page !== "category") {
+      $bookmarkButton.style.display = "block";
     }
   }
   setEvent() {
     const pageMove = () => {
-      const keyword = this.$target.querySelector('.header_input').value;
-      history.pushState({category: '전체', keyword: keyword}, null, location.href.replace('/category', '/search'));
+      const keyword = this.$target.querySelector(".header_input").value;
+      history.pushState(
+        { category: "전체", keyword: keyword },
+        null,
+        location.href.replace("/category", "/search")
+      );
       history.go(0);
-    }
-    this.addEvent('click', '.header_input-button', (e) => {
+    };
+    this.addEvent("click", ".logo", (e) => {
+      e.preventDefault();
+      history.pushState(
+        { category: "전체", keyword: "" },
+        null,
+        location.origin + "#category"
+      );
+      history.go(0);
+    });
+    this.addEvent("click", ".bookmark_button", (e) => {
+      e.preventDefault();
+      history.pushState(null, null, location.origin + "#bookmark");
+      history.go(0);
+    });
+    this.addEvent("click", ".arrow", (e) => {
+      e.preventDefault();
+      console.log(this.$props.pagination);
+      history.pushState(
+        {
+          category: history.state.category,
+          keyword: history.state.keyword,
+          pagination: this.$props.pagination,
+        },
+        null,
+        location.origin + "#search"
+      );
+      history.go(0);
+    });
+    this.addEvent("click", ".header_input-button", (e) => {
       e.preventDefault();
       pageMove();
-    })
-    this.addEvent('keydown', '.header_input', (e) => {
+    });
+    this.addEvent("keydown", ".header_input", (e) => {
       const code = e.code;
-      if(code == 'Enter'){  
+      if (code == "Enter") {
         pageMove();
       }
-    })
+    });
   }
 }

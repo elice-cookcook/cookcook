@@ -28,9 +28,9 @@ export default function SearchLogic() {
     });
   };
   const categoryAndKeywordSearch = () => {
-    let recipeName = item.RCP_NM;
-    let replaceRecipeName = item.RCP_NM.replace(/ /g, "");
     data.forEach((item) => {
+      let recipeName = item.RCP_NM;
+      let replaceRecipeName = item.RCP_NM.replace(/ /g, "");
       item.RCP_PAT2.includes(category) &&
       (recipeName.includes(keyword) ||
         recipeName.includes(keyword.replace(/ /g, "")) ||

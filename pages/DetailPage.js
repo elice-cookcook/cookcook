@@ -194,6 +194,7 @@ export default class DetailPage extends Component {
       page: "detail",
       category: "",
       keyword: history.state ? history.state.keyword : "",
+      pagination: history.state.pagination,
     });
 
     const hideBtn = this.$target.querySelector("#hideBtn");
