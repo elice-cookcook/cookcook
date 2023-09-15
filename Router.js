@@ -1,4 +1,4 @@
-import Component from './core/Component.js';
+import Component from "./core/Component.js";
 
 export default class Router extends Component {
   setup() {
@@ -15,23 +15,23 @@ export default class Router extends Component {
     const currentRoute = this.$state.routes.find((route) => {
       return route.fragment === window.location.hash;
     });
-
-    if (!currentRoute) {
-      window.location.href = './#';
+    if(window.location.hash === '')
+    {
       this.$state.routes[0].component();
       return;
     }
-
+    if (!currentRoute) {
+      window.location.href = "./#";
+      return;
+    }
     currentRoute.component();
   }
 
   start() {
-    window.addEventListener('hashchange', () => this.checkRoutes());
-
+    window.addEventListener("hashchange", () => this.checkRoutes());
     if (!window.location.hash) {
-      window.location.hash = '#/';
+      window.location.hash = '#';
     }
-
     this.checkRoutes();
   }
 }
