@@ -64,7 +64,51 @@ export default class DetailPage extends Component {
     .DetailPage_logo{
         width:90px;
     }
+    .DetailPage_menu{
+        display:flex;
+        justify-content: flex-end;
+    }
+    .DetailPage_menu button{
+        margin-left:10px;
+        border: 1px solid gray;
+        border-radius:5px;
+    }
+    .buttonBefore{
+      color: gray;
+      background-color: white;
+    }
+    .buttonAfter{
+      color: white;
+      background-color: gray;
+    }
+    .DetailPage_menu button:focus{
+        box-shadow:none;
+    }
+    .hidden{
+        display:none;
+    }
 
+    @media print{
+      @page{
+        margin:0;
+      }
+      #header{
+        display:none;
+      }
+      .content{
+        background-color: #fcc999 !important;
+        -webkit-print-color-adjust:exact;
+      }
+      .DetailPage_bottom{
+        display:none;
+      }
+      .DetailPage_menu{
+        display:none;
+      }
+      #footer{
+        display:none;
+      }
+    }
 </style>
 
 <div>
@@ -97,7 +141,23 @@ export default class DetailPage extends Component {
             <div class="titleText orange">레시피</div>
             <hr width="20%" />
         </div>
-        <div id="recipe" class="DeatailPage_recipe p-3"></div>
+
+        <div class="DetailPage_menu">
+        <button id="hideBtn" class="buttonBefore">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+            </svg>
+        </button>
+        <button id="printBtn" class="buttonBefore">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div id="recipe" class="DeatailPage_recipe p-3"></div>
     </div>
         <hr width="90%"/>
     <section class="DetailPage_bottom">
@@ -135,6 +195,19 @@ export default class DetailPage extends Component {
       category: "",
       keyword: history.state ? history.state.keyword : "",
     });
+
+    const hideBtn = this.$target.querySelector("#hideBtn");
+    hideBtn.addEventListener('click',() => {
+      const images = this.$target.querySelectorAll(".RecipeItem img");
+      hideBtn.classList.toggle("buttonBefore");
+      hideBtn.classList.toggle("buttonAfter");
+      images.forEach(image=>image.classList.toggle("hidden"));
+    })
+
+    const printBtn = this.$target.querySelector("#printBtn");
+    printBtn.addEventListener('click',() => {
+      window.print();
+    })
 
     const recipeContainer = this.$target.querySelector("#recipe");
     const keys = Object.keys(this.$state);
