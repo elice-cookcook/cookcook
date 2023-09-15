@@ -88,6 +88,13 @@ export default class DetailPage extends Component {
         display:none;
     }
 
+    .suggestionItem{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 110px;
+    }
+
     @media print{
       @page{
         margin:0;
@@ -159,7 +166,18 @@ export default class DetailPage extends Component {
 
     <div id="recipe" class="DeatailPage_recipe p-3"></div>
     </div>
-        <hr width="90%"/>
+    <hr width="90%"/>
+
+    <div class="suggestions">
+      <p>이런 레시피는 어떠세요?</p>
+      <div class="suggestionBox">
+      <div class="suggestionItem">
+      <img src="">
+      </div>
+      </div>
+      <hr width="401px"/>
+    </div>
+
     <section class="DetailPage_bottom">
         <div class="DetailPage_">
             <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
