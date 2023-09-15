@@ -32,6 +32,7 @@ export default class BookmarkItem extends Component {
             justify-content: space-around;
             cursor: pointer;
             border-radius:10px;
+            padding:0.3rem;
         }
 
         .BookmarkItem_checkboxDiv {
@@ -97,6 +98,7 @@ export default class BookmarkItem extends Component {
 
   mounted() {
     let id = this.$props.RCP_SEQ;
+    const bookmarkItem = this.$target.querySelector(".BookmarkItem");
     const checkboxDiv = this.$target.querySelector(".BookmarkItem_checkboxDiv");
     const checkbox = this.$target.querySelector(".BookmarkItem_checkbox");
     const clickableDiv = this.$target.querySelector(
@@ -109,7 +111,7 @@ export default class BookmarkItem extends Component {
       // clickableDiv.style.border = checkbox.checked
       //   ? "orange solid 1px"
       //   : "none";
-      clickableDiv.style.background = checkbox.checked ? "#ffebcb" : "none";
+      bookmarkItem.style.background = checkbox.checked ? "#ffebcb" : "none";
       clickableDiv.style.borderRadius = "5px";
     });
 

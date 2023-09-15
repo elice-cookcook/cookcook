@@ -104,6 +104,7 @@ export default class BookmarkPage extends Component {
     .BookmarkPage_top {
         width: 100%;
         display:flex;
+        padding : 0.5rem 0.5rem 0.3rem 0.5rem;
         justify-content:space-between;
     }
 
@@ -120,7 +121,7 @@ export default class BookmarkPage extends Component {
     .BookmarkContainer {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;     
-        gap:10px;
+        gap:0.2rem;
     }
 
 </style>
@@ -128,15 +129,15 @@ export default class BookmarkPage extends Component {
 <div class="BookmarkPage px-3">
     <div id="header"></div>
     <div id="nav"></div>
-    <div class="BookmarkPage_top mt-2">
-        <span class="orange">찜 목록 > ${this.$state.data.length}개의 레시피가 있어요.</span>
+    <div class="BookmarkPage_top">
+        <span class="orange">찜 목록 &nbsp;>&nbsp; ${this.$state.data.length}개의 레시피가 있어요.</span>
         <div>
         <span class="BookmarkPage_checkedNum orange mx-1">0개 선택</span>
         <span class="BookmarkPage_deleteBtn btn btn-outline-warning">삭제</span>
         <span class="BookmarkPage_checkeBtn btn btn-outline-warning" data-bs-toggle="button">선택</span>
         </div>
         </div>
-    <div class="BookmarkContainer p-1"></div>
+    <div class="BookmarkContainer"></div>
     <div id="paginationContainer"></div>
     <div id="footer"></div>
 </div>
