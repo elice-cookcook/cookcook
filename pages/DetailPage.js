@@ -4,16 +4,40 @@ import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
+import {
+  getLocalStorageData,
+  setLocalStorageData,
+} from "../utils/useLocalStorage.js";
 
 export default class DetailPage extends Component {
-  template() {
-    return /*html*/ `<head>
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="오늘 뭐 먹지?" />
-    <meta property="og:description" content=의 레시피가 궁금하다면? />
-    <meta property="og:url" content=${window.location} />
+  async setup() {
+    if (!history.state || !history.state.data) {
+      const getCurrentIdFromHash = () => {
+        const hashDetail = window.location.hash.substring(1);
+        const match = hashDetail.match(/detail\/(\d+)/);
+        return match ? match[1] : null;
+      };
 
-</head>
+      const currentId = getCurrentIdFromHash();
+      const data = await api.fetchFoodById(currentId);
+      history.pushState({ data: data, keyword: "" }, null);
+    }
+    const isBookmarked = getLocalStorageData("bookmark").find(
+      (item) => item.RCP_SEQ === history.state.data.RCP_SEQ
+    )
+      ? true
+      : false;
+    this.setState({
+      data: history.state.data,
+      isBookmarked: isBookmarked,
+    });
+
+    document.title = `${this.$state.data.RCP_NM} | 오늘 뭐 먹지?`;
+    console.log("setup,", this.$state);
+  }
+
+  template() {
+    return /*html*/ `
 <style>
     .spinner-border {
         position: absolute;
@@ -26,13 +50,11 @@ export default class DetailPage extends Component {
         margin: 0 auto;
         border: 1px solid #eaeaea;
         width: 480px;
-        height: auto;
         left: 50%;
         min-height: 100%;
         flex-direction: column;
         align-items: center;
         word-break: keep-all;
-        padding-bottom: 78px;
     }
 
     .DetailPage_bookmarkDiv {
@@ -116,12 +138,6 @@ export default class DetailPage extends Component {
         display: none;
     }
 
-    #footer{
-        height: 78px;
-        position : relative;
-        transform : translateY(-100%);
-    }
-
     @media print {
         @page {
             margin: 0;
@@ -155,9 +171,9 @@ export default class DetailPage extends Component {
     <div class="DetailPage px-3">
         <div id="header"></div>
         <div class="DetailPage_bookmarkDiv">
-            <svg class="DetailPage_bookmarkAdd" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+            <svg class="DetailPage_bookmarkAdd hidden" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                 <path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-.553.576-1.004 1.251-1.316 2h-3.5v17.582l4-3.512 4 3.512v-8.763c.805.19 1.379.203 2 .156zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-2v-2h-1v2h-2v1h2v2h1v-2h2v-1z" /></svg>
-        <svg class="DetailPage_bookmarkRemove" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-1.123 1.168-1.816 2.752-1.816 4.5 0 3.736 3.162 6.768 7 6.475zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-5v1h5v-1z"/></svg>
+        <svg class="DetailPage_bookmarkRemove hidden" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-1.123 1.168-1.816 2.752-1.816 4.5 0 3.736 3.162 6.768 7 6.475zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-5v1h5v-1z"/></svg>
                 </div>
         <h3 class="mt-4">오늘은 내가 </h3>
         <h3><span class="DetailPage_RCP_NM orange"></span> 요리사🍴</h3>
@@ -211,26 +227,14 @@ export default class DetailPage extends Component {
             <div class="DetailPage_shareElemSection mt-2 mb-4">
             </div>
         </section>
-    </div>
     <div id="footer"></div>
+    </div>
 </div>
     `;
   }
   async mounted() {
-    if (history.state && history.state.data) this.$state = history.state.data;
-    else {
-      const getCurrentIdFromHash = () => {
-        const hashDetail = window.location.hash.substring(1);
-        const match = hashDetail.match(/detail\/(\d+)/);
-        return match ? match[1] : null;
-      };
-
-      const currentId = getCurrentIdFromHash();
-      this.$state = await api.fetchFoodById(currentId);
-    }
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
-    document.title = `${this.$state.RCP_NM} | 오늘 뭐 먹지?`;
     const DetailPage = document.querySelector(".DetailPage");
     DetailPage.style.display = "flex";
 
@@ -240,29 +244,49 @@ export default class DetailPage extends Component {
       category: "",
       keyword: history.state ? history.state.keyword : "",
     });
-    const bookmark =
-      localStorage.getItem("bookmark") === null
-        ? []
-        : JSON.parse(localStorage.getItem("bookmark"));
+
     const bookmarkRemoveBtn = this.$target.querySelector(
       ".DetailPage_bookmarkRemove"
     );
-    // bookmarkRemoveBtn.style.display = "none";
 
     const bookmarkAddBtn = this.$target.querySelector(
       ".DetailPage_bookmarkAdd"
     );
-    bookmarkAddBtn.style.display = "none";
+
+    if (!this.$state.isBookmarked) {
+      bookmarkAddBtn.classList.remove("hidden");
+      bookmarkRemoveBtn.classList.add("hidden");
+    } else {
+      bookmarkRemoveBtn.classList.remove("hidden");
+      bookmarkAddBtn.classList.add("hidden");
+    }
 
     bookmarkAddBtn.addEventListener("click", () => {
-      // alert(`${this.$state.RCP_NM}를 북마크 리스트에 추가했습니다.`);
-      const currentBookmark =
-        localStorage.getItem("bookmark") === null
-          ? []
-          : JSON.parse(localStorage.getItem("bookmark"));
+      alert(`${this.$state.data.RCP_NM}를 북마크 리스트에 추가했습니다.`);
+      const currentBookmark = getLocalStorageData("bookmark");
+      currentBookmark.unshift(this.$state.data);
+      setLocalStorageData("bookmark", currentBookmark);
+      this.setState({
+        isBookmarked: true,
+        data: this.$state.data,
+      });
+    });
+
+    bookmarkRemoveBtn.addEventListener("click", () => {
+      alert(`${this.$state.data.RCP_NM}를 북마크 리스트에서 삭제했습니다.`);
+      let currentBookmark = getLocalStorageData("bookmark");
       console.log(currentBookmark);
-      currentBookmark.unshift(this.$state);
-      localStorage.setItem("bookmark", JSON.stringify(currentBookmark));
+
+      setLocalStorageData(
+        "bookmark",
+        currentBookmark.filter(
+          (item) => item.RCP_SEQ !== this.$state.data.RCP_SEQ
+        )
+      );
+      this.setState({
+        isBookmarked: false,
+        data: this.$state.data,
+      });
     });
 
     const hideBtn = this.$target.querySelector("#hideBtn");
@@ -279,28 +303,28 @@ export default class DetailPage extends Component {
     });
 
     const recipeContainer = this.$target.querySelector("#recipe");
-    const keys = Object.keys(this.$state);
+    const keys = Object.keys(this.$state.data);
     const manualImgKeys = keys.filter(
-      (key) => key.includes("MANUAL_IMG") && this.$state[key].length > 0
+      (key) => key.includes("MANUAL_IMG") && this.$state.data[key].length > 0
     );
     manualImgKeys.sort();
 
     this.$target.querySelector(".DetailPage_RCP_NM").innerHTML =
-      this.$state.RCP_NM;
+      this.$state.data.RCP_NM;
     this.$target.querySelector(".DetailPage_INFO_ENG").innerHTML =
-      this.$state.INFO_ENG + " kcal";
+      this.$state.data.INFO_ENG + " kcal";
     this.$target.querySelector(".DetailPage_img").src =
-      this.$state.ATT_FILE_NO_MAIN;
+      this.$state.data.ATT_FILE_NO_MAIN;
     this.$target.querySelector(".DetailPage_RCP_NA_TIP").innerHTML =
-      this.$state.RCP_NA_TIP;
+      this.$state.data.RCP_NA_TIP;
     this.$target.querySelector(".DetailPage_RCP_PARTS_DTLS").innerHTML =
-      this.$state.RCP_PARTS_DTLS;
+      this.$state.data.RCP_PARTS_DTLS;
 
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
       const props = {
-        imgUrl: this.$state[manualImgKey],
-        recipe: this.$state[i < 9 ? `MANUAL0${i + 1}` : `MANUAL${i + 1}`],
+        imgUrl: this.$state.data[manualImgKey],
+        recipe: this.$state.data[i < 9 ? `MANUAL0${i + 1}` : `MANUAL${i + 1}`],
       };
       new RecipeItem(item, props);
       recipeContainer.append(item);
@@ -308,7 +332,7 @@ export default class DetailPage extends Component {
 
     new SnsShare(
       this.$target.querySelector(".DetailPage_shareElemSection"),
-      this.$state
+      this.$state.data
     );
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);

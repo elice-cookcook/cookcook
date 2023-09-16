@@ -88,7 +88,7 @@ export default class BookmarkItem extends Component {
             <span class="BookmarkItem_name mt-1">${name}</span>
             <span class="BookmarkItem_calorie">${calorie}kcal</span>
             <span class="BookmarkItem_hashtag orange">${
-              hash_tag.length > 0 ? "# " + hash_tag : ""
+              hash_tag.length > 0 ? "#" + hash_tag : ""
             }<span>
         </div>
         </div>
