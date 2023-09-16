@@ -197,17 +197,17 @@ export default class DetailPage extends Component {
     });
 
     const hideBtn = this.$target.querySelector("#hideBtn");
-    hideBtn.addEventListener('click',() => {
+    hideBtn.addEventListener("click", () => {
       const images = this.$target.querySelectorAll(".RecipeItem img");
       hideBtn.classList.toggle("buttonBefore");
       hideBtn.classList.toggle("buttonAfter");
-      images.forEach(image=>image.classList.toggle("hidden"));
-    })
+      images.forEach((image) => image.classList.toggle("hidden"));
+    });
 
     const printBtn = this.$target.querySelector("#printBtn");
-    printBtn.addEventListener('click',() => {
+    printBtn.addEventListener("click", () => {
       window.print();
-    })
+    });
 
     const recipeContainer = this.$target.querySelector("#recipe");
     const keys = Object.keys(this.$state);
@@ -226,6 +226,28 @@ export default class DetailPage extends Component {
       this.$state.RCP_NA_TIP;
     this.$target.querySelector(".DetailPage_RCP_PARTS_DTLS").innerHTML =
       this.$state.RCP_PARTS_DTLS;
+
+    // 이전에 저장된 데이터 가져오기
+    const previousArray = JSON.parse(localStorage.getItem("recentRecipe"));
+
+    const newItem = {
+      imgUrl: this.$state.ATT_FILE_NO_MAIN,
+      name: this.$state.RCP_NM,
+    };
+
+    // 중복되지 않은 데이터만 배열 앞에 추가
+    if (!previousArray.some((item) => item.name === newItem.name)) {
+      if (
+        previousArray.length >= 3 &&
+        previousArray.some(
+          (item) => item.name === "최근 본 레시피가 없습니다🍪"
+        )
+      ) {
+        previousArray.pop(); // defaultitem가 있을때, 삭제
+      }
+      previousArray.unshift(newItem);
+      localStorage.setItem("recentRecipe", JSON.stringify(previousArray));
+    }
 
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
