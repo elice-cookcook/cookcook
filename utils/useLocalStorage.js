@@ -4,7 +4,6 @@ const getLocalStorageData = (localStorageKey = "") =>
     : JSON.parse(localStorage.getItem(localStorageKey));
 
 const setLocalStorageData = (localStorageKey = "", setData = []) => {
-  console.log(setData);
   localStorage.setItem(localStorageKey, JSON.stringify(setData));
 };
 
