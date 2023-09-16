@@ -4,6 +4,7 @@ import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
+import Suggestion from "../components/suggestion.js";
 
 export default class DetailPage extends Component {
   template() {
@@ -87,8 +88,7 @@ export default class DetailPage extends Component {
     .hidden{
         display:none;
     }
-
-    .suggestionItem{
+    .suggestionContainer{
       display: flex;
       justify-content: center;
       align-items: center;
@@ -170,11 +170,7 @@ export default class DetailPage extends Component {
 
     <div class="suggestions">
       <p>이런 레시피는 어떠세요?</p>
-      <div class="suggestionBox">
-      <div class="suggestionItem">
-      <img src="">
-      </div>
-      </div>
+      <div class="suggestionContainer"></div>
       <hr width="401px"/>
     </div>
 
@@ -201,6 +197,50 @@ export default class DetailPage extends Component {
       const currentId = getCurrentIdFromHash();
       this.$state = await api.fetchFoodById(currentId);
     }
+    
+    // 중복되지 않는 무작위 숫자를 생성하는 메서드
+    function getRandomNumbers(max, count) {
+      const randomNumbers = new Set();
+
+      while (randomNumbers.size < count) {
+        const randomNumber = Math.floor(Math.random() * max);
+        randomNumbers.add(randomNumber);
+      }
+
+      return Array.from(randomNumbers);
+    }
+
+    // 비슷한 레시피 객체를 최대 3개까지 배열에 담아 리턴
+    const getSugesstions = async () => {
+      const rcpCategory = this.$state.RCP_PAT2;
+      const rcpMethod = this.$state.RCP_WAY2;
+      const rcpName = this.$state.RCP_NM;
+      const recipes = await JSON.parse(localStorage.getItem('recipes')) || [];
+
+      const sameCategory = recipes.filter(rcp => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName);
+      const sameMethod = sameCategory.filter(rcp => rcp.RCP_WAY2 === rcpMethod);
+
+      let result = [];
+      if(sameMethod.length<1){
+        const selectedNumbers = getRandomNumbers(sameCategory.length, 3);
+        result = selectedNumbers.map(idx => sameCategory[idx]);
+      }else if(sameMethod.length<4){
+        result = sameMethod;
+      }else{
+        const selectedNumbers = getRandomNumbers(sameMethod.length, 3);
+        result = selectedNumbers.map(idx => sameMethod[idx]);
+      }
+
+      return result;
+    }
+
+    // 페이지 랜더링
+    const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
+    getSugesstions().then(result => {
+      console.log(result);
+      new Suggestion($suggestionContainer, result);
+    });
+
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
     document.title = `${this.$state.RCP_NM} | 오늘 뭐 먹지?`;
