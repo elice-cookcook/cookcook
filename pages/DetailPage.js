@@ -88,6 +88,11 @@ export default class DetailPage extends Component {
     .hidden{
         display:none;
     }
+    .suggestions{
+      text-align: center;
+      width: 450px;
+      margin: 11.5px 0;
+    }
     .suggestionContainer{
       display: flex;
       justify-content: center;
@@ -237,7 +242,6 @@ export default class DetailPage extends Component {
     // 페이지 랜더링
     const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
     getSugesstions().then(result => {
-      console.log(result);
       new Suggestion($suggestionContainer, result);
     });
 
