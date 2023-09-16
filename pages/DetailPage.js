@@ -26,10 +26,13 @@ export default class DetailPage extends Component {
         margin: 0 auto;
         border: 1px solid #eaeaea;
         width: 480px;
+        height: auto;
         left: 50%;
+        min-height: 100%;
         flex-direction: column;
         align-items: center;
         word-break: keep-all;
+        padding-bottom: 78px;
     }
 
     .DetailPage_bookmarkDiv {
@@ -42,7 +45,7 @@ export default class DetailPage extends Component {
     }
 
     .DetailPage_bookmarkDiv >svg{
-        border:0.1rem orange solid;
+        border: 1px orange solid;
         padding:0.3rem;
         border-radius: 5px;
         fill: orange;
@@ -111,6 +114,12 @@ export default class DetailPage extends Component {
 
     .hidden {
         display: none;
+    }
+
+    #footer{
+        height: 78px;
+        position : relative;
+        transform : translateY(-100%);
     }
 
     @media print {
@@ -202,8 +211,8 @@ export default class DetailPage extends Component {
             <div class="DetailPage_shareElemSection mt-2 mb-4">
             </div>
         </section>
-        <div id="footer"></div>
     </div>
+    <div id="footer"></div>
 </div>
     `;
   }
@@ -231,8 +240,21 @@ export default class DetailPage extends Component {
       category: "",
       keyword: history.state ? history.state.keyword : "",
     });
-    const bookmarkBtn = this.$target.querySelector(".DetailPage_bookmarkDiv");
-    bookmarkBtn.addEventListener("click", () => {
+    const bookmark =
+      localStorage.getItem("bookmark") === null
+        ? []
+        : JSON.parse(localStorage.getItem("bookmark"));
+    const bookmarkRemoveBtn = this.$target.querySelector(
+      ".DetailPage_bookmarkRemove"
+    );
+    // bookmarkRemoveBtn.style.display = "none";
+
+    const bookmarkAddBtn = this.$target.querySelector(
+      ".DetailPage_bookmarkAdd"
+    );
+    bookmarkAddBtn.style.display = "none";
+
+    bookmarkAddBtn.addEventListener("click", () => {
       // alert(`${this.$state.RCP_NM}를 북마크 리스트에 추가했습니다.`);
       const currentBookmark =
         localStorage.getItem("bookmark") === null

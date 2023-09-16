@@ -5,84 +5,13 @@ import BookmarkItem from "../components/BookmarkItem.js";
 
 export default class BookmarkPage extends Component {
   setup() {
+    const bookmark =
+      localStorage.getItem("bookmark") === null
+        ? []
+        : JSON.parse(localStorage.getItem("bookmark"));
     this.setState({
       toggleCheck: false,
-      data: [
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "닭가슴살",
-          RCP_PAT2: "국",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "치킨 쇠고기 땅콩소스 꼬치",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/20141117/20141117053805_1416213485286.jpg",
-          INFO_ENG: "234.12",
-          HASH_TAG: "가슴살",
-          RCP_PAT2: "반찬",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "치킨완자스프",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00465_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_PAT2: "반찬",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_PAT2: "반찬",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_PAT2: "밥",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_PAT2: "반찬",
-          HASH_TAG: "닭가슴살",
-          RCP_SEQ: 28,
-        },
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_PAT2: "반찬",
-          RCP_SEQ: 28,
-          HASH_TAG: "닭가슴살",
-        },
-        {
-          RCP_NM: "크림소스치킨롤",
-          ATT_FILE_NO_MAIN:
-            "http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00670_2.png",
-          INFO_ENG: "234.12",
-          HASH_TAG: "",
-          RCP_SEQ: 28,
-          RCP_PAT2: "반찬",
-        },
-      ],
+      data: bookmark,
     });
   }
   template() {
@@ -95,6 +24,7 @@ export default class BookmarkPage extends Component {
         align-items: center;
         word-break: keep-all;
         display: flex;
+        min-height: 100%;
     }
 
     .orange {
@@ -125,21 +55,19 @@ export default class BookmarkPage extends Component {
     }
 
 </style>
-
 <div class="BookmarkPage px-3">
     <div id="header"></div>
     <div id="nav"></div>
     <div class="BookmarkPage_top">
         <span class="orange">찜 목록 &nbsp;>&nbsp; ${this.$state.data.length}개의 레시피가 있어요.</span>
         <div>
-        <span class="BookmarkPage_checkedNum orange mx-1">0개 선택</span>
+        <span class="BookmarkPage_checkedNum orange mx-1">2개 선택</span>
         <span class="BookmarkPage_deleteBtn btn btn-outline-warning">삭제</span>
         <span class="BookmarkPage_checkeBtn btn btn-outline-warning" data-bs-toggle="button">선택</span>
         </div>
         </div>
     <div class="BookmarkContainer"></div>
-    <div id="paginationContainer"></div>
-    <div id="footer"></div>
+<div id="footer"></div>
 </div>
     `;
   }
@@ -168,7 +96,7 @@ export default class BookmarkPage extends Component {
     }
 
     deleteBtn.addEventListener("click", () => {
-      if (confirm(`0개의 레시피가 삭제됩니다.`)) this.setup();
+      if (confirm(`2개의 레시피가 삭제됩니다.`)) this.setup();
     });
 
     toggleBtn.addEventListener(
