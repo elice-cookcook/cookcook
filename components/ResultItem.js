@@ -2,11 +2,11 @@ import Component from "../core/Component.js";
 
 export default class ResultItem extends Component {
   template() {
-    let name = this.$props.RCP_NM;
-    let calorie = this.$props.INFO_ENG;
-    let imgUrl = this.$props.ATT_FILE_NO_MAIN;
-    let ingredients = this.$props.RCP_PARTS_DTLS;
-    let hash_tag = this.$props.HASH_TAG;
+    let name = this.$props.recipe.RCP_NM;
+    let calorie = this.$props.recipe.INFO_ENG;
+    let imgUrl = this.$props.recipe.ATT_FILE_NO_MAIN;
+    let ingredients = this.$props.recipe.RCP_PARTS_DTLS;
+    let hash_tag = this.$props.recipe.HASH_TAG;
 
     return /*html*/ `<style>
     .ResultItem {
@@ -80,11 +80,15 @@ export default class ResultItem extends Component {
   }
 
   mounted() {
-    let id = this.$props.RCP_SEQ;
-
+    let id = this.$props.recipe.RCP_SEQ;
     this.$target.querySelector(`.ResultItem`).addEventListener("click", () => {
       history.pushState(
-        { data: this.$props, keyword: history.state.keyword },
+        {
+          data: this.$props.recipe,
+          category: history.state.category,
+          keyword: history.state.keyword,
+          pagination: this.$props.pagination,
+        },
         null,
         location.href.replace("search", `detail/${id}`)
       );
