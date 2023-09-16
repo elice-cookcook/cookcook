@@ -22,25 +22,28 @@ export default class DetailPage extends Component {
       const data = await api.fetchFoodById(currentId);
       history.pushState({ data: data, keyword: "" }, null);
     }
+
     const isBookmarked = getLocalStorageData("bookmark").find(
       (item) => item.RCP_SEQ === history.state.data.RCP_SEQ
     )
       ? true
       : false;
+
     this.setState({
       data: history.state.data,
       isBookmarked: isBookmarked,
     });
 
     document.title = `${this.$state.data.RCP_NM} | 오늘 뭐 먹지?`;
-    console.log("setup,", this.$state);
+    const spinner = document.querySelector(".spinner-border");
+    spinner.classList.add("hidden");
   }
 
   template() {
     return /*html*/ `
 <style>
     .spinner-border {
-        position: absolute;
+      position:absolute;
         top: 50%;
         left: 50%;
     }
@@ -66,15 +69,11 @@ export default class DetailPage extends Component {
         padding-top: 0.5rem;
     }
 
-    .DetailPage_bookmarkDiv >svg{
+    .DetailPage_bookmarkDiv > svg{
         border: 1px orange solid;
         padding:0.3rem;
         border-radius: 5px;
         fill: orange;
-    }
-
-    .DetailPage_bookmarkAdd {
-       
     }
 
     .orange {
@@ -111,27 +110,23 @@ export default class DetailPage extends Component {
 
     .DetailPage_menu {
         display: flex;
-        justify-content: flex-end;
+        justify-content:flex-end;
+        width:100%;
+        height:0;
+        z-index:1;
     }
 
-    .DetailPage_menu button {
-        margin-left: 10px;
+    .DetailPage_menu > svg  {
+        fill: gray;
+        cursor:pointer;
         border: 1px solid gray;
+        padding:0.3rem;
         border-radius: 5px;
+        margin:0 0.1rem;
     }
 
-    .buttonBefore {
-        color: gray;
-        background-color: white;
-    }
-
-    .buttonAfter {
-        color: white;
-        background-color: gray;
-    }
-
-    .DetailPage_menu button:focus {
-        box-shadow: none;
+    .DetailPage_menu > svg:focus {
+      
     }
 
     .hidden {
@@ -167,13 +162,14 @@ export default class DetailPage extends Component {
 </style>
 
 <div>
-    <div class="spinner-border my-5" role="status"></div>
+    <div class="spinner-border" role="status"></div>
     <div class="DetailPage px-3">
         <div id="header"></div>
         <div class="DetailPage_bookmarkDiv">
             <svg class="DetailPage_bookmarkAdd hidden" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                 <path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-.553.576-1.004 1.251-1.316 2h-3.5v17.582l4-3.512 4 3.512v-8.763c.805.19 1.379.203 2 .156zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-2v-2h-1v2h-2v1h2v2h1v-2h2v-1z" /></svg>
-        <svg class="DetailPage_bookmarkRemove hidden" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-1.123 1.168-1.816 2.752-1.816 4.5 0 3.736 3.162 6.768 7 6.475zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-5v1h5v-1z"/></svg>
+        <svg class="DetailPage_bookmarkRemove hidden" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+        <path d="M16 10.975v13.025l-6-5.269-6 5.269v-24h6.816c-1.123 1.168-1.816 2.752-1.816 4.5 0 3.736 3.162 6.768 7 6.475zm4-6.475c0 2.485-2.018 4.5-4.5 4.5-2.484 0-4.5-2.015-4.5-4.5s2.016-4.5 4.5-4.5c2.482 0 4.5 2.015 4.5 4.5zm-2-.5h-5v1h5v-1z"/></svg>
                 </div>
         <h3 class="mt-4">오늘은 내가 </h3>
         <h3><span class="DetailPage_RCP_NM orange"></span> 요리사🍴</h3>
@@ -196,28 +192,24 @@ export default class DetailPage extends Component {
             <div class="DetailPage_RCP_PARTS_DTLS content text-center p-3 my-2"></div>
         </div>
         <div>
-            <div class="DetailPage_recepi title mt-4">
+            <div class="DetailPage_recipe title mt-4">
                 <hr width="20%" />
                 <div class="titleText orange">레시피</div>
                 <hr width="20%" />
             </div>
 
             <div class="DetailPage_menu">
-                <button id="hideBtn" class="buttonBefore">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                    <svg id="hideBtn" class="buttonBefore" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
                         <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                         <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                     </svg>
-                </button>
-                <button id="printBtn" class="buttonBefore">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                    <svg id="printBtn" class="buttonBefore" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
                         <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                         <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                     </svg>
-                </button>
             </div>
 
-            <div id="recipe" class="DeatailPage_recipe p-3"></div>
+            <div id="recipe" class="DeatailPage_recipe p-2"></div>
         </div>
         <hr width="90%" />
         <section class="DetailPage_bottom">
@@ -233,8 +225,6 @@ export default class DetailPage extends Component {
     `;
   }
   async mounted() {
-    const spinner = document.querySelector(".spinner-border");
-    spinner.remove();
     const DetailPage = document.querySelector(".DetailPage");
     DetailPage.style.display = "flex";
 
