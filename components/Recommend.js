@@ -12,8 +12,6 @@ export default class Recommend extends Component {
   }
   template() {
     const { batchedFoodList } = this.$props;
-
-    // 현재 인덱스에 해당하는 배치 가져오기
     const currentBatch = batchedFoodList[this.$state.currentIndex];
 
     return `
@@ -28,30 +26,26 @@ export default class Recommend extends Component {
           width: 110px;
           height: 110px;
           position: relative;
-          cursor: pointer;
         }
         .slide img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
+          cursor: pointer;
         }
         .image-name {
           position: absolute;
           padding: 3px 0;
-          top: 40%;
-          width: 90%;
+          bottom: 5px;
+          width: 110px;
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
-          visibility: hidden;
-          opacity:0;
-          transition: top 0.3s, opacity 0.3s;
-        }
-        .slide:hover .image-name {
-          visibility: visible;
-          opacity: 1;
+          cursor: pointer;
+          line-height: 1.2em;
         }
         .image-name.long-text {
-          top: 30%;
+          word-break: break-all;
         }
         .slider-btn {
           cursor: pointer;
@@ -92,16 +86,13 @@ export default class Recommend extends Component {
     // .slide를 클릭하면 해당 detailpage로 이동
     this.addEvent("click", ".slide", (e) => {
       const clickedElem = e.target.closest(".slide");
-
-      // 클릭된 음식의 alt 속성에서 food name 가져오기
       const foodName = clickedElem.querySelector("img").getAttribute("alt");
 
-      // 원본 items 배열에서 foodName과 일치하는 데이터 찾기
+      // 원본 items 배열과 일치하는 데이터
       const selectedItem = this.$props.items.find(
         (item) => item.RCP_NM === foodName
       );
 
-      // detail 페이지로 이동
       if (selectedItem) {
         history.pushState(
           { data: selectedItem, keyword: "" },

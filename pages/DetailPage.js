@@ -88,7 +88,7 @@ export default class DetailPage extends Component {
         display: flex;
         justify-content:flex-end;
         width:100%;
-        height:0;
+        height:0.5rem;
         z-index:1;
     }
 
@@ -176,11 +176,11 @@ export default class DetailPage extends Component {
             </div>
 
             <div class="DetailPage_menu">
-                    <svg id="hideBtn" class="buttonBefore" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                    <svg id="hideBtn" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
                         <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                         <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
                     </svg>
-                    <svg id="printBtn" class="buttonBefore" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                    <svg id="printBtn" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
                         <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
                         <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
                     </svg>
@@ -208,6 +208,7 @@ export default class DetailPage extends Component {
       page: "detail",
       category: "",
       keyword: history.state ? history.state.keyword : "",
+      pagination: history.state ? history.state.pagination : "",
     });
 
     if (!history.state || !history.state.data) {
@@ -277,7 +278,6 @@ export default class DetailPage extends Component {
     const hideBtn = this.$target.querySelector("#hideBtn");
     hideBtn.addEventListener("click", () => {
       const images = this.$target.querySelectorAll(".RecipeItem img");
-      hideBtn.classList.toggle("focus");
       images.forEach((image) => image.classList.toggle("hidden"));
     });
 
@@ -303,6 +303,28 @@ export default class DetailPage extends Component {
       this.$state.RCP_NA_TIP;
     this.$target.querySelector(".DetailPage_RCP_PARTS_DTLS").innerHTML =
       this.$state.RCP_PARTS_DTLS;
+
+    // 이전에 저장된 데이터 가져오기
+    const previousArray = JSON.parse(localStorage.getItem("recentRecipe"));
+
+    const newItem = {
+      imgUrl: this.$state.ATT_FILE_NO_MAIN,
+      name: this.$state.RCP_NM,
+    };
+
+    // 중복되지 않은 데이터만 배열 앞에 추가
+    if (!previousArray.some((item) => item.name === newItem.name)) {
+      if (
+        previousArray.length >= 3 &&
+        previousArray.some(
+          (item) => item.name === "최근 본 레시피가 없습니다🍪"
+        )
+      ) {
+        previousArray.pop(); // defaultitem가 있을때, 삭제
+      }
+      previousArray.unshift(newItem);
+      localStorage.setItem("recentRecipe", JSON.stringify(previousArray));
+    }
 
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
