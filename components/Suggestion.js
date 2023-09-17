@@ -17,30 +17,25 @@ export default class Suggestion extends Component {
           width: 110px;
           height: 110px;
           position: relative;
-          cursor: pointer;
         }
         .slide img {
           width: 100%;
           height: 100%;
+          cursor: pointer;
         }
         .image-name {
           position: absolute;
           padding: 3px 0;
-          top: 40%;
-          width: 90%;
+          bottom: 5px;
+          width: 110px;
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
-          visibility: hidden;
-          opacity:0;
-          transition: top 0.3s, opacity 0.3s;
-        }
-        .slide:hover .image-name {
-          visibility: visible;
-          opacity: 1;
+          cursor: pointer;
+          line-height: 1.2em;
         }
         .image-name.long-text {
-          top: 30%;
+          word-break: break-all;
         }
       </style>
       ${this.$props
@@ -60,8 +55,9 @@ export default class Suggestion extends Component {
   setEvent() {
     // .slide를 클릭하면 해당 detailpage로 이동
     this.addEvent("click", ".slide", (e) => {
-      const clickedIdx = e.target.getAttribute("key");
-      const selectedItem = this.recipes[clickedIdx];
+      const clickedElem = e.target.closest(".slide");
+      const clickedIdx = clickedElem.getAttribute("key");
+      const selectedItem = this.$props[clickedIdx];
       
       // detail 페이지로 이동
       if (selectedItem) {
