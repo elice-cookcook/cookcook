@@ -104,17 +104,20 @@ export default class Header extends Component {
     });
     this.addEvent("click", ".arrow", (e) => {
       e.preventDefault();
-      console.log(this.$props.pagination);
-      history.pushState(
-        {
-          category: history.state.category,
-          keyword: history.state.keyword,
-          pagination: this.$props.pagination,
-        },
-        null,
-        location.origin + "#search"
-      );
-      history.go(0);
+      if (history.state && !history.state.category)
+        history.go(-1); //북마크 페이지, 최근 본 레시피, 추천요리에서 뒤로 가기
+      else {
+        history.pushState(
+          {
+            category: history.state.category,
+            keyword: history.state.keyword,
+            pagination: this.$props.pagination,
+          },
+          null,
+          location.origin + "#search"
+        );
+        history.go(0);
+      }
     });
     this.addEvent("click", ".header_input-button", (e) => {
       e.preventDefault();

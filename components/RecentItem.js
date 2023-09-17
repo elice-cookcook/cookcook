@@ -8,7 +8,7 @@ export default class Recent extends Component {
   setup() {
     const defaultItemData = {
       imgUrl: "https://ifh.cc/g/FnGKV7.png",
-      name: "최근 본 레시피가 없습니다🍪",
+      name: "최근 본 레시피 없음",
     };
     const defaultitem = Array(3).fill(defaultItemData);
 
@@ -38,9 +38,9 @@ export default class Recent extends Component {
       (food, index) => `
          <div class="slide" key="${index}">
            <img src="${food.imgUrl}" alt="${food.name}">
-           <div class="image-name ${
+           <span class="image-name ${
              food.name.length >= 10 ? "long-text" : ""
-           }">${food.name}</div>
+           }">${food.name}</span>
          </div>
        `
     );
@@ -54,35 +54,33 @@ export default class Recent extends Component {
         `);
     }
 
-    return `
+    return /*html */ `
       <style>
         .slide {
           flex: 1;
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin: 0 5px;
-          padding: 5px;
           width: 110px;
           height: 110px;
           position: relative;
+          cursor: pointer;
         }
         .slide img {
-          width: 100%;
-          height: 100%;
+          width: 110px;
           object-fit: cover;
-          cursor: pointer;
         }
         .image-name {
           position: absolute;
-          padding: 3px 0;
           bottom: 5px;
+          padding: 3px 0;
           width: 110px;
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
-          cursor: pointer;
-          line-height: 1.2em;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap;
         }
         .image-name.long-text {
           word-break: break-all;
