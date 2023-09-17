@@ -78,10 +78,9 @@ export default class Recent extends Component {
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
-
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap;
         }
         .image-name.long-text {
           word-break: break-all;

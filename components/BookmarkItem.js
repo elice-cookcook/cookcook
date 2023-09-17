@@ -108,9 +108,6 @@ export default class BookmarkItem extends Component {
     checkboxDiv.style.display = this.$state.selectable ? "" : "none";
 
     checkbox.addEventListener("change", () => {
-      // clickableDiv.style.border = checkbox.checked
-      //   ? "orange solid 1px"
-      //   : "none";
       bookmarkItem.style.background = checkbox.checked ? "#ffebcb" : "none";
       clickableDiv.style.borderRadius = "5px";
     });
@@ -120,7 +117,7 @@ export default class BookmarkItem extends Component {
       history.pushState(
         { data: this.$props, keyword: "" },
         null,
-        location.href.replace(`/bookmark`, `/detail/${id}`)
+        location.href.replace(`bookmark`, `detail/${id}`)
       );
       history.go(0);
     });
