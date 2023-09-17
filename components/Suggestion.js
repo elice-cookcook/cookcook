@@ -21,6 +21,7 @@ export default class Suggestion extends Component {
         .slide img {
           width: 100%;
           height: 100%;
+          object-fit: cover;
           cursor: pointer;
         }
         .image-name {
