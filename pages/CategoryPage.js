@@ -73,16 +73,18 @@ export default class CategoryPage extends Component {
     const $sliderContainer = this.$target.querySelector(".slider");
 
     // 중복되지 않는 무작위 숫자를 생성하는 메서드
-    function getRandomNumbers(min, max, count) {
+    const getRandomNumbers = (min, max, count) => {
       const randomNumbers = new Set();
-
       while (randomNumbers.size < count) {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        randomNumbers.add(randomNumber);
+        const imgUrl = this.$state.items[randomNumber].ATT_FILE_NO_MAIN;
+        // img가 존재할 때만 randomNumber를 추가하도록
+        if (imgUrl) {
+          randomNumbers.add(randomNumber);
+        }
       }
-
       return Array.from(randomNumbers);
-    }
+    };
 
     const selectedNumbers = getRandomNumbers(1, 1001, 9);
 
@@ -100,16 +102,13 @@ export default class CategoryPage extends Component {
 
     new Recommend($sliderContainer, {
       batchedFoodList,
-      items: this.$state.items, //원본 데이터도 같이 넘겨줌
+      items: this.$state.items,
     });
 
     const $recentItemContainer = this.$target.querySelector(".slider-recent");
-    const recentlyList = this.$state.map((item) => ({
-      // 임의로 받아온 배열입니다.
-      imgUrl: item.ATT_FILE_NO_MAIN,
-      name: item.RCP_NM,
-    }));
-    new RecentItem($recentItemContainer, { recentlyList });
+    new RecentItem($recentItemContainer, {
+      items: this.$state.items,
+    });
 
     const $footer = this.$target.querySelector("#footer");
     new Footer($footer);
