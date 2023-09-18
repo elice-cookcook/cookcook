@@ -20,7 +20,7 @@ const api = {
   // 전체 데이터 받아옴
   fetchFoodAll: () => {
     return request(
-      `http://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001`
+      `https://openapi.foodsafetykorea.go.kr/api/${API_KEY}/COOKRCP01/json/1/1001`
     );
   },
   // 해당 카테고리 데이터 받아옴
