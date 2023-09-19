@@ -1,5 +1,4 @@
 import Component from "../core/Component.js";
-import config from "../config.js";
 
 export default class SnsShare extends Component {
   setup() {
@@ -48,10 +47,11 @@ export default class SnsShare extends Component {
       });
     });
     this.$target.querySelector(".kakaoShare").addEventListener("click", () => {
+      console.log(window.location.href);
       Kakao.Share.sendCustom({
         templateId: 98215,
         templateArgs: {
-          PATH: `src/#/detail/${this.$state.RCP_SEQ}`,
+          PATH: window.location.href,
           title: this.$state.RCP_NM.toString(),
           description: `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴`,
           img_1: this.$state.ATT_FILE_NO_MAIN,
