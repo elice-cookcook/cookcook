@@ -28,7 +28,7 @@ export default class Suggestion extends Component {
           position: absolute;
           padding: 3px 0;
           bottom: 5px;
-          width: 110px;
+          width: 130px;
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
