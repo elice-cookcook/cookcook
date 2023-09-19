@@ -4,6 +4,7 @@ import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
+import Suggestion from "../components/suggestion.js";
 import {
   getLocalStorageData,
   setLocalStorageData,
@@ -109,6 +110,28 @@ export default class DetailPage extends Component {
     .hidden {
         display: none;
     }
+    .suggestions{
+      text-align: center;
+      width: 450px;
+      margin: 11.5px 0;
+    }
+    .suggestionContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 110px;
+    }
+    .suggestions{
+      text-align: center;
+      width: 450px;
+      margin: 11.5px 0;
+    }
+    .suggestionContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 110px;
+    }
 
     @media print {
         @page {
@@ -186,16 +209,21 @@ export default class DetailPage extends Component {
                     </svg>
             </div>
 
-            <div id="recipe" class="DeatailPage_recipe p-2"></div>
-        </div>
-        <hr width="90%" />
-        <section class="DetailPage_bottom">
-            <div class="DetailPage_">
-                <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
-            </div>
-            <div class="DetailPage_shareElemSection mt-2 mb-4">
-            </div>
-        </section>
+    <div id="recipe" class="DeatailPage_recipe p-3"></div>
+    </div>
+        <hr width="90%"/>
+        <div class="suggestions">
+          <p>이런 레시피는 어떠세요?</p>
+        <div class="suggestionContainer"></div>
+        <hr width="401px"/>
+    </div>
+      <section class="DetailPage_bottom">
+          <div class="DetailPage_">
+              <img class="DetailPage_logo" src="./img/cookcooklogo.png" />이 알려준 레시피가 마음에 들었다면?
+          </div>
+          <div class="DetailPage_shareElemSection mt-2 mb-4">
+          </div>
+      </section>
     <div id="footer"></div>
     </div>
 </div>
@@ -223,7 +251,49 @@ export default class DetailPage extends Component {
         null
       );
     }
+    
     this.$state = history.state.data;
+
+    // 중복되지 않는 무작위 숫자를 생성하는 메서드
+    function getRandomNumbers(max, count) {
+      const randomNumbers = new Set();
+
+      while (randomNumbers.size < count) {
+        const randomNumber = Math.floor(Math.random() * max);
+        randomNumbers.add(randomNumber);
+      }
+
+      return Array.from(randomNumbers);
+    }
+
+    // 비슷한 레시피 객체를 최대 3개까지 배열에 담아 리턴
+    const getSugesstions = () => {
+      const rcpCategory = this.$state.RCP_PAT2;
+      const rcpMethod = this.$state.RCP_WAY2;
+      const rcpName = this.$state.RCP_NM;
+      const recipes = getLocalStorageData('recipes');
+
+      const sameCategory = recipes.filter(rcp => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName);
+      const sameMethod = sameCategory.filter(rcp => rcp.RCP_WAY2 === rcpMethod);
+
+      let result = [];
+      if(sameMethod.length<1){
+        const selectedNumbers = getRandomNumbers(sameCategory.length, 3);
+        result = selectedNumbers.map(idx => sameCategory[idx]);
+      }else if(sameMethod.length<4){
+        result = sameMethod;
+      }else{
+        const selectedNumbers = getRandomNumbers(sameMethod.length, 3);
+        result = selectedNumbers.map(idx => sameMethod[idx]);
+      }
+      return result;
+    }
+
+    // 페이지 랜더링
+    const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
+
+    new Suggestion($suggestionContainer, getSugesstions());
+
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
 
