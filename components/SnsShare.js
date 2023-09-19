@@ -51,7 +51,7 @@ export default class SnsShare extends Component {
       Kakao.Share.sendCustom({
         templateId: 98215,
         templateArgs: {
-          PATH: `src/#/detail/${this.$state.RCP_SEQ}`,
+          PATH: `/#/detail/${this.$state.RCP_SEQ}`,
           title: this.$state.RCP_NM.toString(),
           description: `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴`,
           img_1: this.$state.ATT_FILE_NO_MAIN,
@@ -65,8 +65,7 @@ export default class SnsShare extends Component {
       .querySelector(".twitterShare")
       .addEventListener("click", () => {
         const sendText = `오늘은 내가 ${this.$state.RCP_NM} 요리사🍽️ 아래 링크를 클릭하여 레시피를 확인해보세요!`;
-        const pageUrl =
-          "https://5242-218-51-9-60.ngrok-free.app/src/#/detail/28";
+        const pageUrl = `https://cookcook.netlify.app/#detail/${this.$state.RCP_SEQ}`;
         window.open(
           `https://twitter.com/intent/tweet?text=${sendText}&url=${pageUrl}`
         );
@@ -75,7 +74,7 @@ export default class SnsShare extends Component {
     this.$target
       .querySelector(".facebookShare")
       .addEventListener("click", () => {
-        const pageUrl = window.location;
+        const pageUrl = `https://cookcook.netlify.app/#detail/${this.$state.RCP_SEQ}`;
         window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
       });
   }
