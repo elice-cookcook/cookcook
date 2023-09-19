@@ -84,7 +84,7 @@ export default class Header extends Component {
       history.pushState(
         { category: "전체", keyword: keyword },
         null,
-        location.href.replace("/category", "/search")
+        location.href.replace("category", "search")
       );
       history.go(0);
     };
