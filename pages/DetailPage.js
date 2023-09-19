@@ -1,7 +1,6 @@
 import Component from "../core/Component.js";
 import Header from "../components/Header.js";
 import RecipeItem from "../components/RecipeItem.js";
-import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
 import Suggestion from "../components/suggestion.js";
@@ -27,11 +26,6 @@ export default class DetailPage extends Component {
 
     .DetailPage {
         display: flex;
-        margin: 0 auto;
-        border: 1px solid #eaeaea;
-        width: 480px;
-        left: 50%;
-        min-height: 100%;
         flex-direction: column;
         align-items: center;
         word-break: keep-all;
@@ -154,10 +148,6 @@ export default class DetailPage extends Component {
         .DetailPage_menu {
             display: none;
         }
-
-        #footer {
-            display: none;
-        }
     }
 </style>
 
@@ -224,7 +214,6 @@ export default class DetailPage extends Component {
           <div class="DetailPage_shareElemSection mt-2 mb-4">
           </div>
       </section>
-    <div id="footer"></div>
     </div>
 </div>
     `;
@@ -251,7 +240,7 @@ export default class DetailPage extends Component {
         null
       );
     }
-    
+
     this.$state = history.state.data;
 
     // 중복되지 않는 무작위 숫자를 생성하는 메서드
@@ -271,26 +260,32 @@ export default class DetailPage extends Component {
       const rcpCategory = this.$state.RCP_PAT2;
       const rcpMethod = this.$state.RCP_WAY2;
       const rcpName = this.$state.RCP_NM;
-      const recipes = getLocalStorageData('recipes');
+      const recipes = getLocalStorageData("recipes");
 
-      const sameCategory = recipes.filter(rcp => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName);
-      const sameMethod = sameCategory.filter(rcp => rcp.RCP_WAY2 === rcpMethod);
+      const sameCategory = recipes.filter(
+        (rcp) => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName
+      );
+      const sameMethod = sameCategory.filter(
+        (rcp) => rcp.RCP_WAY2 === rcpMethod
+      );
 
       let result = [];
-      if(sameMethod.length<1){
+      if (sameMethod.length < 1) {
         const selectedNumbers = getRandomNumbers(sameCategory.length, 3);
-        result = selectedNumbers.map(idx => sameCategory[idx]);
-      }else if(sameMethod.length<4){
+        result = selectedNumbers.map((idx) => sameCategory[idx]);
+      } else if (sameMethod.length < 4) {
         result = sameMethod;
-      }else{
+      } else {
         const selectedNumbers = getRandomNumbers(sameMethod.length, 3);
-        result = selectedNumbers.map(idx => sameMethod[idx]);
+        result = selectedNumbers.map((idx) => sameMethod[idx]);
       }
       return result;
-    }
+    };
 
     // 페이지 랜더링
-    const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
+    const $suggestionContainer = this.$target.querySelector(
+      ".suggestionContainer"
+    );
 
     new Suggestion($suggestionContainer, getSugesstions());
 
@@ -410,7 +405,5 @@ export default class DetailPage extends Component {
       this.$target.querySelector(".DetailPage_shareElemSection"),
       this.$state
     );
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }

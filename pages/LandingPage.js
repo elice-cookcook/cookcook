@@ -10,10 +10,7 @@ export default class LandingPage extends Component {
         }
         
         .SplashScreenContainer{
-            width: 480px;
             height: 853px;
-            margin: 0 auto;
-            border: 1px solid #eaeaea;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -94,45 +91,52 @@ export default class LandingPage extends Component {
     const slideFrameTiming = {
       duration: 1000,
       easing: "ease",
-      fill: "forwards"
+      fill: "forwards",
     };
-    const slideImgGrow = [
-      {width : '140px'},
-      {width : '180px'}
-    ];
-    const slideImgShrink = [
-      {width : '180px'},
-      {width : '140px'}
-    ];
+    const slideImgGrow = [{ width: "140px" }, { width: "180px" }];
+    const slideImgShrink = [{ width: "180px" }, { width: "140px" }];
     const slideImgFrameTiming = {
       duration: 1000,
       easing: "ease",
-      fill: "forwards"
+      fill: "forwards",
     };
 
     const moveSlide = () => {
-      if(currentSlide === 6){
-        const prevImage = this.$target.querySelector(`#slideImages > :nth-child(${currentSlide+1})`);
+      if (currentSlide === 6) {
+        const prevImage = this.$target.querySelector(
+          `#slideImages > :nth-child(${currentSlide + 1})`
+        );
 
-        slide.style.transform = `translate(${currentTranslate}px)`
-        prevImage.animate(slideImgShrink,slideImgFrameTiming);
+        slide.style.transform = `translate(${currentTranslate}px)`;
+        prevImage.animate(slideImgShrink, slideImgFrameTiming);
         currentSlide = 1;
       }
       const slideFrame = [
-        {transform: `translate(${currentTranslate-moveLength*(currentSlide-1)}px)`},
-        {transform: `translate(${currentTranslate-moveLength*currentSlide}px)`}
+        {
+          transform: `translate(${
+            currentTranslate - moveLength * (currentSlide - 1)
+          }px)`,
+        },
+        {
+          transform: `translate(${
+            currentTranslate - moveLength * currentSlide
+          }px)`,
+        },
       ];
-      const prevImage = this.$target.querySelector(`#slideImages > :nth-child(${currentSlide+1})`);
-      const nextImage = this.$target.querySelector(`#slideImages > :nth-child(${currentSlide+2})`);
+      const prevImage = this.$target.querySelector(
+        `#slideImages > :nth-child(${currentSlide + 1})`
+      );
+      const nextImage = this.$target.querySelector(
+        `#slideImages > :nth-child(${currentSlide + 2})`
+      );
 
       slide.animate(slideFrame, slideFrameTiming);
-      prevImage.animate(slideImgShrink,slideImgFrameTiming);
-      nextImage.animate(slideImgGrow,slideImgFrameTiming);
+      prevImage.animate(slideImgShrink, slideImgFrameTiming);
+      nextImage.animate(slideImgGrow, slideImgFrameTiming);
       currentSlide += 1;
-    }
+    };
     moveSlide();
     setInterval(moveSlide, 1000);
-
 
     const dataLoad = async () => {
       try {
@@ -141,7 +145,7 @@ export default class LandingPage extends Component {
         history.pushState(
           { category: "전체", keyword: "" },
           null,
-          location.origin + '#category',
+          location.origin + "#category"
         );
         history.go(0);
       } catch (error) {
