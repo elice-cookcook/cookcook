@@ -3,7 +3,6 @@ import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
-import Footer from "../components/Footer.js";
 import SearchLogic from "../utils/SearchLogic.js";
 
 export default class SearchPage extends Component {
@@ -37,10 +36,6 @@ export default class SearchPage extends Component {
     return /*html*/ `
     <style>
         .SearchPage {
-            margin: 0 auto;
-            border: 1px solid #eaeaea;
-            width: 480px;
-            left: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,8 +64,6 @@ export default class SearchPage extends Component {
         </section>
         <div id="resultItemContainer"></div>
         <div id="paginationContainer"></div>
-        <div id="footer">
-            </footer>
         </div>
   `;
   }
@@ -95,7 +88,7 @@ export default class SearchPage extends Component {
         "beforeend",
         `<span class="orange">${
           this.$state.items.length
-        }</span>개의 <span class="orange">
+        }</span> 개의 <span class="orange">
         ${this.$state.category} ${this.$state.keyword.length > 0 ? ">" : ""} ${
           this.$state.keyword
         }</span> 레시피가 있어요
@@ -118,8 +111,5 @@ export default class SearchPage extends Component {
     });
     const $nav = this.$target.querySelector("#nav");
     new Navigator($nav);
-
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }
