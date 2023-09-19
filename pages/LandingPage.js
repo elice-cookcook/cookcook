@@ -10,7 +10,7 @@ export default class LandingPage extends Component {
         }
         
         .SplashScreenContainer{
-            height: 853px;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -34,18 +34,18 @@ export default class LandingPage extends Component {
             height: 200px;
             overflow:hidden;
         }
-        #slideImages{
+        .slideImages{
           display:flex;
           align-items:center;
           transform: translate(-10px);
           height: 200px;
         }
-        #slideImages .slideImg{
+        .slideImages .slideImg{
           width:140px;
           height:auto;
           margin-right: 20px;
         }
-        #slideImages > :nth-child(2){
+        .slideImages > :nth-child(2){
           width:180px;
           height:auto;
         }
@@ -64,7 +64,7 @@ export default class LandingPage extends Component {
           <img src="./img/TitleLogo.png" alt="logo_image">
         </div>
         <div class="slideContainer">
-          <div id="slideImages">
+          <div class="slideImages">
             <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00215_2.png">
             <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00328_2.png">
             <img class="slideImg" src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00301_2.png">
