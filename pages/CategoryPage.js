@@ -2,7 +2,6 @@ import Component from "../core/Component.js";
 import Header from "../components/Header.js";
 import Recommend from "../components/Recommend.js";
 import RecentItem from "../components/RecentItem.js";
-import Footer from "../components/Footer.js";
 import CategoryItem from "../components/CategoryItem.js";
 import SearchLogic from "../utils/SearchLogic.js";
 
@@ -22,10 +21,6 @@ export default class CategoryPage extends Component {
     return /*html*/ `
       <style>
       .CategoryPage {
-        margin: 0 auto;
-        border: 1px solid #eaeaea;
-        width: 480px;
-        left: 50%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -58,7 +53,6 @@ export default class CategoryPage extends Component {
         <h4>최근 본 레시피</h4>
         <div class="slider-recent"></div>
         </div>
-        <div id="footer"></div>
       </div>
     `;
   }
@@ -109,8 +103,5 @@ export default class CategoryPage extends Component {
     new RecentItem($recentItemContainer, {
       items: this.$state.items,
     });
-
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }

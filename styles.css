@@ -1,9 +1,20 @@
 @font-face {
-    font-family: 'NanumSquareNeo-Variable';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "NanumSquareNeo-Variable";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 body {
-    font-family: 'NanumSquareNeo-Variable' !important;
+  font-family: "NanumSquareNeo-Variable" !important;
+}
+
+#app {
+  margin: 0 auto;
+  border: 1px solid #eaeaea;
+  width: 480px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
