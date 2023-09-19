@@ -142,6 +142,10 @@ export default class DetailPage extends Component {
             display: none;
         }
 
+        .DetailPage_bookmarkDiv{
+            display: none;
+        }
+
         .content {
             background-color: #fcc999 !important;
             -webkit-print-color-adjust: exact;
