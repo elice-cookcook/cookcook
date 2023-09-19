@@ -1,6 +1,5 @@
 import Component from "../core/Component.js";
 import Header from "../components/Header.js";
-import Footer from "../components/Footer.js";
 import BookmarkItem from "../components/BookmarkItem.js";
 
 export default class BookmarkPage extends Component {
@@ -17,14 +16,9 @@ export default class BookmarkPage extends Component {
   template() {
     return /*html*/ `<style>
     .BookmarkPage {
-        margin: 0 auto;
-        border: 1px solid #eaeaea;
-        width: 480px;
         flex-direction: column;
         align-items: center;
-        word-break: keep-all;
         display: flex;
-        min-height: 100%;
     }
 
     .orange {
@@ -67,7 +61,6 @@ export default class BookmarkPage extends Component {
         </div>
         </div>
     <div class="BookmarkContainer"></div>
-<div id="footer"></div>
 </div>
     `;
   }
@@ -113,10 +106,5 @@ export default class BookmarkPage extends Component {
       new BookmarkItem(div, item, this.$state.toggleCheck);
       bookmarkContainer.append(div);
     });
-    const plus = document.createElement("div");
-    bookmarkContainer.append(plus);
-
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }

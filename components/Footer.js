@@ -5,10 +5,12 @@ export default class Navigator extends Component {
     return /*html*/ `
     <style>
     .footer_container {
-        width: 480px;
+      height:100%;
+      width:480px;
         background-color: #e0e0e0;
         display: flex;
         flex-direction: column;
+        justify-content:center;
         align-items: center;
         font-size: 8px;
     }

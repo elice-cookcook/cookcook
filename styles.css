@@ -8,13 +8,25 @@
 body {
   font-family: "NanumSquareNeo-Variable" !important;
 }
+body,
+html {
+  height: 100%;
+}
 
 #app {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   border: 1px solid #eaeaea;
   width: 480px;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+main {
+  flex: 1 0 auto;
+  height: auto;
+  min-height: 700px;
+}
+
+footer {
+  height: 100px;
 }
