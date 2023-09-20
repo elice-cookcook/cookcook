@@ -83,7 +83,7 @@ export default class LandingPage extends Component {
       `;
   }
   mounted() {
-    const slide = this.$target.querySelector("#slideImages");
+    const slide = this.$target.querySelector(".slideImages");
     const currentTranslate = -10;
     const moveLength = 160;
     let currentSlide = 1;
@@ -104,7 +104,7 @@ export default class LandingPage extends Component {
     const moveSlide = () => {
       if (currentSlide === 6) {
         const prevImage = this.$target.querySelector(
-          `#slideImages > :nth-child(${currentSlide + 1})`
+          `.slideImages > :nth-child(${currentSlide + 1})`
         );
 
         slide.style.transform = `translate(${currentTranslate}px)`;
@@ -124,10 +124,10 @@ export default class LandingPage extends Component {
         },
       ];
       const prevImage = this.$target.querySelector(
-        `#slideImages > :nth-child(${currentSlide + 1})`
+        `.slideImages > :nth-child(${currentSlide + 1})`
       );
       const nextImage = this.$target.querySelector(
-        `#slideImages > :nth-child(${currentSlide + 2})`
+        `.slideImages > :nth-child(${currentSlide + 2})`
       );
 
       slide.animate(slideFrame, slideFrameTiming);

@@ -24,7 +24,7 @@ html {
 main {
   flex: 1 0 auto;
   height: auto;
-  min-height: 100vh;
+  min-height: 90vh;
 }
 
 footer {
