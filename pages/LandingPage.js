@@ -3,62 +3,6 @@ import api from "../api.js";
 export default class LandingPage extends Component {
   template() {
     return /*html*/ `
-      <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        
-        .SplashScreenContainer{
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            background-color: #fffaf2;
-        }
-        
-        .SplashScreenTitle{
-            display: flex;
-            justify-content: center;
-            margin-top: 140px;
-        }
-        
-        .SplashScreenTitle img{
-            width: 90%;
-        }
-        
-        .slideContainer{
-            margin-top: 50px;
-            text-align:center;
-            width:480px;
-            height: 200px;
-            overflow:hidden;
-        }
-        .slideImages{
-          display:flex;
-          align-items:center;
-          transform: translate(-10px);
-          height: 200px;
-        }
-        .slideImages .slideImg{
-          width:140px;
-          height:auto;
-          margin-right: 20px;
-        }
-        .slideImages > :nth-child(2){
-          width:180px;
-          height:auto;
-        }
-        .SplashScreenContainer p{
-          color: #32383e;
-          text-align:center;
-        }
-
-        .spinner-border {
-          width: 40px;
-          height: 40px;
-        }
-      </style>
       <div class="SplashScreenContainer">
         <div class="SplashScreenTitle">
           <img src="./img/TitleLogo.png" alt="logo_image">
