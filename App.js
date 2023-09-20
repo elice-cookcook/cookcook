@@ -1,11 +1,15 @@
 import Router from "./Router.js";
 import Component from "./core/Component.js";
 import createPages from "./pages/index.js";
+import Footer from "./components/Footer.js";
 
 export default class App extends Component {
-  template() {
+  template() /*html*/ {
     return `
-    <main></main>
+    <main>
+
+    </main>
+    <footer></footer>
     `;
   }
 
@@ -22,5 +26,7 @@ export default class App extends Component {
     router.addRoute("#bookmark", pages.bookmark);
     id.forEach((item) => router.addRoute(`#detail/${item}`, pages.detail));
     router.start();
+
+    new Footer(this.$target.querySelector("footer"));
   }
 }

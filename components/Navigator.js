@@ -10,26 +10,7 @@ export default class Navigator extends Component {
   }
   template() {
     return `
-        <style>
-          .nav_container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 35px;
-            color: #7f7f7f;
-          }
-          hr {
-            border-top: 2px solid #5d5d5d;
-          }
-          .nav_selected {
-            color: #f39c12;
-            font-weight: bold;
-          }
-          .nav_container div {
-            cursor: pointer;
-          }
-        </style>
-        <div class="nav_container mt-2 px-3">
+        <div class="Navigator mt-2 px-3">
           ${this.$category
             .map(
               (item) => `

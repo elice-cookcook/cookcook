@@ -14,30 +14,8 @@ export default class Filter extends Component {
   template() {
     const { listVisible } = this.$state;
 
-    return `
-      <style>
-        img { 
-          width: 28px; 
-          height: 28px; 
-          float: right; 
-          padding: 5px;
-        }
-        ul { 
-          float: right; 
-          list-style: none; 
-          padding: 5px 0;
-        }
-        li { 
-          border: 1px solid #ff9c00;
-          box-shadow: 0px 0px 0px 1px #ff9c00;
-          background-color: #eaeaea !important;
-          cursor: pointer;
-          border-radius: 2px;
-        }
-        li:hover {
-          color: #ff9c00;
-        }
-      </style> 
+    return /*html*/ `
+    <div class="Filter">
       <img src = "./img/filter.png">
       ${
         listVisible
@@ -54,7 +32,7 @@ export default class Filter extends Component {
         </ul>
         `
           : ""
-      }
+      }</div>
     `;
   }
 

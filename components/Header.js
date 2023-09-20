@@ -1,46 +1,8 @@
 import Component from "../core/Component.js";
 export default class Header extends Component {
   template() {
-    return `
-        <style>
-        .container {
-          background-color: #ff9c00;
-          width: 480px;
-          height: 45px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .logo {
-          width: 110px;
-          height: 40px;
-          float: left;
-          padding: 5px;
-          cursor: pointer;
-        }
-        .input_container {
-          display: flex;
-        }
-        .header_input {
-          width: 200px;
-          height: 30px;
-          border: none;
-          border-top-left-radius: 4px;
-          border-bottom-left-radius: 4px;
-        }
-        .header_input-button {
-          background-color: #f1c40f;
-          border: none;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-          width: 32px;
-          height: 30px;
-        }
-        .bookmark_button, .arrow {
-          cursor: pointer;
-        }
-        </style>
-        <div class="container">
+    return /*html*/ `
+        <div class="Header p-2">
           <img class="logo" src="./img/cookcooklogo.png">
           <div class="arrow">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="22" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">

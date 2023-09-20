@@ -2,9 +2,9 @@ import Component from "../core/Component.js";
 import Header from "../components/Header.js";
 import Recommend from "../components/Recommend.js";
 import RecentItem from "../components/RecentItem.js";
-import Footer from "../components/Footer.js";
 import CategoryItem from "../components/CategoryItem.js";
 import SearchLogic from "../utils/SearchLogic.js";
+import { getLocalStorageData } from "../utils/useLocalStorage.js";
 
 export default class CategoryPage extends Component {
   setup() {
@@ -20,52 +20,25 @@ export default class CategoryPage extends Component {
 
   template() {
     return /*html*/ `
-      <style>
-      .CategoryPage {
-        margin: 0 auto;
-        border: 1px solid #eaeaea;
-        width: 480px;
-        left: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      #recommendContainer, #recentContainer {
-        text-align: center;
-        width: 450px;
-        margin: 11.5px 0;
-      }
-      h4 { 
-        color: orange;
-        font-weight: bold;
-      }
-      .slider, .slider-recent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 110px;
-      }
-      </style>
       <div class="CategoryPage px-3">
         <div id="header"></div>
         <h4 class="my-3">카테고리</h4>
         <div id="categoryItem"></div>
         <div id="recommendContainer">
-        <h4>오늘의 추천요리</h4>
+        <h4 class="my-3">오늘의 추천요리</h4>
         <div class="slider"></div> 
         </div>
         <div id="recentContainer">
-        <h4>최근 본 레시피</h4>
+        <h4 class="my-3">최근 본 레시피</h4>
         <div class="slider-recent"></div>
         </div>
-        <div id="footer"></div>
       </div>
     `;
   }
 
   mounted() {
     this.$state.items = SearchLogic();
-    const recipes = JSON.parse(window.localStorage.getItem("recipes"));
+    const recipes = getLocalStorageData("recipes");
     const $header = this.$target.querySelector("#header");
     new Header($header, { page: "category", category: "전체", keyword: "" });
 
@@ -89,10 +62,10 @@ export default class CategoryPage extends Component {
 
     const selectedNumbers = getRandomNumbers(1, 1001, 9);
 
-    const foodList = selectedNumbers.map((idx) => ({
-      imgUrl: recipes[idx].ATT_FILE_NO_MAIN,
-      name: recipes[idx].RCP_NM,
-    }));
+    const foodList = [];
+    for (const idx of selectedNumbers) {
+      foodList.push(recipes[idx]);
+    }
 
     const batchSize = 3;
     const batchedFoodList = [];
@@ -103,15 +76,10 @@ export default class CategoryPage extends Component {
 
     new Recommend($sliderContainer, {
       batchedFoodList,
-      items: this.$state.items,
     });
-
     const $recentItemContainer = this.$target.querySelector(".slider-recent");
     new RecentItem($recentItemContainer, {
       items: this.$state.items,
     });
-
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }

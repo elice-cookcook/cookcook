@@ -3,7 +3,6 @@ import Filter from "../components/Filter.js";
 import Header from "../components/Header.js";
 import Pagination from "../components/Pagination.js";
 import Navigator from "../components/Navigator.js";
-import Footer from "../components/Footer.js";
 import SearchLogic from "../utils/SearchLogic.js";
 
 export default class SearchPage extends Component {
@@ -35,32 +34,6 @@ export default class SearchPage extends Component {
 
   template() {
     return /*html*/ `
-    <style>
-        .SearchPage {
-            margin: 0 auto;
-            border: 1px solid #eaeaea;
-            width: 480px;
-            left: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .orange {
-            color: orange;
-        }
-
-        .SearchPage_top {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-        }
-        #filter {
-          position: absolute;
-          right: 0;
-        }
-    </style>
     <div class="SearchPage px-3">
         <div id="header"></div>
         <div id="nav"></div>
@@ -69,8 +42,6 @@ export default class SearchPage extends Component {
         </section>
         <div id="resultItemContainer"></div>
         <div id="paginationContainer"></div>
-        <div id="footer">
-            </footer>
         </div>
   `;
   }
@@ -86,7 +57,7 @@ export default class SearchPage extends Component {
       $emptyItem.insertAdjacentHTML(
         "beforeend",
         `
-        <div class="my-5">검색 결과가 없습니다.</div>
+        <div class="my-5"><span class="orange">${this.$state.keyword}</span> 와(과) 일치하는 검색 결과가 없습니다.</div>
         `
       );
       $resultItemContainer.prepend($emptyItem);
@@ -95,7 +66,7 @@ export default class SearchPage extends Component {
         "beforeend",
         `<span class="orange">${
           this.$state.items.length
-        }</span>개의 <span class="orange">
+        }</span> 개의 <span class="orange">
         ${this.$state.category} ${this.$state.keyword.length > 0 ? ">" : ""} ${
           this.$state.keyword
         }</span> 레시피가 있어요
@@ -118,8 +89,5 @@ export default class SearchPage extends Component {
     });
     const $nav = this.$target.querySelector("#nav");
     new Navigator($nav);
-
-    const $footer = this.$target.querySelector("#footer");
-    new Footer($footer);
   }
 }
