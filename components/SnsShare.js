@@ -7,37 +7,12 @@ export default class SnsShare extends Component {
 
   template() {
     return /*html*/ `
-  <style>
-    .SnsShare {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-    }
-
-    .SnsShare_shareElem {
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-    }
-
-    .SnsShare_shareElem>img {
-        width: 50px;
-    }
-
-    .SnsShare_shareElem>span {
-        font-size: 10px;
-        font-weight: bold;
-        text-align: center;
-    }
-</style>
-<body>
-<div class="SnsShare mt-2 mb-4">
-    <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
-    <div class="SnsShare_shareElem kakaoShare"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
-    <div class="SnsShare_shareElem twitterShare"><img src="./img/twitter.png" /><span>트위터</span></div>
-    <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
-</div>
-</body>`;
+      <div class="SnsShare mt-2 mb-4">
+          <div class="SnsShare_shareElem linkCopy"><img src="./img/copy.png" /><span>링크복사</span></div>
+          <div class="SnsShare_shareElem kakaoShare"><img src="./img/kakao-talk.png" /><span>카카오톡</span></div>
+          <div class="SnsShare_shareElem twitterShare"><img src="./img/twitter.png" /><span>트위터</span></div>
+          <div class="SnsShare_shareElem facebookShare"><img src="./img/facebook.png" /><span>페이스북</span></div>
+      </div>`;
   }
 
   mounted() {
