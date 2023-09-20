@@ -381,9 +381,7 @@ export default class DetailPage extends Component {
     if (!previousArray.some((item) => item.name === newItem.name)) {
       if (
         previousArray.length >= 3 &&
-        previousArray.some(
-          (item) => item.name === "최근 본 레시피가 없습니다🍪"
-        )
+        previousArray.some((item) => item.name === "최근 본 레시피 없음")
       ) {
         previousArray.pop(); // defaultitem가 있을때, 삭제
       }
