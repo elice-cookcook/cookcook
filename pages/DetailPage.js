@@ -165,8 +165,8 @@ export default class DetailPage extends Component {
         <h3><span class="DetailPage_RCP_NM orange"></span> 요리사🍴</h3>
         <p class="DetailPage_INFO_ENG orange"></p>
         <img class="DetailPage_img w-50" src="https://placehold.co/240x240?text=image" />
-        <div>
-            <div class="DetailPage_tip title my-3">
+        <div class="DetailPage_tip">
+            <div class="title my-3">
                 <hr width="20%" />
                 <div class="titleText orange">저감조리법 Tip</div>
                 <hr width="20%" />
@@ -364,10 +364,13 @@ export default class DetailPage extends Component {
       this.$state.INFO_ENG + " kcal";
     this.$target.querySelector(".DetailPage_img").src =
       this.$state.ATT_FILE_NO_MAIN;
-    this.$target.querySelector(".DetailPage_RCP_NA_TIP").innerHTML =
-      this.$state.RCP_NA_TIP;
     this.$target.querySelector(".DetailPage_RCP_PARTS_DTLS").innerHTML =
       this.$state.RCP_PARTS_DTLS;
+
+    if (this.$state.RCP_NA_TIP.length > 0)
+      this.$target.querySelector(".DetailPage_RCP_NA_TIP").innerHTML =
+        this.$state.RCP_NA_TIP;
+    else this.$target.querySelector(".DetailPage_tip").style.display = "none";
 
     // 이전에 저장된 데이터 가져오기
     const previousArray = getLocalStorageData("recentRecipe");
