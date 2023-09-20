@@ -2,7 +2,7 @@ import Component from "../core/Component.js";
 export default class Header extends Component {
   template() {
     return /*html*/ `
-        <div class="Header">
+        <div class="Header p-2">
           <img class="logo" src="./img/cookcooklogo.png">
           <div class="arrow">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="22" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
