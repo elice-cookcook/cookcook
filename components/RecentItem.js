@@ -17,20 +17,6 @@ export default class Recent extends Component {
 
   template() {
     return /*html */ `
-      <style>
-        .Recent_slideContainer{
-          display:flex;
-        }
-
-        .recent-slider-btn {
-          cursor: pointer;
-          font-size: 60px;
-          height: 100px;
-          margin: 0 5px;
-          color: grey;
-        }
-      </style>
-
       ${
         this.$state.recentRecipe.length > 3
           ? `<style> .recent-slider-btn { visibility: visible; } </style>`
