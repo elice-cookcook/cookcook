@@ -9,24 +9,8 @@ export default class Recommend extends Component {
   }
   template() {
     return /*html*/ `
-      <style>
-        .Recommend_slideContainer{
-          display:flex;
-        }
-
-        .slider-btn {
-          cursor: pointer;
-          font-size: 60px;
-          height: 100px;
-          margin: 0 5px;
-          color: grey;
-        }
-      </style>
-
       <div class="slider-btn" id="prevBtn">&#8249;</div>
-
       <div class="Recommend_slideContainer"></div>
-
       <div class="slider-btn" id="nextBtn">&#8250;</div>
     `;
   }
