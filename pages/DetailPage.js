@@ -230,10 +230,13 @@ export default class DetailPage extends Component {
   }
 
   async mounted() {
-    window.addEventListener("load", () => 
-      setTimeout(() => {window.scrollTo(0,0)})
-      );
-
+    window.addEventListener('beforeunload',() => {
+      console.log("event");
+      window.scrollTo({
+        top:0,
+        behavior:"instant",
+      });
+    });
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "detail",
