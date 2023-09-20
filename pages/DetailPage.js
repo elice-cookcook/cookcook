@@ -231,7 +231,6 @@ export default class DetailPage extends Component {
 
   async mounted() {
     window.addEventListener('beforeunload',() => {
-      console.log("event");
       window.scrollTo({
         top:0,
         behavior:"instant",

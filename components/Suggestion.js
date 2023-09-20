@@ -52,7 +52,7 @@ export default class Suggestion extends Component {
         .join("")}
     `;
   }
-
+  
   setEvent() {
     // .slide를 클릭하면 해당 detailpage로 이동
     this.addEvent("click", ".slide", (e) => {
