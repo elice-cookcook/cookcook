@@ -370,24 +370,17 @@ export default class DetailPage extends Component {
       this.$state.RCP_PARTS_DTLS;
 
     // 이전에 저장된 데이터 가져오기
-    const previousArray = JSON.parse(localStorage.getItem("recentRecipe"));
-
-    const newItem = {
-      imgUrl: this.$state.ATT_FILE_NO_MAIN,
-      name: this.$state.RCP_NM,
-    };
+    const previousArray = getLocalStorageData("recentRecipe");
 
     // 중복되지 않은 데이터만 배열 앞에 추가
-    if (!previousArray.some((item) => item.name === newItem.name)) {
-      if (
-        previousArray.length >= 3 &&
-        previousArray.some((item) => item.name === "최근 본 레시피 없음")
-      ) {
-        previousArray.pop(); // defaultitem가 있을때, 삭제
-      }
-      previousArray.unshift(newItem);
-      localStorage.setItem("recentRecipe", JSON.stringify(previousArray));
-    }
+    const currentRecentItems =
+      localStorage.getItem("recentRecipe") === null
+        ? []
+        : JSON.parse(localStorage.getItem("recentRecipe")).filter(
+            (item) => item.RCP_SEQ !== this.$state.RCP_SEQ
+          );
+    currentRecentItems.unshift(this.$state);
+    setLocalStorageData("recentRecipe", currentRecentItems);
 
     manualImgKeys.forEach((manualImgKey, i) => {
       const item = document.createElement("div");
