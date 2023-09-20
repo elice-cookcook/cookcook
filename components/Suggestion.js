@@ -63,7 +63,7 @@ export default class Suggestion extends Component {
       // detail 페이지로 이동
       if (selectedItem) {
         history.pushState(
-          { data: selectedItem, keyword: "" },
+          { category: history.state.category, keyword: history.state.keyword },
           null,
           location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );

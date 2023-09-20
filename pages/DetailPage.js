@@ -4,7 +4,7 @@ import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
-import Suggestion from "../components/suggestion.js";
+import Suggestion from "../components/Suggestion.js";
 import {
   getLocalStorageData,
   setLocalStorageData,
@@ -110,22 +110,13 @@ export default class DetailPage extends Component {
     .hidden {
         display: none;
     }
+
     .suggestions{
       text-align: center;
       width: 450px;
       margin: 11.5px 0;
     }
-    .suggestionContainer{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 110px;
-    }
-    .suggestions{
-      text-align: center;
-      width: 450px;
-      margin: 11.5px 0;
-    }
+    
     .suggestionContainer{
       display: flex;
       justify-content: center;
