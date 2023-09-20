@@ -104,6 +104,7 @@ export default class DetailPage extends Component {
     .hidden {
         display: none;
     }
+
     .suggestions{
       text-align: center;
     }
@@ -122,6 +123,10 @@ export default class DetailPage extends Component {
             display: none;
         }
 
+        .DetailPage_bookmarkDiv{
+            display: none;
+        }
+
         .content {
             background-color: #fcc999 !important;
             -webkit-print-color-adjust: exact;
@@ -132,6 +137,14 @@ export default class DetailPage extends Component {
         }
 
         .DetailPage_menu {
+            display: none;
+        }
+
+        .suggestions{
+          display: none;
+        }
+
+        #footer {
             display: none;
         }
     }
@@ -206,6 +219,12 @@ export default class DetailPage extends Component {
   }
 
   async mounted() {
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 200);
+    });
+
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "detail",

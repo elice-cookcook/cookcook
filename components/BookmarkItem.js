@@ -1,4 +1,8 @@
 import Component from "../core/Component.js";
+import {
+  setLocalStorageData,
+  getLocalStorageData,
+} from "../utils/useLocalStorage.js";
 
 export default class BookmarkItem extends Component {
   constructor($target, $props, selectable) {
@@ -6,14 +10,12 @@ export default class BookmarkItem extends Component {
     this.selectable = selectable;
     this.setState({
       selectable: this.selectable,
-      isSelected: false,
     });
   }
 
   setup() {
     this.setState({
       selectable: false,
-      isSelected: false,
     });
   }
 
@@ -22,6 +24,7 @@ export default class BookmarkItem extends Component {
     let imgUrl = this.$props.ATT_FILE_NO_MAIN;
     let hash_tag = this.$props.HASH_TAG;
     let calorie = this.$props.INFO_ENG;
+    let id = this.$props.RCP_SEQ;
 
     return /*html*/ `
     <style>
@@ -109,11 +112,19 @@ export default class BookmarkItem extends Component {
 
     checkbox.addEventListener("change", () => {
       bookmarkItem.style.background = checkbox.checked ? "#ffebcb" : "none";
-      clickableDiv.style.borderRadius = "5px";
+      const currentDeleteTargets = getLocalStorageData("deleteTargets");
+      if (checkbox.checked) {
+        currentDeleteTargets.push(id);
+        setLocalStorageData("deleteTargets", currentDeleteTargets);
+      } else {
+        setLocalStorageData(
+          "deleteTargets",
+          currentDeleteTargets.filter((item) => item !== id)
+        );
+      }
     });
 
     clickableDiv.addEventListener("click", () => {
-      console.log("click");
       history.pushState(
         { data: this.$props, keyword: "" },
         null,
