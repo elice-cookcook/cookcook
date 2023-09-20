@@ -25,11 +25,11 @@ export default class CategoryPage extends Component {
         <h4 class="my-3">카테고리</h4>
         <div id="categoryItem"></div>
         <div id="recommendContainer">
-        <h4>오늘의 추천요리</h4>
+        <h4 class="my-3">오늘의 추천요리</h4>
         <div class="slider"></div> 
         </div>
         <div id="recentContainer">
-        <h4>최근 본 레시피</h4>
+        <h4 class="my-3">최근 본 레시피</h4>
         <div class="slider-recent"></div>
         </div>
       </div>
