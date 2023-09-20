@@ -230,11 +230,9 @@ export default class DetailPage extends Component {
   }
 
   async mounted() {
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        window.scrollTo(0,0);
-      },200)
-    });
+    window.addEventListener("load", () => 
+      setTimeout(() => {window.scrollTo(0,0)})
+      );
 
     const $header = this.$target.querySelector("#header");
     new Header($header, {
@@ -297,7 +295,7 @@ export default class DetailPage extends Component {
     // 페이지 랜더링
     const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
 
-    new Suggestion($suggestionContainer, await getSugesstions());
+    new Suggestion($suggestionContainer, getSugesstions());
 
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
