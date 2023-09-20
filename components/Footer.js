@@ -3,39 +3,6 @@ import Component from "../core/Component.js";
 export default class Navigator extends Component {
   template() {
     return /*html*/ `
-    <style>
-    .footer_container {
-      height:100%;
-      width:480px;
-        background-color: #e0e0e0;
-        display: flex;
-        flex-direction: column;
-        justify-content:center;
-        align-items: center;
-        font-size: 8px;
-    }
-
-    .contact {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .vr {
-        width: 2px;
-    }
-
-    .footer_link {
-        cursor: pointer;
-
-    }
-
-    .footer_link:hover {
-        font-weight: bold;
-        color: darkgray;
-    }
-</style>
 <div class="footer_container py-2">
     <div class="contact mb-2">
         <span class="fs-6 fw-bold">Contact Us</span>
