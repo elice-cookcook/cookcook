@@ -4,26 +4,6 @@ import ResultItem from "./ResultItem.js";
 export default class Pagination extends Component {
   template() {
     return `
-      <style>
-      .pagination-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom:16px;
-      }
-      .page-button {
-        border: none;
-        border-radius: 4px;
-        background-color: #f4f4f4;
-        color: #000;
-        margin: 0 5px;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-      .page-button.active {
-        background-color: #f39c12;
-        color: white;
-      }
-      </style>
       <div id="resultItemContainer"></div>
       <div class="pagination-container">
         <div class="buttonContainer">
