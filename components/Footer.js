@@ -3,7 +3,7 @@ import Component from "../core/Component.js";
 export default class Navigator extends Component {
   template() {
     return /*html*/ `
-<div class="footer_container py-2">
+<div class="footer py-2">
     <div class="contact mb-2">
         <span class="fs-6 fw-bold">Contact Us</span>
         <div class="vr"></div>
