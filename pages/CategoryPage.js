@@ -20,28 +20,6 @@ export default class CategoryPage extends Component {
 
   template() {
     return /*html*/ `
-      <style>
-      .CategoryPage {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      #recommendContainer, #recentContainer {
-        text-align: center;
-        width: 450px;
-        margin: 11.5px 0;
-      }
-      h4 { 
-        color: orange;
-        font-weight: bold;
-      }
-      .slider, .slider-recent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 110px;
-      }
-      </style>
       <div class="CategoryPage px-3">
         <div id="header"></div>
         <h4 class="my-3">카테고리</h4>
