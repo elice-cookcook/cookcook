@@ -34,28 +34,6 @@ export default class SearchPage extends Component {
 
   template() {
     return /*html*/ `
-    <style>
-        .SearchPage {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .orange {
-            color: orange;
-        }
-
-        .SearchPage_top {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-        }
-        #filter {
-          position: absolute;
-          right: 0;
-        }
-    </style>
     <div class="SearchPage px-3">
         <div id="header"></div>
         <div id="nav"></div>
@@ -79,7 +57,7 @@ export default class SearchPage extends Component {
       $emptyItem.insertAdjacentHTML(
         "beforeend",
         `
-        <div class="my-5">검색 결과가 없습니다.</div>
+        <div class="my-5"><span class="orange">${this.$state.keyword}</span> 와(과) 일치하는 검색 결과가 없습니다.</div>
         `
       );
       $resultItemContainer.prepend($emptyItem);
