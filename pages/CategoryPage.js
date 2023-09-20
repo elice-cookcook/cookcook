@@ -4,6 +4,7 @@ import Recommend from "../components/Recommend.js";
 import RecentItem from "../components/RecentItem.js";
 import CategoryItem from "../components/CategoryItem.js";
 import SearchLogic from "../utils/SearchLogic.js";
+import { getLocalStorageData } from "../utils/useLocalStorage.js";
 
 export default class CategoryPage extends Component {
   setup() {
@@ -59,7 +60,7 @@ export default class CategoryPage extends Component {
 
   mounted() {
     this.$state.items = SearchLogic();
-    const recipes = JSON.parse(window.localStorage.getItem("recipes"));
+    const recipes = getLocalStorageData("recipes");
     const $header = this.$target.querySelector("#header");
     new Header($header, { page: "category", category: "전체", keyword: "" });
 
@@ -83,10 +84,10 @@ export default class CategoryPage extends Component {
 
     const selectedNumbers = getRandomNumbers(1, 1001, 9);
 
-    const foodList = selectedNumbers.map((idx) => ({
-      imgUrl: recipes[idx].ATT_FILE_NO_MAIN,
-      name: recipes[idx].RCP_NM,
-    }));
+    const foodList = [];
+    for (const idx of selectedNumbers) {
+      foodList.push(recipes[idx]);
+    }
 
     const batchSize = 3;
     const batchedFoodList = [];
@@ -97,9 +98,7 @@ export default class CategoryPage extends Component {
 
     new Recommend($sliderContainer, {
       batchedFoodList,
-      items: this.$state.items,
     });
-
     const $recentItemContainer = this.$target.querySelector(".slider-recent");
     new RecentItem($recentItemContainer, {
       items: this.$state.items,

@@ -3,11 +3,11 @@ import Header from "../components/Header.js";
 import RecipeItem from "../components/RecipeItem.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
-import Suggestion from "../components/suggestion.js";
 import {
   getLocalStorageData,
   setLocalStorageData,
 } from "../utils/useLocalStorage.js";
+import Slide from "../components/Slide.js";
 
 export default class DetailPage extends Component {
   constructor($target, $props) {
@@ -106,25 +106,11 @@ export default class DetailPage extends Component {
     }
     .suggestions{
       text-align: center;
-      width: 450px;
-      margin: 11.5px 0;
     }
     .suggestionContainer{
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 110px;
-    }
-    .suggestions{
-      text-align: center;
-      width: 450px;
-      margin: 11.5px 0;
-    }
-    .suggestionContainer{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 110px;
     }
 
     @media print {
@@ -205,7 +191,7 @@ export default class DetailPage extends Component {
         <div class="suggestions">
           <p>이런 레시피는 어떠세요?</p>
         <div class="suggestionContainer"></div>
-        <hr width="401px"/>
+        <hr width="90%"/>
     </div>
       <section class="DetailPage_bottom">
           <div class="DetailPage_">
@@ -287,7 +273,7 @@ export default class DetailPage extends Component {
       ".suggestionContainer"
     );
 
-    new Suggestion($suggestionContainer, getSugesstions());
+    new Slide($suggestionContainer, getSugesstions());
 
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
