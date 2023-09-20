@@ -4,7 +4,7 @@ import RecipeItem from "../components/RecipeItem.js";
 import Footer from "../components/Footer.js";
 import api from "../api.js";
 import SnsShare from "../components/SnsShare.js";
-import Suggestion from "../components/suggestion.js";
+import Suggestion from "../components/Suggestion.js";
 import {
   getLocalStorageData,
   setLocalStorageData,
@@ -110,22 +110,13 @@ export default class DetailPage extends Component {
     .hidden {
         display: none;
     }
+
     .suggestions{
       text-align: center;
       width: 450px;
       margin: 11.5px 0;
     }
-    .suggestionContainer{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 110px;
-    }
-    .suggestions{
-      text-align: center;
-      width: 450px;
-      margin: 11.5px 0;
-    }
+    
     .suggestionContainer{
       display: flex;
       justify-content: center;
@@ -142,6 +133,10 @@ export default class DetailPage extends Component {
             display: none;
         }
 
+        .DetailPage_bookmarkDiv{
+            display: none;
+        }
+
         .content {
             background-color: #fcc999 !important;
             -webkit-print-color-adjust: exact;
@@ -153,6 +148,10 @@ export default class DetailPage extends Component {
 
         .DetailPage_menu {
             display: none;
+        }
+
+        .suggestions{
+          display: none;
         }
 
         #footer {
@@ -231,6 +230,12 @@ export default class DetailPage extends Component {
   }
 
   async mounted() {
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.scrollTo(0,0);
+      },200)
+    });
+
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "detail",
@@ -298,7 +303,7 @@ export default class DetailPage extends Component {
       ".suggestionContainer"
     );
 
-    new Suggestion($suggestionContainer, getSugesstions());
+    new Suggestion($suggestionContainer, await getSugesstions());
 
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();

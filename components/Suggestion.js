@@ -28,7 +28,7 @@ export default class Suggestion extends Component {
           position: absolute;
           padding: 3px 0;
           bottom: 5px;
-          width: 110px;
+          width: 130px;
           font-size: 12px;
           font-weight: bold;
           background-color: rgba(227, 227, 227, 0.632);
@@ -63,7 +63,7 @@ export default class Suggestion extends Component {
       // detail 페이지로 이동
       if (selectedItem) {
         history.pushState(
-          { data: selectedItem, keyword: "" },
+          { category: history.state.category, keyword: history.state.keyword },
           null,
           location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );
