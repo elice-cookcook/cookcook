@@ -65,6 +65,7 @@ export default class CategoryPage extends Component {
 
   mounted() {
     this.$state.items = SearchLogic();
+    const recipes = JSON.parse(window.localStorage.getItem("recipes"));
     const $header = this.$target.querySelector("#header");
     new Header($header, { page: "category", category: "전체", keyword: "" });
 
@@ -77,7 +78,7 @@ export default class CategoryPage extends Component {
       const randomNumbers = new Set();
       while (randomNumbers.size < count) {
         const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-        const imgUrl = this.$state.items[randomNumber].ATT_FILE_NO_MAIN;
+        const imgUrl = recipes[randomNumber].ATT_FILE_NO_MAIN;
         // img가 존재할 때만 randomNumber를 추가하도록
         if (imgUrl) {
           randomNumbers.add(randomNumber);
@@ -89,8 +90,8 @@ export default class CategoryPage extends Component {
     const selectedNumbers = getRandomNumbers(1, 1001, 9);
 
     const foodList = selectedNumbers.map((idx) => ({
-      imgUrl: this.$state.items[idx].ATT_FILE_NO_MAIN,
-      name: this.$state.items[idx].RCP_NM,
+      imgUrl: recipes[idx].ATT_FILE_NO_MAIN,
+      name: recipes[idx].RCP_NM,
     }));
 
     const batchSize = 3;

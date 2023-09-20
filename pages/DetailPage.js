@@ -251,7 +251,7 @@ export default class DetailPage extends Component {
         null
       );
     }
-    
+
     this.$state = history.state.data;
 
     // 중복되지 않는 무작위 숫자를 생성하는 메서드
@@ -271,26 +271,32 @@ export default class DetailPage extends Component {
       const rcpCategory = this.$state.RCP_PAT2;
       const rcpMethod = this.$state.RCP_WAY2;
       const rcpName = this.$state.RCP_NM;
-      const recipes = getLocalStorageData('recipes');
+      const recipes = getLocalStorageData("recipes");
 
-      const sameCategory = recipes.filter(rcp => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName);
-      const sameMethod = sameCategory.filter(rcp => rcp.RCP_WAY2 === rcpMethod);
+      const sameCategory = recipes.filter(
+        (rcp) => rcp.RCP_PAT2 === rcpCategory && rcp.RCP_NM !== rcpName
+      );
+      const sameMethod = sameCategory.filter(
+        (rcp) => rcp.RCP_WAY2 === rcpMethod
+      );
 
       let result = [];
-      if(sameMethod.length<1){
+      if (sameMethod.length < 1) {
         const selectedNumbers = getRandomNumbers(sameCategory.length, 3);
-        result = selectedNumbers.map(idx => sameCategory[idx]);
-      }else if(sameMethod.length<4){
+        result = selectedNumbers.map((idx) => sameCategory[idx]);
+      } else if (sameMethod.length < 4) {
         result = sameMethod;
-      }else{
+      } else {
         const selectedNumbers = getRandomNumbers(sameMethod.length, 3);
-        result = selectedNumbers.map(idx => sameMethod[idx]);
+        result = selectedNumbers.map((idx) => sameMethod[idx]);
       }
       return result;
-    }
+    };
 
     // 페이지 랜더링
-    const $suggestionContainer = this.$target.querySelector(".suggestionContainer");
+    const $suggestionContainer = this.$target.querySelector(
+      ".suggestionContainer"
+    );
 
     new Suggestion($suggestionContainer, getSugesstions());
 
@@ -386,9 +392,7 @@ export default class DetailPage extends Component {
     if (!previousArray.some((item) => item.name === newItem.name)) {
       if (
         previousArray.length >= 3 &&
-        previousArray.some(
-          (item) => item.name === "최근 본 레시피가 없습니다🍪"
-        )
+        previousArray.some((item) => item.name === "최근 본 레시피 없음")
       ) {
         previousArray.pop(); // defaultitem가 있을때, 삭제
       }
