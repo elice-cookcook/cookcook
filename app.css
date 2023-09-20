@@ -30,3 +30,43 @@ main {
 footer {
   height: 90px;
 }
+
+/*BookmarkPage */
+.BookmarkPage {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.orange {
+  color: orange;
+}
+
+.BookmarkPage_top {
+  width: 100%;
+  display: flex;
+  padding: 0.5rem 0.5rem 0.3rem 0.5rem;
+  justify-content: space-between;
+}
+
+.BookmarkPage_checkedNum {
+  font-size: 12px;
+}
+
+.btn {
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.5rem;
+  --bs-btn-font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.BookmarkContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.2rem;
+}
+
+.BookmarkIsNullContainer {
+  text-align: center;
+  margin: 5rem 0;
+}
