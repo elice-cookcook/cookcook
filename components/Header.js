@@ -104,8 +104,13 @@ export default class Header extends Component {
     });
     this.addEvent("click", ".arrow", (e) => {
       e.preventDefault();
-      if (history.state && !history.state.category)
+      if (history.state && !history.state.category && !history.state.suggest){
         history.go(-1); //북마크 페이지, 최근 본 레시피, 추천요리에서 뒤로 가기
+      }
+      else if (history.state.suggest){
+        history.go(-1);
+        history.go(0);
+      }
       else {
         history.pushState(
           {

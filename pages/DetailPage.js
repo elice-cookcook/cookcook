@@ -230,12 +230,12 @@ export default class DetailPage extends Component {
   }
 
   async mounted() {
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        window.scrollTo(0,0);
-      },200)
+    window.addEventListener('beforeunload',() => {
+      window.scrollTo({
+        top:0,
+        behavior:"instant",
+      });
     });
-
     const $header = this.$target.querySelector("#header");
     new Header($header, {
       page: "detail",
@@ -303,7 +303,7 @@ export default class DetailPage extends Component {
       ".suggestionContainer"
     );
 
-    new Suggestion($suggestionContainer, await getSugesstions());
+    new Suggestion($suggestionContainer, getSugesstions());
 
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();

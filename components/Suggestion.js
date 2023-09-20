@@ -52,7 +52,7 @@ export default class Suggestion extends Component {
         .join("")}
     `;
   }
-
+  
   setEvent() {
     // .slide를 클릭하면 해당 detailpage로 이동
     this.addEvent("click", ".slide", (e) => {
@@ -63,7 +63,7 @@ export default class Suggestion extends Component {
       // detail 페이지로 이동
       if (selectedItem) {
         history.pushState(
-          { category: history.state.category, keyword: history.state.keyword },
+          {data: selectedItem, category: history.state.category, keyword: history.state.keyword, suggest:true},
           null,
           location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );
