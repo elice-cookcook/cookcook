@@ -1,11 +1,16 @@
 import Component from "../core/Component.js";
 
 export default class Slide extends Component {
+  constructor($target, $props, isSuggest=0) {
+    super($target,$props);
+    this.isSuggest = isSuggest;
+  }
+
   setEvent() {
     this.addEvent("click", ".slide", (e) => {
       if (selectedItem) {
         history.pushState(
-          { data: selectedItem, keyword: "" },
+          this.isSuggest ? { data: selectedItem, keyword: "", suggest: true } : { data: selectedItem, keyword: "" },
           null,
           location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );
@@ -19,7 +24,7 @@ export default class Slide extends Component {
     this.$props.forEach((item) => {
       const goDetail = () => {
         history.pushState(
-          { data: item, keyword: "" },
+          this.isSuggest ? { data: item, keyword: "", suggest: true } : { data: item, keyword: "" },
           null,
           location.href.replace("category", `detail/${item.RCP_SEQ}`)
         );
