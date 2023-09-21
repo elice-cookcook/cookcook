@@ -10,7 +10,7 @@ export default class Slide extends Component {
     this.addEvent("click", ".slide", (e) => {
       if (selectedItem) {
         history.pushState(
-          { data: selectedItem, keyword: "" },
+          this.isSuggest ? { data: item, keyword: "", suggest: true } : { data: item, keyword: "" },
           null,
           location.href.replace("category", `detail/${selectedItem.RCP_SEQ}`)
         );
