@@ -153,7 +153,7 @@ export default class DetailPage extends Component {
       ".suggestionContainer"
     );
 
-    new Slide($suggestionContainer, getSugesstions());
+    new Slide($suggestionContainer, getSugesstions(), 1);
 
     const spinner = document.querySelector(".spinner-border");
     spinner.remove();
