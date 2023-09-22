@@ -17,7 +17,7 @@ export default class DetailPage extends Component {
 
   template() {
     return /*html*/ `
-    <div class="spinner-border" role="status"></div>
+    <div class="spinner-border position-absolute top-50 start-50" role="status"></div>
     <div class="DetailPage px-3">
         <div id="header"></div>
         <div class="DetailPage_bookmarkDiv">

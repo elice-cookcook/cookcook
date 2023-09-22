@@ -21,7 +21,7 @@ export default class Pagination extends Component {
     let recipes = this.$props;
     let currentPage = history.state.pagination ?? 0;
     const numberOfRecipe = recipes.length;
-    const recipesPerPage = 4;
+    const recipesPerPage = 5;
     const buttonsPerPage = 5;
     const requiredPage = Math.ceil(numberOfRecipe / recipesPerPage);
 

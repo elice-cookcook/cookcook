@@ -37,7 +37,7 @@ footer {
 
 /* LandingPage */
 .SplashScreenContainer {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -81,7 +81,7 @@ footer {
   text-align: center;
 }
 
-.spinner-border {
+.landingSpinner-border {
   width: 40px;
   height: 40px;
 }
@@ -135,12 +135,6 @@ footer {
 }
 
 /* DetailPage */
-
-.spinner-border {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
 
 .DetailPage {
   display: flex;
