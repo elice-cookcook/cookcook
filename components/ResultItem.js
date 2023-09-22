@@ -9,7 +9,7 @@ export default class ResultItem extends Component {
     let hash_tag = this.$props.recipe.HASH_TAG;
 
     return /*html*/ `
-    <div class="ResultItem container mx-auto my-3 p-2 w-95">
+    <div class="ResultItem container mx-auto my-2 p-2 w-95">
         <div class="ResultItem_imgSection">
             <img src="${imgUrl}" class="ResultItem_img" /></div>
         <div class="ResultItem_info my-1 mx-auto">

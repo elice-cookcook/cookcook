@@ -26,7 +26,7 @@ export default class SnsShare extends Component {
       Kakao.Share.sendCustom({
         templateId: 98215,
         templateArgs: {
-          PATH: `/#/detail/${this.$state.RCP_SEQ}`,
+          PATH: `/#detail/${this.$state.RCP_SEQ}`,
           title: this.$state.RCP_NM.toString(),
           description: `오늘은 내가 ${this.$state.RCP_NM} 요리사🍴`,
           img_1: this.$state.ATT_FILE_NO_MAIN,
