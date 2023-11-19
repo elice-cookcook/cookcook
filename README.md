@@ -13,6 +13,9 @@
 | 장보근 | 스플래시 스크린, 레시피 인쇄 기능, 페이지네이션 기능 |
 | 최정윤 | 레시피 조회 페이지, 레시피 상세 페이지, 북마크 기능 및 페이지 |
 
+## 프로젝트 개발 환경 
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+
 
 ## 활용 API 
 조리식품의 레시피 DB 
