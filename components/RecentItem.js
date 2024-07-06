@@ -35,10 +35,13 @@ export default class Recent extends Component {
     const recentlyList = this.$state.recentRecipe;
 
     for (let i = 0; i < 3 - recentlyList.length; i++) {
-      slideContainer.innerHTML += `<div class="slide">
-            <img src="https://ifh.cc/g/FnGKV7.png">
+      slideContainer.insertAdjacentHTML(
+        "beforeend",
+        `<div class="slide">
+            <img src="./img/cooking.png">
            <span class="image-name">최근 본 레시피 없음</span>
-          </div>`;
+          </div>`
+      );
     }
 
     const batchedFoodList = []; // 3개씩 batch로 묶음
